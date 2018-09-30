@@ -34,7 +34,7 @@ A nice to have, which is still being concidered for the design, will be to let t
 
 #### Strategy
 *(This template is with thanks from 
-@saraloh)*
+@sarahloh)*
 
 | Focus                                                       | User Needs                                                            | Business Objectives                             |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
