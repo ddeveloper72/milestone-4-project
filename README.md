@@ -30,11 +30,11 @@ The user must then be able to the see the other departments at the medical facil
 A nice to have, which is still being concidered for the design, will be to let the user rate a consultation by giving it stars out of 5.
 
 ## 2 .The UX Design
+*(This template is with thanks from 
+@sarahloh)*
 
 
 #### Strategy
-*(This template is with thanks from 
-@sarahloh)*
 
 | Focus                                                       | User Needs                                                            | Business Objectives                             |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
@@ -48,14 +48,14 @@ A nice to have, which is still being concidered for the design, will be to let t
 |                                                             | To be able to rate a servce on completion of a consultation out of 5 stars.  |  |
 |                                                             | To be able to add and change contact information for a service.  |  |
 |                                                             | To be abel to set an urgency to a booking for a consultation.  |  |
-|                                                             |  |  |
+
 
 
 #### Scope
 
 | Focus                                                       | Functional Specification                                              | Content Requirements                            |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
-| Which features?                                             | View all services with an option to vew just favorites  |  |
+| Which features?                                             | View all services with an option to vew just favorites  | A non-relational database has been chosen. See database schema below. |
 | What’s on the table?                                        | View all bookings, filterable by service and by urgency |  |
 |                                                             | View service |  |
 |                                                             | Update service |  |
@@ -67,7 +67,7 @@ A nice to have, which is still being concidered for the design, will be to let t
 |                                                             | Create a user login |  |
 |                                                             | Create a user dashboard |  |
 |                                                             | Create a user settings profile |  |
-|                                                             |  |  |
+
 
 #### Structure
 
@@ -80,7 +80,7 @@ A nice to have, which is still being concidered for the design, will be to let t
 |                                                             | The user will be able to see a list of services oppored by other departments and favorite the services offored by those departments. | Profile page for configuring department and services. |
 |                                                             | The user will be able to schedule appointments for consultations in other departments, mark them important and amend/delete their appointment.  Should an appointment already exist for that time-slot for that service, the user will be prompted to pick a different time/date from a list of available slots in that week. | Add/remove departments and the information about them. |
 |                                                             | Toggle icons, will let the user select or deselect departmetns to keep as their favorites. | Add/remove services and the information about them. |
-|                                                             |  |  |
+
 
 #### Skeleton
 
@@ -94,7 +94,7 @@ A nice to have, which is still being concidered for the design, will be to let t
 |                                                             |  | Create & edit own bookings |  |
 |                                                             |  | Favourite departmets & services (Add & remove |  |
 |                                                             |  | Login & logout |  |
-|                                                             |  |  |
+
 
 #### Surface
 
@@ -103,6 +103,6 @@ A nice to have, which is still being concidered for the design, will be to let t
 | What will the finished product look like?                   |  |
 |                                                             |  |
 | What colours, typography and design elements will be used?  |  |
-|                                                             |  |
-|                                                             |  |
+
+
 
