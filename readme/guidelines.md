@@ -1,4 +1,4 @@
-Use the following guidelines when developing your project:
+## Use the following guidelines when developing your project:
 
 *   Logic must be written in Python. HTML, CSS, and JavaScript can be used to enhance the look and feel of the cookbook.
 

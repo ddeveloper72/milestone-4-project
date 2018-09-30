@@ -32,6 +32,77 @@ A nice to have, which is still being concidered for the design, will be to let t
 ## 2 .The UX Design
 
 
-### 1. Strategy
+#### Strategy
+*(This template is with thanks from 
+@saraloh)*
 
-### 3. Scope
+| Focus                                                       | User Needs                                                            | Business Objectives                             |
+|-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
+| What are you aiming to achieve?                             | To be able to save medical facility department & service informtion  |  |
+|                                                             | To be able to find and use services within a medical facility.  |  |
+| For whom?                                                   | To be able to see a list of favorite departments.  |  |
+| TARGET AUDIENCE                                             | To be able to add new departments or services to the medical facility  |  |
+|                                                             | To be able to change existing department or services  |  |
+|                                                             | To be able to remove a service from a department.  |  |
+|                                                             | To be able to book and edit a booking for a consultation.  |  |
+|                                                             | To be able to rate a servce on completion of a consultation out of 5 stars.  |  |
+|                                                             | To be able to add and change contact information for a service.  |  |
+|                                                             | To be abel to set an urgency to a booking for a consultation.  |  |
+|                                                             |  |  |
+
+
+#### Scope
+
+| Focus                                                       | Functional Specification                                              | Content Requirements                            |
+|-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
+| Which features?                                             | View all services with an option to vew just favorites  |  |
+| What’s on the table?                                        | View all bookings, filterable by service and by urgency |  |
+|                                                             | View service |  |
+|                                                             | Update service |  |
+|                                                             | Add appointment |  |
+|                                                             | Update appointment |  |
+|                                                             | Complete an appointment |  |
+|                                                             | Delete an appointmet |  |
+|                                                             | Add / remove a favorite service |  |
+|                                                             | Create a user login |  |
+|                                                             | Create a user dashboard |  |
+|                                                             | Create a user settings profile |  |
+|                                                             |  |  |
+
+#### Structure
+
+| Focus                                                       | Interaction Design                                                           | Information Architecture                                                               |
+|-------------------------------------------------------------|------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| How is the information structured?                          | Where am I? / How did I get here? / What can I do here? / Where can I go?    | Organizational / Navigational schemas (tree / nested list / hub and spoke / dashboard) |
+|                                                             | A list of departments offored by a facility will be displayed, with a login button | Tree Structure |
+| How is it logically grouped?                                | A user will be prompted for thir name to log in.  If one does not exist, they will be prompted to setup a new profile in a department of their choice, or create a new department.  Their profile name will need to be different from all the other profiles. | Start/home page |
+|                                                             | The user will be able to customize the services that they offer from their department. | Login facility/Create a new account |
+|                                                             | The user will be able to see a list of services oppored by other departments and favorite the services offored by those departments. | Profile page for configuring department and services. |
+|                                                             | The user will be able to schedule appointments for consultations in other departments, mark them important and amend/delete their appointment.  Should an appointment already exist for that time-slot for that service, the user will be prompted to pick a different time/date from a list of available slots in that week. | Add/remove departments and the information about them. |
+|                                                             | Toggle icons, will let the user select or deselect departmetns to keep as their favorites. | Add/remove services and the information about them. |
+|                                                             |  |  |
+
+#### Skeleton
+
+| Focus                                                       | Interface Design                                       | Navigational Design  | Information Design  |
+|-------------------------------------------------------------|--------------------------------------------------------|----------------------|---------------------|
+| How will the information be represented?                    | See wireframes                                         |                      |                     |
+|                                                             |  |  |  |
+| How will the user navigate to the information and features? | See mockups designs | All Services |  |
+|                                                             |  | Manage Profile (Create & edit) |  |
+|                                                             |  | Browse departments & services |  |
+|                                                             |  | Create & edit own bookings |  |
+|                                                             |  | Favourite departmets & services (Add & remove |  |
+|                                                             |  | Login & logout |  |
+|                                                             |  |  |
+
+#### Surface
+
+| Focus                                                       | Visual Design                       |
+|-------------------------------------------------------------|-------------------------------------|
+| What will the finished product look like?                   |  |
+|                                                             |  |
+| What colours, typography and design elements will be used?  |  |
+|                                                             |  |
+|                                                             |  |
+
