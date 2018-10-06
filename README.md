@@ -175,8 +175,8 @@ A nice to have, which is still being concidered for the design, will be to let t
     },
     "staffNum": "",
     "password": "",
-    "site": {
-        "siteId": [
+    "siteInfo": {
+        "siteName": [
             "siteId"
         ],
         "deptId": [
