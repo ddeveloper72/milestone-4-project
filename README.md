@@ -87,7 +87,6 @@ A nice to have, which is still being concidered for the design, will be to let t
 | Focus                                                       | Interface Design                                       | Navigational Design  | Information Design  |
 |-------------------------------------------------------------|--------------------------------------------------------|----------------------|---------------------|
 | How will the information be represented?                    | See wireframes                                         |                      |                     |
-|                                                             |  |  |  |
 | How will the user navigate to the information and features? | See mockups designs | All Services |  |
 |                                                             |  | Manage Profile (Create & edit) |  |
 |                                                             |  | Browse departments & services |  |
@@ -104,5 +103,134 @@ A nice to have, which is still being concidered for the design, will be to let t
 |                                                             |  |
 | What colours, typography and design elements will be used?  |  |
 
+#### Mongo Database Schema
 
+1. Appointment
 
+```javascript
+{
+    "site": [
+        "siteId"
+    ],
+    "department": [
+        "deptId"
+    ],
+    "user": [
+        "userId"
+    ],
+    "required": [
+        "userId_1",
+        "userId_2"
+    ],
+    "is_urgent": "off",
+    "task_description": "",
+    "task_name": [
+        "servId"
+    ],
+    "sched_date": "",
+    "sched_time": ""
+}
+
+```
+
+2. Cancelled Appointment
+
+```javascript
+
+{
+    "appointmentId": ""
+}
+
+```
+
+3. Department Service
+
+```javascript
+
+{
+    "dept": "Laboratory",
+    "dept_info": "Infomation about this department",
+    "img_url": "url reference to a category image for this department",
+    "serv": [
+        "Blood bank",
+        "Biochemistry",
+        "Haematology",
+        "Histopathology",
+        "Microbiology",
+        "Public health diagnostic services",
+        "Serology/immunology"
+    ]
+}
+
+```
+
+4. User Profile
+
+```javascript
+
+{
+    "name": {
+        "first": "",
+        "last": ""
+    },
+    "staffNum": "",
+    "password": "",
+    "site": {
+        "siteId": [
+            "siteId"
+        ],
+        "deptId": [
+            "deptId"
+        ]
+    },
+    "profession": [
+        "professionId"
+    ],
+    "img_url": "",
+    "department_head": "off",
+    "fav_dept": [
+        "deptId"
+    ],
+    "fav_serv": [
+        "servId"
+    ],
+    "appointment": [
+        "appointmentId"
+    ],
+    "cancled_app": [
+        "cancelledId"
+    ]
+}
+
+```
+
+5. Facility
+
+```javascript
+
+{
+    "site": "Naas General Hospital"
+}
+
+```
+
+6. Profession
+
+```javascript
+
+{
+    "profession": "Doctor"
+}
+
+```
+
+7. Service Information
+
+```javascript
+
+{
+    "serv": "Critical Care ICU HDU CCU",
+    "description": "Service description"
+}
+
+```
