@@ -15,7 +15,11 @@
             </div>
         </div>
         <div class="collapsible-body">
-            <span>{{site.site_info}}</span>
+            <ol>
+                {% for service in appointment %}
+                <li>{{service.dept[0]}} - {{service.task_name[0]}} - {{service.sched_datetime}}</li>                             
+                {% endfor %} 
+            </ol>                
         </div>
     </li>
     {% endfor %}   

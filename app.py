@@ -15,7 +15,9 @@ mongo = PyMongo(app)
 @app.route('/get_sites')
 def get_sites():
     return render_template("sites.html", 
-                            facility = mongo.db.facility.find())
+                            facility = mongo.db.facility.find(),
+                            service_info = mongo.db.service_info.find(),
+                            appointment = mongo.db.appointment.find())
 
 
 if __name__ == '__main__':
