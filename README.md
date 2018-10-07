@@ -110,40 +110,27 @@ A nice to have, which is still being concidered for the design, will be to let t
 ```javascript
 {
     "site": [
-        "siteId"
-    ],
-    "department": [
-        "deptId"
-    ],
-    "user": [
-        "userId"
-    ],
-    "required": [
-        "userId_1",
-        "userId_2"
-    ],
-    "is_urgent": "off",
-    "task_description": "",
-    "task_name": [
-        "servId"
-    ],
-    "sched_date": "",
-    "sched_time": ""
+    "siteId"
+  ],
+  "department": [
+    "deptId"
+  ],
+  "user": [
+    "userId"
+  ],
+  "is_urgent": "off",
+  "task_description": "",
+  "task_name": [
+    "servId"
+  ],
+  "sched_date": "",
+  "sched_time": "",
+  "status": "on"
 }
 
 ```
 
-2. Cancelled Appointment
-
-```javascript
-
-{
-    "appointmentId": ""
-}
-
-```
-
-3. Department Service
+2. Department Service
 
 ```javascript
 
@@ -164,47 +151,41 @@ A nice to have, which is still being concidered for the design, will be to let t
 
 ```
 
-4. User Profile
+3. User Profile
 
 ```javascript
 
 {
-    "name": {
-        "first": "",
-        "last": ""
-    },
+    "name": "",
     "staffNum": "",
     "password": "",
     "siteInfo": {
-        "siteName": [
-            "siteId"
-        ],
-        "deptId": [
-            "deptId"
-        ]
-    },
-    "profession": [
-        "professionId"
+    "siteName": [
+      "siteId"
     ],
-    "img_url": "",
-    "department_head": "off",
-    "fav_dept": [
-        "deptId"
-    ],
-    "fav_serv": [
-        "servId"
-    ],
-    "appointment": [
-        "appointmentId"
-    ],
-    "cancled_app": [
-        "cancelledId"
+    "deptId": [
+      "deptId"
     ]
+  },
+  "profession": [
+    "professionId"
+  ],
+  "img_url": "",
+  "department_head": "off",
+  "fav_dept": [
+    "deptId"
+  ],
+  "fav_serv": [
+    "servId"
+  ],
+  "appointments": [
+    "appointmentId"
+  ]
 }
 
 ```
 
-5. Facility
+4. Facility
 
 ```javascript
 
@@ -214,7 +195,7 @@ A nice to have, which is still being concidered for the design, will be to let t
 
 ```
 
-6. Profession
+5. Profession
 
 ```javascript
 
@@ -224,7 +205,7 @@ A nice to have, which is still being concidered for the design, will be to let t
 
 ```
 
-7. Service Information
+6. Service Information
 
 ```javascript
 
