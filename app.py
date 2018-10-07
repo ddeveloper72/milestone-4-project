@@ -3,15 +3,19 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
+
 app = Flask(__name__)
+
 app.config["MONGO_DBNAME"] = 'mediacal_tm'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
 @app.route('/')
-def hello():
-    return 'Hello World! This is my Milestone 4 Project Kick-Starter Page'
+@app.route('/get_sites')
+def get_sites():
+    return render_template("sites.html", 
+                            facility = mongo.db.facility.find())
 
 
 if __name__ == '__main__':

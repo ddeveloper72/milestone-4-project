@@ -1,0 +1,20 @@
+.btn_small {
+    height: 24px;
+    width: 60px;
+    line-height: 24px;
+    margin: 5px 5px;
+    padding: 0 0.5em;
+}
+
+.task_header {
+    margin-top: 5px;
+    padding-left: 25px;
+}
+
+.collapsible-header form {
+    display: inline-block;
+}
+
+nav .brand-logo {
+    padding-left: 10px;
+}
