@@ -1,3 +1,4 @@
+# Load/import pre-requisites. Constucted using Python 3.7.0
 import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
@@ -6,17 +7,18 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
+# Connect to external MongoDB database through URI variable hosted on app server. 
 app.config["MONGO_DBNAME"] = 'mediacal_tm'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
+# Basebuild function
+# Search for scheduled appointments - no filters.
 @app.route('/')
-@app.route('/get_sites')
-def get_sites():
-    return render_template("sites.html", 
-                            facility = mongo.db.facility.find(),
-                            service_info = mongo.db.service_info.find(),
+@app.route('/get_departmemts')
+def get_departments():
+    return render_template("departments.html",
                             appointment = mongo.db.appointment.find())
 
 

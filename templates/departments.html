@@ -2,7 +2,7 @@
 {% block content %}
 
     <ul class="collapsible" data-collapsible="accordion">
-    {% for site in facility %}  
+    {% for task in appointment %}  
     <li>
         <div class="collapsible-header">
             <div class="col s3">
@@ -11,14 +11,13 @@
                <a href="#" class="waves-effect waves-light btn btn_small blue">Edit</a>
             </div>
             <div class="task_header col s9">
-                <strong>{{site.site_name}}</strong> 
+                <strong>{{task.site_name}} - {{task.task_name}}</strong>
             </div>
         </div>
         <div class="collapsible-body">
             <ol>
-                {% for service in appointment %}
-                <li>{{service.dept[0]}} - {{service.task_name[0]}} - {{service.sched_datetime}}</li>                             
-                {% endfor %} 
+                <li>{{task.task_description}} - {{task.sched_datetime}}</li>
+                <p>Schedule owner: {{task.user}}</p>                             
             </ol>                
         </div>
     </li>
