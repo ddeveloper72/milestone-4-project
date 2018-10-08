@@ -24,6 +24,7 @@ def get_appointments():
 @app.route('/add_appointment')
 def add_appointment():
     return render_template("add_appointment.html",
+                            facility = mongo.db.facility.find(),
                             departments = mongo.db.departments.find())
 
 
