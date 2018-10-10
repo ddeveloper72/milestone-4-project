@@ -6,7 +6,7 @@
     <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
       <div class="row">
         <div class="input-field col s12">
-          <i class="material-icons prefix">poll</i>
+          <i class="material-icons prefix">account_balance</i>
           <select id="facility" name="site_name">
             <option value="" disabled selected>Select Your Facility</option>
             {% for booking in facility %} 
@@ -18,23 +18,35 @@
       </div>
       <div class="row">
           <div class="input-field col s12">
+            <i class="material-icons prefix">people</i>
+            <select id="department" name="department_name">
+              <option value="" disabled selected>Choose Department</option>
+              {% for service in departments %} 
+              <option value="{{service.dept_name}}">{{service.dept_name}}</option>
+              {% endfor %}
+            </select>
+            <label>Department</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
             <i class="material-icons prefix">poll</i>
-      <select id="department" name="department_name">
-          <option value="" disabled selected>Choose Department</option>
-          {% for service in departments %} 
-          <option value="{{service.dept_name}}">{{service.dept_name}}</option>
-          {% endfor %}
-      </select>
-      <label>Department</label>
-    </div>
-  </div>
+          <select id="department" name="services">
+            <option value="" disabled selected>Choose Service</option>
+            {% for service in serviceItem %}
+            <option value="{{service.serv}}">{{service.serv}}</option>
+            {% endfor %}
+          </select>
+          <label>Service Item</label>
+        </div>
+      </div>
       <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">assignment</i>
             <input id="task_name" name="task_name" type="text" class="validate">
             <label for="icon_prefix">Appointment Name</label>
           </div>
-        </div>
+      </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">subject</i>
@@ -44,11 +56,25 @@
       </div>
       <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">today</i>
-            <input id="sched_datetime" name="sched_datetime type="text" class ="datepicker"/></input>
-            <label for="icon_prefix">Due Date</label>
+            <i class="material-icons prefix">person_pin</i>
+            <textarea name ="staffNum" id="staffNum" class ="materialize-textarea"/></textarea>
+            <label for ="icon_prefix">Created By</label>
           </div>
       </div>
+      <div class="row">
+        <div class ="input-field col s12">
+          <i class ="material-icons prefix">today</i>
+          <input id ="sched_date" name="sched_date" type="text" class ="datepicker"></input>
+          <label for ="icon_prefix">Due Date</label>
+        </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+          <i class="material-icons prefix">watch_late</i>
+          <input id ="sched_time" name ="sched_time" type="text" class ="timepicker materialize-textarea"></input>
+          <label for ="icon_prefix">Time</label>
+      </div>
+    </div>
       <div class="row">
         <div class="switch">
           <label>

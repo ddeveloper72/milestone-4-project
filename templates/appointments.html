@@ -11,13 +11,13 @@
                <a href="#" class="waves-effect waves-light btn btn_small blue">Edit</a>
             </div>
             <div class="task_header col s9">
-                <strong>{{task.site_name}} - {{task.task_name}}</strong>
+                <strong>{{task.site_name}} - {{task.services}}</strong>
             </div>
         </div>
         <div class="collapsible-body">
             <ol>
-                <li>{{task.task_description}} - {{task.due_date}}</li>
-                <p>Schedule owner: {{task.user}}</p>                             
+                <li>{{task.task_description}} - {{task.sched_date}} - {{task.sched_time}}</li>
+                <p>Schedule owner: {{task.staffNum}}</p>                             
             </ol>                
         </div>
     </li>
