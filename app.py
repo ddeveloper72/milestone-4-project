@@ -13,8 +13,11 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
+# MongoDb Collections
 appointments_collection = mongo.db.appointment
-# departments_collection = mongo.db.departments
+facility_collection = mongo.db.facility
+departments_collection = mongo.db.departments
+services_collection = mongo.db.serviceItem
 
 # Basebuild function
 # Search for scheduled appointments - no filters.
@@ -29,16 +32,19 @@ def get_appointment():
 
 @app.route('/add_appointment')
 def add_appointment():
+    facility = facility_collection.find(),
+    departments = departments_collection.find()
+    service = services_collection.find()
     return render_template("add_appointment.html",
-                            facility = mongo.db.facility.find(),
-                            departments = mongo.db.departments.find(),
-                            serviceItem = mongo.db.serviceItem.find())
+                            facility = facility,
+                            departments = departments,
+                            service = service)
 
 # Basebuild function
 # Adds a new appointment
 @app.route('/insert_appointment',  methods=["POST"])
 def insert_appointment():
-    appointment = mongo.db.appointment
+    appointment = appointments_collection
     appointment.insert_one(request.form.to_dict())
     return redirect(url_for('get_appointment'))
 
@@ -46,9 +52,9 @@ def insert_appointment():
 # Lets us edit the data for an existing appointment
 @app.route('/edit_appointment/<task_id>')
 def edit_appointment(task_id):
-    _appointment = mongo.db.appointment.find_one({"_id": ObjectId(task_id)})
-    all_departments = mongo.db.departments.find()
-    all_serviceItem = mongo.db.serviceItem.find()
+    _appointment = appointments_collection.find_one({"_id": ObjectId(task_id)})
+    all_departments = departments_collection.find()
+    all_serviceItem = services_collection.find()
     return render_template('edit_appointment.html', 
                             appointment=_appointment, departments=all_departments, services=all_serviceItem)
 
@@ -56,7 +62,7 @@ def edit_appointment(task_id):
 # Lets us edit the data for an existing appointment
 @app.route('/update_appointment/<task_id>')
 def update(task_id):
-    appointment = mongo.db.appointment
+    appointment = appointments_collection
     appointment.update({'_id': ObjectId(task_id)},
     {
         'dept_name': request.form.get['dept_name'],
@@ -72,7 +78,7 @@ def update(task_id):
 # Lets us edit the data for an existing appointment
 @app.route('/delete_appointment/<task_id>')
 def delete_appointment(task_id):
-    mongo.db.appointment.remove({'_id': ObjectId(task_id)})
+    appointments_collection.remove({'_id': ObjectId(task_id)})
     return redirect(url_for('get_appointment'))
 
 if __name__ == '__main__':
