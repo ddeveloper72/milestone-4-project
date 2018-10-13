@@ -42,18 +42,18 @@ def insert_appointment():
 # Lets us edit the data for an existing appointment
 @app.route('/edit_appointment/<task_id>')
 def edit_appointment(task_id):
-    _task = mongo.db.appointment.find_one({"_id": ObjectId(task_id)})
+    _appointment = mongo.db.appointment.find_one({"_id": ObjectId(task_id)})
     all_departments = mongo.db.departments.find()
     all_serviceItem = mongo.db.serviceItem.find()
     return render_template('edit_appointment.html', 
-                            task=_task, departments=all_departments, services=all_serviceItem)
+                            appointment=_appointment, departments=all_departments, services=all_serviceItem)
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
-@app.route('/update_appointment/<appointment_id>')
-def update(appointment_id):
+@app.route('/update_appointment/<task_id>')
+def update(task_id):
     appointment = mongo.db.appointment
-    appointment.update({'_id': ObjectId(appointment_id)},
+    appointment.update({'_id': ObjectId(task_id)},
     {
         'dept_name': request.form.get['dept_name'],
         'task_description': request.form.get['task_description'],
@@ -62,8 +62,14 @@ def update(appointment_id):
         'sched_time': request.form.get['sch_time'],
         'is_urgent': request.form.get['is_urgent']
     })
-    return redirect(url_for('get_appointments'))
+    return redirect(url_for('get_appointment'))
 
+# Basebuild function
+# Lets us edit the data for an existing appointment
+@app.route('/delete_appointment/<task_id>')
+def delete_appointment(task_id):
+    mongo.db.appointment.remove({'_id': ObjectId(task_id)})
+    return redirect(url_for('get_appointment'))
 
 if __name__ == '__main__':
     
