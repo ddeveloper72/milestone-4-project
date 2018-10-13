@@ -1,27 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <ul class="collapsible" data-collapsible="accordion">
-    {% for task in appointment %}  
+<ul class="collapsible" data-collapsible="accordion">
+    {% for task in appointment %}
     <li>
         <div class="collapsible-header">
             <div class="col s3">
                <i class="material-icons">expand_more</i>
                <a href="#" class="waves-effect waves-light btn btn_small">Done</a>
-               <a href="#" class="waves-effect waves-light btn btn_small blue">Edit</a>
+               <a href="{{url_for('edit_appointment',  task_id = task._id)}}" class="waves-effect waves-light btn btn_small blue">Edit</a>
             </div>
+              
             <div class="task_header col s9">
-                <strong>{{task.site_name}} - {{task.services}}</strong>
+                <strong>{{task.dept_name}} - {{task.service}}</strong>
             </div>
         </div>
         <div class="collapsible-body">
             <ol>
                 <li>{{task.task_description}} - {{task.sched_date}} - {{task.sched_time}}</li>
-                <p>Schedule owner: {{task.staffNum}}</p>                             
+                <p>Urgent: {{task.is_urgent}}</p>                             
             </ol>                
         </div>
     </li>
-    {% endfor %}   
-    </ul>
+    {% endfor %}
+    </ul>    
               
 {% endblock %}

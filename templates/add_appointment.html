@@ -21,8 +21,8 @@
             <i class="material-icons prefix">people</i>
             <select id="department" name="department_name">
               <option value="" disabled selected>Choose Department</option>
-              {% for service in departments %} 
-              <option value="{{service.dept_name}}">{{service.dept_name}}</option>
+              {% for dept in departments %} 
+              <option value="{{dept.dept_name}}">{{dept.dept_name}}</option>
               {% endfor %}
             </select>
             <label>Department</label>
@@ -33,8 +33,8 @@
             <i class="material-icons prefix">poll</i>
           <select id="department" name="services">
             <option value="" disabled selected>Choose Service</option>
-            {% for service in serviceItem %}
-            <option value="{{service.serv}}">{{service.serv}}</option>
+            {% for service in departments %}
+            <option value="{{service.services}}">{{service.services}}</option>
             {% endfor %}
           </select>
           <label>Service Item</label>
@@ -57,7 +57,7 @@
       <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">person_pin</i>
-            <textarea name ="staffNum" id="staffNum" class ="materialize-textarea"/></textarea>
+            <textarea name ="name" id="name" class ="materialize-textarea"/></textarea>
             <label for ="icon_prefix">Created By</label>
           </div>
       </div>

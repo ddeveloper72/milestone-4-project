@@ -7,18 +7,34 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">poll</i>
-          <select id="departments" name="department_name">
-              <option value="" disabled selected>Choose Category</option>
-              {% for cat in categories %} 
-                  {% if cat.category_name == task.category_name %}
-                  <option value="{{service.department_name}}" selected > {{service.department_name}}</option>
+          <select id="departments" name="dept_name">
+              <option value="" disabled selected>Choose Department</option>
+              {% for dept in departments %} 
+                  {% if dept.dept_name == dept.dept_name %}
+                  <option value="{{dept.dept_name}}" selected > {{dept.dept_name}}</option>
                   {% else %}
-                  <option value="{{service.department_name}}" > {{service.department_name}}</option>
+                  <option value="{{dept.dept_name}}" > {{dept.dept_name}}</option>
                   {% endif%}
               {% endfor %}
           </select>
-          <label>Task Catagory</label>
+          <label>Department</label>
         </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">          
+          <i class="material-icons prefix">poll</i>
+          <select id="serviceItem" name="service">
+            <option value="" disabled selected>Choose Service</option>
+            {% for dept in services %} 
+                {% if dept.service == dept.service %}
+                <option value="{{dept.service}}" selected > {{dept.service}}</option>
+                {% else %}
+                <option value="{{dept.service}}" > {{dept.service}}</option>
+                {% endif%}
+            {% endfor %}
+        </select>
+        <label>Service Type</label>
+      </div>
       </div>
       <div class="row">
           <div class="input-field col s12">
@@ -37,10 +53,17 @@
       <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">today</i>
-            <input id="due_date" name="due_date" type="text" class ="datepicker"/></input>
-            <label for="icon_prefix">Due Date</label>
+            <input id="sched_date" name="sched_date" type="text" class ="datepicker materialize-textarea" /></input>
+            <label for="icon_prefix">Original Date {{task.sched_date}}</label>
           </div>
       </div>
+      <div class="row">
+          <div class="input-field col s12">
+              <i class="material-icons prefix">watch_late</i>
+              <input id ="sched_time" name ="sched_time" type="text" class ="timepicker materialize-textarea"></input>
+              <label for ="icon_prefix">Original Time {{task.sched_time}}</label>
+          </div>
+        </div>
       <div class="row">
         <div class="switch">
           <label>
@@ -62,12 +85,5 @@
     </form>
   </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        due_date = Date.parse('{{appointment.sched_datetime}}');
-        $('#due_date').pickdate('picker').set('select', due_date, {format: 'dd/mm/yy'}).trigger('change')
-    });
-</script>
 
 {% endblock %}

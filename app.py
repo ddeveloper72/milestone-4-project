@@ -16,10 +16,12 @@ mongo = PyMongo(app)
 # Basebuild function
 # Search for scheduled appointments - no filters.
 @app.route('/')
-@app.route('/get_appointments')
-def get_appointments():
-    return render_template("appointments.html",
+@app.route('/get_appointment')
+def get_appointment():
+    return render_template("appointment.html",
                             appointment = mongo.db.appointment.find())
+
+# Basebuild function
 
 @app.route('/add_appointment')
 def add_appointment():
@@ -28,20 +30,40 @@ def add_appointment():
                             departments = mongo.db.departments.find(),
                             serviceItem = mongo.db.serviceItem.find())
 
-
+# Basebuild function
+# Adds a new appointment
 @app.route('/insert_appointment',  methods=["POST"])
 def insert_appointment():
     appointment = mongo.db.appointment
     appointment.insert_one(request.form.to_dict())
+    return redirect(url_for('get_appointment'))
+
+# Basebuild function
+# Lets us edit the data for an existing appointment
+@app.route('/edit_appointment/<task_id>')
+def edit_appointment(task_id):
+    _task = mongo.db.appointment.find_one({"_id": ObjectId(task_id)})
+    all_departments = mongo.db.departments.find()
+    all_serviceItem = mongo.db.serviceItem.find()
+    return render_template('edit_appointment.html', 
+                            task=_task, departments=all_departments, services=all_serviceItem)
+
+# Basebuild function
+# Lets us edit the data for an existing appointment
+@app.route('/update_appointment/<appointment_id>')
+def update(appointment_id):
+    appointment = mongo.db.appointment
+    appointment.update({'_id': ObjectId(appointment_id)},
+    {
+        'dept_name': request.form.get['dept_name'],
+        'task_description': request.form.get['task_description'],
+        'task_name': request.form.get['task_name'],
+        'sched_date': request.form.get['sch_date'],
+        'sched_time': request.form.get['sch_time'],
+        'is_urgent': request.form.get['is_urgent']
+    })
     return redirect(url_for('get_appointments'))
 
-
-""" @app.route('/edit_appointment/<appointment_id>')
-def edit_appointment(appointment_id):
-    _appointment = mongo.db.appointment.find_one({'_id': ObjectId(appointment_id)})
-    all_categories = mongo.db.categories.find()
-    return render_template('editappointment.html', 
-                            appointment=_appointment, categories=all_categories) """
 
 if __name__ == '__main__':
     
