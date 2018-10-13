@@ -13,13 +13,17 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
+appointments_collection = mongo.db.appointment
+# departments_collection = mongo.db.departments
+
 # Basebuild function
 # Search for scheduled appointments - no filters.
 @app.route('/')
 @app.route('/get_appointment')
 def get_appointment():
+    appointment = appointments_collection.find({"is_urgent": "on"})
     return render_template("appointment.html",
-                            appointment = mongo.db.appointment.find())
+                            appointment = appointment)
 
 # Basebuild function
 

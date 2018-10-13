@@ -31,10 +31,10 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">poll</i>
-          <select id="department" name="services">
+          <select id="serviceItem" name="service">
             <option value="" disabled selected>Choose Service</option>
-            {% for service in departments %}
-            <option value="{{service.services}}">{{service.services}}</option>
+            {% for item in serviceItems %}
+            <option value="{{item.service}}">{{item.service}}</option>
             {% endfor %}
           </select>
           <label>Service Item</label>
