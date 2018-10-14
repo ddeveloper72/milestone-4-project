@@ -24,7 +24,7 @@ services_collection = mongo.db.serviceItem
 @app.route('/')
 @app.route('/get_appointment')
 def get_appointment():
-    appointment = appointments_collection.find({"is_urgent": "on"})
+    appointment = appointments_collection.find()
     return render_template("appointment.html",
                             appointment = appointment)
 
@@ -32,7 +32,7 @@ def get_appointment():
 
 @app.route('/add_appointment')
 def add_appointment():
-    facility = facility_collection.find(),
+    facility = facility_collection.find()
     departments = departments_collection.find()
     service = services_collection.find()
     return render_template("add_appointment.html",

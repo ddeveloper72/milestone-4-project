@@ -19,11 +19,19 @@
       <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">people</i>
-            <select id="department" name="department_name">
+            <select id="departments" name="department_name"">
               <option value="" disabled selected>Choose Department</option>
+              
               {% for dept in departments %} 
-              <option value="{{dept.dept_name}}">{{dept.dept_name}}</option>
+                {{ dept._id }}
+
+                  {% for dept_name in dept.department_names %}
+                  
+                  <option value="{{dept_name.department_name}}">{{dept_name.department_name}}</option>
+                
+                {% endfor %}
               {% endfor %}
+              
             </select>
             <label>Department</label>
           </div>
@@ -31,10 +39,12 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">poll</i>
-          <select id="serviceItem" name="service">
+          <select id="departments" name="service">
             <option value="" disabled selected>Choose Service</option>
-            {% for item in serviceItems %}
-            <option value="{{item.service}}">{{item.service}}</option>
+            
+            {% for item in departments %}
+            
+            <option value="{{dept.department.service}}">{{dept.department.service}}</option>
             {% endfor %}
           </select>
           <label>Service Item</label>
