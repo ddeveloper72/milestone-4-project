@@ -34,11 +34,11 @@ def get_appointment():
 def add_appointment():
     facility = facility_collection.find()
     departments = departments_collection.find()
-    service = services_collection.find()
+    deptservices = departments_collection.find()
     return render_template("add_appointment.html",
-                            facility = facility,
                             departments = departments,
-                            service = service)
+                            deptservices = deptservices,
+                            facility = facility)
 
 # Basebuild function
 # Adds a new appointment
