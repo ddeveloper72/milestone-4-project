@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
+from classes import Search
 
 app = Flask(__name__)
 
@@ -24,17 +25,17 @@ services_collection = mongo.db.serviceItem
 @app.route('/')
 @app.route('/get_appointment')
 def get_appointment():
-    appointment = appointments_collection.find()
+    appointment = Search(appointments_collection).find_all()
     return render_template("appointment.html",
                             appointment = appointment)
 
 # Basebuild function
 
-@app.route('/add_appointment')
+@app.route('/add_appointment', methods=['POST'])
 def add_appointment():
-    facility = facility_collection.find()
-    departments = departments_collection.find()
-    deptservices = departments_collection.find()
+    facility = Search(facility_collection).find_all()
+    departments = Search(departments_collection).find_all()
+    deptservices = Search(departments_collection).find_all()
     return render_template("add_appointment.html",
                             departments = departments,
                             deptservices = deptservices,
@@ -52,9 +53,9 @@ def insert_appointment():
 # Lets us edit the data for an existing appointment
 @app.route('/edit_appointment/<task_id>')
 def edit_appointment(task_id):
-    _appointment = appointments_collection.find_one({"_id": ObjectId(task_id)})
-    all_departments = departments_collection.find()
-    all_serviceItem = services_collection.find()
+    _appointment = Search(appointments_collection).find_by_task_id(task_id)
+    all_departments = Search(departments_collection).find_all()
+    all_serviceItem = Search(services_collection).find_all()
     return render_template('edit_appointment.html', 
                             appointment=_appointment, departments=all_departments, services=all_serviceItem)
 
