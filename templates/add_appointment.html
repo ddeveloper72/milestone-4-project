@@ -3,7 +3,7 @@
 
 <h3>Add an Appointment</h3>
 <div class="row">
-    <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
+    <form action="{{url_for('insert_appointment')}}" methods="POST" class="col s12">
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_balance</i>
@@ -19,13 +19,11 @@
       <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">people</i>
-            <select id="departments" name="department">
-              <option value="" disabled selected>Choose Department</option>
-                {% for x in departments %} 
-                  {% for dep in x.departmentnames %}       
-                    <option value="{{dep.name}}">{{dep.name}}</option>                
-                  {% endfor %}   
-                {% endfor %}   
+              <select id="departments" name="departments">
+                <option value="" class="dept" disabled selected>Choose a department</option>
+                {% for dept in depts %}
+                <option class="dept" id="{{dept['ref']}}" value="{{dept['ref']}}">{{dept['ref']}}</option>
+                {% endfor %} 
             </select>
             <label>Department</label>
           </div>
@@ -33,14 +31,9 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">poll</i>
-          <select id="departments" name="service">
-            <option value="" disabled selected>Choose Service</option>    
-             {% for y in deptservices %} 
-                {% for task in y.departmentnames %}   
-                   <option value="{{task.services[loop.index0].name}}">{{task.services[loop.index0].name}}</option>                
-                {% endfor %}   
-              {% endfor %}  
-           </select>
+          <select id="services" name="service">
+            <option value="" disabled selected>Select a department from the list above</option>    
+          </select>
           <label>Service Item</label>
         </div>
       </div>

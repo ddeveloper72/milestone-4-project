@@ -7,13 +7,13 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">poll</i>
-          <select id="departments" name="dept_name">
+          <select id="departments" name="deptName">
               <option value="" disabled selected>Choose Department</option>
               {% for dept in departments %} 
                   {% if dept.dept_name == dept.dept_name %}
-                  <option value="{{dept.dept_name}}" selected > {{dept.dept_name}}</option>
+                  <option value="{{dept.deptName}}" selected > {{dept.deptName}}</option>
                   {% else %}
-                  <option value="{{dept.dept_name}}" > {{dept.dept_name}}</option>
+                  <option value="{{dept.deptName}}" > {{dept.deptName}}</option>
                   {% endif%}
               {% endfor %}
           </select>
@@ -23,7 +23,7 @@
       <div class="row">
         <div class="input-field col s12">          
           <i class="material-icons prefix">poll</i>
-          <select id="serviceItem" name="service">
+          <select id="services" name="service">
             <option value="" disabled selected>Choose Service</option>
             {% for dept in services %} 
                 {% if dept.service == dept.service %}

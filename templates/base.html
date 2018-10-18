@@ -59,6 +59,32 @@
                 autoclose: false,
                 vibrate: true // vibrate the device when dragging clock hand
             });
+            $("#departments").change(function() {
+                let cur_value = $('option:selected', this).val();
+                console.log(cur_value);
+                
+                $.ajax({
+                    data: {
+                        ref : cur_value
+                    },
+                    type: 'POST',
+                    url: '/add_appointment'
+                })
+                .done((data) => {
+                    if (data.error) {
+                        console.log(data.error)
+                    } else {
+                        console.log(data);
+                        let optionToFill = $("#services");
+                        optionToFill.find('option').remove().end();
+    
+                        data.data.forEach((element) => {
+                            optionToFill
+                                .append(`<option value="${element}">${element}</option>`);
+                        });
+                    }
+                });    
+            });
         </script>
     </body>
 </html>
