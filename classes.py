@@ -25,6 +25,12 @@ class Search:
     def find_all(self):
         return self.collection.find()
 
+    def find_one(self):
+        return self.collection.find_one()
+
     def find_by_task_id(self, id):
         return self.collection.find_one({"_id": ObjectId(id)})
+
+
+
 

@@ -1,6 +1,6 @@
 # Load/import pre-requisites. Constucted using Python 3.7.0
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -20,6 +20,8 @@ facility_collection = mongo.db.facility
 departments_collection = mongo.db.departments
 services_collection = mongo.db.serviceItem
 
+
+
 # Basebuild function
 # Search for scheduled appointments - no filters.
 @app.route('/')
@@ -31,19 +33,38 @@ def get_appointment():
 
 # Basebuild function
 
-@app.route('/add_appointment', methods=['POST'])
+@app.route('/add_appointment', methods=["POST", "GET"])
 def add_appointment():
+    
     facility = Search(facility_collection).find_all()
-    departments = Search(departments_collection).find_all()
-    deptservices = Search(departments_collection).find_all()
-    return render_template("add_appointment.html",
-                            departments = departments,
-                            deptservices = deptservices,
-                            facility = facility)
+    depts = Search(departments_collection).find_all()
+
+    return render_template("add_appointment.html", facility = facility, depts = depts)
+
+@app.route('/services',  methods=["POST"])
+def services():
+    depts = Search(departments_collection).find_all()
+    print(depts)
+
+    data = request.form['ref']
+    print(data)
+    
+    for dept in depts:
+        if dept['ref'] == data:
+            services = dept['services']
+            print(services) 
+                    
+    if services:
+        return jsonify({"data": services})
+    print(services) 
+
+    return jsonify({"error" : "an error occured"})
+
+    
 
 # Basebuild function
 # Adds a new appointment
-@app.route('/insert_appointment',  methods=["POST"])
+@app.route('/insert_appointment',  methods=["POST", "GET"])
 def insert_appointment():
     appointment = appointments_collection
     appointment.insert_one(request.form.to_dict())
