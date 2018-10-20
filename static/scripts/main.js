@@ -46,8 +46,11 @@ $("#department").change(function() {
             let optionToFill = $("#services");
             optionToFill.find('option').remove().end();
             data.data.forEach((element) => {
-                optionToFill
-                    .append(`<option value="${element}" >"${element}"</option>`);
+                $("ul").last().append(`<li class="bob"><span>${element}</span></li>`)
+                    optionToFill.append(`<option value="${element}" class="dept">${element}</option>`);
+            });
+            $(".bob").click(function() {
+                $(this).removeClass("bob").addClass("active").addClass("selected");
             });
         }
     });    
