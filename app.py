@@ -46,6 +46,7 @@ def services():
     depts = Search(departments_collection).find_all()
     print(depts)
 
+    # data comes from cur_value in $("#department").change(function()
     data = request.form['ref']
     print(data)
     
@@ -53,7 +54,7 @@ def services():
         if dept['ref'] == data:
             services = dept['services']
             print(services) 
-                    
+    #return data to                 
     if services:
         return jsonify({"data": services})
     print(services) 
