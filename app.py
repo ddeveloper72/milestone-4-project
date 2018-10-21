@@ -16,9 +16,9 @@ mongo = PyMongo(app)
 
 # MongoDb Collections
 appointments_collection = mongo.db.appointment
-facility_collection = mongo.db.facility
+facilities_collection = mongo.db.facility
 departments_collection = mongo.db.departments
-services_collection = mongo.db.serviceItem
+
 
 
 
@@ -36,7 +36,7 @@ def get_appointment():
 @app.route('/add_appointment', methods=["POST", "GET"])
 def add_appointment():
     
-    facility = Search(facility_collection).find_all()
+    facility = Search(facilities_collection).find_all()
     departments = Search(departments_collection).find_all()
     
     return render_template("add_appointment.html", facility = facility, departments = departments)
@@ -73,12 +73,12 @@ def insert_appointment():
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
-@app.route('/edit_appointment/<task_id>',  methods=["POST", "GET"])
+@app.route('/edit_appointment/<task_id>')
 def edit_appointment(task_id):
-    _task = Search(appointments_collection).find_by_task_id(task_id)
+    _appointment = Search(appointments_collection).find_by_task_id(task_id)
     all_depts = Search(departments_collection).find_all()
     return render_template('edit_appointment.html', 
-                            task=_task, departments=all_depts, serv=all_depts)
+                            appointment=_appointment, departments=all_depts)
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
@@ -88,10 +88,11 @@ def update(task_id):
     appointment.update({'_id': ObjectId(task_id)},
     {
         'dept_name': request.form.get['dept_name'],
+        'service': request.form.get['service'],
         'task_description': request.form.get['task_description'],
         'task_name': request.form.get['task_name'],
-        'sched_date': request.form.get['sch_date'],
-        'sched_time': request.form.get['sch_time'],
+        'date_time': request.form.get['datetimepicker1'],
+        'emp_name': request.form.get['emp_name'],
         'is_urgent': request.form.get['is_urgent']
     })
     return redirect(url_for('get_appointment'))

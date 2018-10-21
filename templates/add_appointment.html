@@ -3,7 +3,9 @@
 
 <h3>Add an Appointment</h3>
 <div class="row">
-    <form action="{{url_for('insert_appointment')}}" methods="POST" class="col s12">
+    <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
+
+
       <div class="row">
         <div class="input-field col s12">
             <i class="far fa-building prefix"></i>
@@ -16,6 +18,8 @@
           <label>Facility</label>
         </div>
       </div>
+
+
       <div class="row">
         <div class="input-field col s12">
           <i class="far fa-address-book prefix"></i>            
@@ -28,6 +32,8 @@
             <label>Department</label>
         </div>
       </div>
+
+
       <div class="row">
           <div class="input-field col s12">
               <i class="fas fa-cogs prefix"></i>              
@@ -37,41 +43,58 @@
               <label>Service</label>
           </div>
       </div>
+
+
       <div class="row">
         <div class="input-field col s12">
-            <i class="far fa-clipboard prefix"></i>
-            <input id="task_name" name="task_name" type="text" class="validate">
-            <label for="icon_prefix">Appointment Name</label>
-          </div>
+          <i class="far fa-clipboard prefix"></i>
+            <input id="task_name" name="task_name" type="text" class="form-control-sm validate">
+          <label for="icon_prefix">Appointment Name</label>
         </div>
+      </div>
+
+
       <div class="row">
         <div class="input-field col s12">
-            <i class="far fa-sticky-note prefix"></i>
-          <textarea name="task_description" id="task_description" class ="materialize-textarea"/></textarea>
+          <i class="far fa-sticky-note prefix"></i>
+            <textarea name="task_description" id="task_description" class ="form-control-sm"/></textarea>
           <label for="icon_telephone">Task Description</label>
         </div>
       </div>
+
+
       <div class="row">
         <div class="input-field col s12">
-            <i class="far fa-user prefix"></i>
-          <textarea name ="name" id="name" class ="materialize-textarea"/></textarea>
+          <i class="far fa-user prefix"></i>
+            <textarea name ="emp_name" id="emp_name" class ="form-control-sm"/></textarea>
           <label for ="icon_prefix">Created By</label>
         </div>
       </div>
-      <div class="row">
-        <div class ="input-field col s12">
-            <i class="far fa-calendar-check prefix"></i>
-          <input id ="sched_date" name="sched_date" type="text" class ="datepicker"></input>
-          <label for ="icon_prefix">Due Date</label>
-        </div>
-        </div>
-      <div class="row">
-      <div class="input-field col s12">
-          <i class="fas fa-clock prefix"></i>
-          <input id ="sched_time" name ="sched_time" type="text" class ="timepicker materialize-textarea"></input>
-          <label for ="icon_prefix">Time</label>
+
+      <!-- Date/Time Picker -->
+
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <script type="text/javascript">
+                  $(function () {
+                      $('#datetimepicker1').datetimepicker();
+                  });
+              </script>
+          </div>
       </div>
-      </div>
+
+      <!-- Task Urgency Selector -->
+
       <div class="row">
         <div class="switch">
           <label>
@@ -81,6 +104,8 @@
           </label>
         </div>
       </div>
+
+
       <div class="row">
         <button class="btn btn-primary btn-sm" type="submit" name="action">Add Task
             <i class="fas fa-layer-group right"></i>
