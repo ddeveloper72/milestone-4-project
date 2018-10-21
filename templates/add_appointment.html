@@ -23,7 +23,7 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="far fa-address-book prefix"></i>            
-            <select id="departments" name="departments">
+            <select id="departments" name="dept_name">
                 <option value="" class="dept" disabled selected>Choose a department</option>
                 {% for dept in departments %}
                 <option id="{{ dept['dept_name'] }}" value="{{ dept['dept_name'] }}">{{ dept['dept_name'] }}</option>

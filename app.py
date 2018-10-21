@@ -67,7 +67,7 @@ def service():
 # Adds a new appointment
 @app.route('/insert_appointment',  methods=["POST", "GET"])
 def insert_appointment():
-    appointment = appointments_collection
+    appointment = mongo.db.appointment
     appointment.insert_one(request.form.to_dict())
     return redirect(url_for('get_appointment'))
 
