@@ -1,11 +1,11 @@
 //waits until page is loaded first
-/* $(document).ready(function () {
+$(document).ready(function () {
     $('.collapsible').collapsible();
     $('select').material_select();
     $('.button-collapse').sideNav();
     $('.datepicker').pickadate();
     $('.timepicker').pickatime();
-}); */
+});
 
 // Date picker:
 /* $('.datepicker').pickadate({
@@ -27,7 +27,7 @@
     vibrate: true // vibrate the device when dragging clock hand
 }); */
 
-// select currently active depatrmtnt
+// select currently active department
 $("#departments").change(function() {
     let cur_value = $('option:selected', this).val();
     console.log(cur_value);
@@ -36,14 +36,14 @@ $("#departments").change(function() {
             ref : cur_value
         },
         type: 'POST',
-        url: '/services'
+        url: '/service'
     })
     .done((data) => {
         if (data.error) {
             console.log(data.error)
         } else {
             console.log(data);
-            let optionToFill = $("#services");
+            let optionToFill = $("#service");
             optionToFill.find('option').remove().end();
             data.data.forEach((element) => {
                 optionToFill.append(`<option value="${element}" class="dept">${element}</option>`);
@@ -51,4 +51,3 @@ $("#departments").change(function() {
         }
     });    
 });
-

@@ -3,46 +3,44 @@
 
 <h3>Edit Task!</h3>
 <div class="row">
-    <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
+    <form action="{{url_for('insert_appointment')}}" methods="POST" class="col s12">
         <div class="row">
             <div class="input-field col s12">
               <i class="far fa-address-book prefix"></i>            
-                <select id="departments" name="departments">
+                <select id="departments" name="dept_name">
                     <option value="" class="dept" disabled selected>Choose a department</option>
-                    {% for dept in departments %}
-                    <option id="{{ dept['ref'] }}" value="{{ dept['ref'] }}">{{ dept['ref'] }}</option>
+                    {% for cat in departments %} 
+                      {% if cat.dept_name == task.dept_name %}
+                        <option value="{{cat['dept_name']}}" selected >{{cat['dept_name']}}</option>
+                      {% else %}
+                        <option value="{{cat['dept_name']}}">{{cat['dept_name']}}</option>
+                      {% endif %}
                     {% endfor %}
                 </select>
                 <label>Department</label>
             </div>
           </div>
-      <div class="row">
-        <div class="input-field col s12">          
-            <i class="fas fa-cogs prefix"></i>
-          <select id="services" name="service">
-            <option value="" disabled selected>Choose Service</option>
-            {% for dept in services %} 
-                {% if dept.service == dept.service %}
-                <option value="{{dept.service}}" selected> {{dept.service}}</option>
-                {% else %}
-                <option value="{{dept.service}}" > {{dept.service}}</option>
-                {% endif%}
-            {% endfor %}
-        </select>
-        <label>Service Type</label>
-      </div>
-      </div>
+          <div class="row">
+              <div class="input-field col s12">
+                  <i class="fas fa-cogs prefix"></i>              
+                  <select id="service" name="service">
+                    <option id="service" value="{{task['service']}}" selected >{{task['service']}}</option>
+                      
+                  </select>
+                  <label>Service</label>
+              </div>
+          </div>
       <div class="row">
           <div class="input-field col s12">
               <i class="far fa-clipboard prefix"></i>
-            <input id="task_name" name="task_name" type="text" class="validate" value="{{appointment.task_name}}">
+            <input id="task_name" name="task_name" type="text" class="validate" value="{{task['task_name']}}">
             <label for="icon_prefix">Appointment Name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
               <i class="far fa-sticky-note prefix"></i>
-            <textarea name="task_description" id="task_description" class ="materialize-textarea"/>{{appointment.task_description}}</textarea>
+            <textarea name="task_description" id="task_description" class ="materialize-textarea"/>{{task['task_description']}}</textarea>
             <label for="icon_telephone">Appointment Description</label>
           </div>
       </div>
@@ -50,20 +48,20 @@
           <div class="input-field col s12">
               <i class="far fa-calendar-check prefix"></i>
             <input id="sched_date" name="sched_date" type="text" class ="datepicker materialize-textarea" /></input>
-            <label for="icon_prefix">Original Date {{appointment.sched_date}}</label>
+            <label for="icon_prefix">Original Date {{task['sched_date']}}</label>
           </div>
       </div>
       <div class="row">
           <div class="input-field col s12">
               <i class="fas fa-clock prefix"></i>
               <input id ="sched_time" name ="sched_time" type="text" class ="timepicker materialize-textarea"></input>
-              <label for ="icon_prefix">Original Time {{appointment.sched_time}}</label>
+              <label for ="icon_prefix">Original Time {{task['sched_time']}}</label>
           </div>
         </div>
       <div class="row">
         <div class="switch">
           <label>
-              {% if appointment.is_urgent %}
+              {% if task['is_urgent'] %}
             <input id="is_urgent" name="is_urgent" type="checkbox" checked>
             {% else %}
             <input id="is_urgent" name="is_urgent" type="checkbox">

@@ -6,7 +6,7 @@
     <form action="{{url_for('insert_appointment')}}" methods="POST" class="col s12">
       <div class="row">
         <div class="input-field col s12">
-            <i class="far fa-building prefix">Facility</i>
+            <i class="far fa-building prefix"></i>
           <select id="facility" name="site_name">
             <option value="" disabled selected>Select Your Facility</option>
             {% for booking in facility %} 
@@ -18,11 +18,11 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <i class="far fa-address-book prefix">Department</i>            
+          <i class="far fa-address-book prefix"></i>            
             <select id="departments" name="departments">
                 <option value="" class="dept" disabled selected>Choose a department</option>
                 {% for dept in departments %}
-                <option id="{{ dept['ref'] }}" value="{{ dept['ref'] }}">{{ dept['ref'] }}</option>
+                <option id="{{ dept['dept_name'] }}" value="{{ dept['dept_name'] }}">{{ dept['dept_name'] }}</option>
                 {% endfor %}
             </select>
             <label>Department</label>
@@ -30,44 +30,44 @@
       </div>
       <div class="row">
           <div class="input-field col s12">
-              <i class="fas fa-cogs prefix">Services</i>              
-              <select id="services" name="services">
+              <i class="fas fa-cogs prefix"></i>              
+              <select id="service" name="service">
                   <option value="" disabled selected>Select a department from list above</option>
               </select>
-              <label>Services</label>
+              <label>Service</label>
           </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-            <i class="far fa-clipboard prefix">Title</i>
+            <i class="far fa-clipboard prefix"></i>
             <input id="task_name" name="task_name" type="text" class="validate">
             <label for="icon_prefix">Appointment Name</label>
           </div>
         </div>
       <div class="row">
         <div class="input-field col s12">
-            <i class="far fa-sticky-note prefix">Task Notes</i>
+            <i class="far fa-sticky-note prefix"></i>
           <textarea name="task_description" id="task_description" class ="materialize-textarea"/></textarea>
           <label for="icon_telephone">Task Description</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-            <i class="fas fa-user pefix">Task Creator</i>
+            <i class="far fa-user prefix"></i>
           <textarea name ="name" id="name" class ="materialize-textarea"/></textarea>
           <label for ="icon_prefix">Created By</label>
         </div>
       </div>
       <div class="row">
         <div class ="input-field col s12">
-            <i class="far fa-calendar-check prefix">Appointment Date</i>
+            <i class="far fa-calendar-check prefix"></i>
           <input id ="sched_date" name="sched_date" type="text" class ="datepicker"></input>
           <label for ="icon_prefix">Due Date</label>
         </div>
         </div>
       <div class="row">
       <div class="input-field col s12">
-          <i class="fas fa-clock prefix">Appointment Time</i>
+          <i class="fas fa-clock prefix"></i>
           <input id ="sched_time" name ="sched_time" type="text" class ="timepicker materialize-textarea"></input>
           <label for ="icon_prefix">Time</label>
       </div>

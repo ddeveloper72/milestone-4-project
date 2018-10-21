@@ -41,23 +41,23 @@ def add_appointment():
     
     return render_template("add_appointment.html", facility = facility, departments = departments)
 
-@app.route('/services',  methods=["POST"])
-def services():
+@app.route('/service',  methods=["POST"])
+def service():
     depts = Search(departments_collection).find_all()
     print(depts)
 
     # data comes from cur_value in $("#department").change(function()
-    data = request.form['ref']
+    data = request.form['dept_name']
     print(data)
     
     for dept in depts:
-        if dept['ref'] == data:
-            services = dept['services']
-            print(services) 
+        if dept['dept_name'] == data:
+            services = dept['service']
+            print(service) 
     #return data to                 
     if services:
-        return jsonify({"data": services})
-    print(services) 
+        return jsonify({"data": service})
+    print(service) 
 
     return jsonify({"error" : "an error occured"})
 
@@ -73,13 +73,12 @@ def insert_appointment():
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
-@app.route('/edit_appointment/<task_id>')
+@app.route('/edit_appointment/<task_id>',  methods=["POST", "GET"])
 def edit_appointment(task_id):
-    _appointment = Search(appointments_collection).find_by_task_id(task_id)
-    all_departments = Search(departments_collection).find_all()
-    all_serviceItem = Search(services_collection).find_all()
+    _task = Search(appointments_collection).find_by_task_id(task_id)
+    all_depts = Search(departments_collection).find_all()
     return render_template('edit_appointment.html', 
-                            appointment=_appointment, departments=all_departments, services=all_serviceItem)
+                            task=_task, departments=all_depts, serv=all_depts)
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
