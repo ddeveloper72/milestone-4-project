@@ -6,9 +6,9 @@
     <li>
         <div class="collapsible-header">
             <div class="col s3">
-               <i class="material-icons">expand_more</i>
-               <a href="{{url_for('delete_appointment',  task_id = task._id)}}" class="waves-effect waves-light btn btn_small">Done</a>
-               <a href="{{url_for('edit_appointment',  task_id = task._id)}}" class="waves-effect waves-light btn btn_small blue">Edit</a>
+                    <i class="fas fa-expand-arrows-alt"></i>
+               <a href="{{url_for('delete_appointment',  task_id = task._id)}}" class="btn btn-secondary btn-sm">Done</a>
+               <a href="{{url_for('edit_appointment',  task_id = task._id)}}" class="btn btn-primary btn-sm">Edit</a>
             </div>
               
             <div class="task_header col s9">
