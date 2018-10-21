@@ -1,5 +1,6 @@
 //waits until page is loaded first
 $(document).ready(function () {
+    Materialize.updateTextFields();
     $('.collapsible').collapsible();
     $('select').material_select();
     $('.button-collapse').sideNav();
@@ -19,16 +20,34 @@ $('.datepicker').pickadate({
 
 // Credit to https://github.com/chingyawhao/materialize-clockpicker/
 // Time picker:
-$('.timepicker').pickatime({
-    default: 'now',
-    twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
-    close: 'OK',
-    autoclose: false,
-    vibrate: true // vibrate the device when dragging clock hand
+$("#departments").change(function() {
+    let cur_value = $('option:selected', this).val();
+    console.log(cur_value);
+    $.ajax({
+        data: {
+            ref : cur_value
+        },
+        type: 'POST',
+        url: '/services'
+    })
+    .done((data) => {
+        if (data.error) {
+            console.log(data.error)
+        } else {
+            console.log(data);
+            let optionToFill = $("#services");
+            optionToFill.find("option").remove().end();
+            data.data.forEach((element) => {
+                optionToFill
+                .append(`<option value="${element}">${element}</option>`);
+            });
+        }
+    });    
 });
 
-// select currently active depatrmtnt
-$("#department").change(function() {
+
+// Secondary TEST jQuery function
+/* $("#departments").change(function() {
     let cur_value = $('option:selected', this).val();
     console.log(cur_value);
     $.ajax({
@@ -54,5 +73,5 @@ $("#department").change(function() {
             });
         }
     });    
-});
+}); */
 

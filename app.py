@@ -37,9 +37,9 @@ def get_appointment():
 def add_appointment():
     
     facility = Search(facility_collection).find_all()
-    depts = Search(departments_collection).find_all()
+    departments = Search(departments_collection).find_all()
 
-    return render_template("add_appointment.html", facility = facility, depts = depts)
+    return render_template("add_appointment.html", facility = facility, departments = departments)
 
 @app.route('/services',  methods=["POST"])
 def services():
