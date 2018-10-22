@@ -5,6 +5,7 @@
 <div class="row">
     <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
 
+      <!-- Select the name of the facility from the list of available facility names -->
 
       <div class="row">
         <div class="input-field col s12">
@@ -19,6 +20,7 @@
         </div>
       </div>
 
+      <!-- Select the name of the department from the name of available departments -->
 
       <div class="row">
         <div class="input-field col s12">
@@ -33,17 +35,19 @@
         </div>
       </div>
 
+      <!-- Select the name of the service from the list of available services -->
 
       <div class="row">
           <div class="input-field col s12">
               <i class="fas fa-cogs prefix"></i>              
               <select id="service" name="service">
-                  <option value="" disabled selected>Select a department from list above</option>
+                  <option id="service" value="" disabled selected>Select a department from list above</option>
               </select>
               <label>Service</label>
           </div>
       </div>
 
+      <!-- Add task name -->
 
       <div class="row">
         <div class="input-field col s12">
@@ -53,6 +57,7 @@
         </div>
       </div>
 
+      <!-- Add task description -->
 
       <div class="row">
         <div class="input-field col s12">
@@ -62,6 +67,7 @@
         </div>
       </div>
 
+      <!-- Add employee name -->
 
       <div class="row">
         <div class="input-field col s12">
@@ -74,22 +80,17 @@
       <!-- Date/Time Picker -->
 
       <div class="container">
-          <div class="row">
-              <div class="col-sm-6">
-                  <div class="form-group">
-                      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <script type="text/javascript">
-                  $(function () {
-                      $('#datetimepicker1').datetimepicker();
-                  });
-              </script>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                        <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="" data-target="#datetimepicker1"/>
+                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
       </div>
 

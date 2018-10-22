@@ -2,7 +2,7 @@
 {% block content %}
 
 <ul id="accordion">
-    {% for task in appointment %}
+    {% for app in appointment %}
     <li>
         
         <div class="card">
@@ -10,11 +10,11 @@
                     <h5 class="mb-0">
     
                     <i class="fas fa-expand-arrows-alt"></i>
-                    <a href="{{url_for('delete_appointment',  task_id = task._id)}}" class="btn btn-secondary btn-sm">Done</a>
-                    <a href="{{url_for('edit_appointment',  task_id = task._id)}}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{{url_for('delete_appointment',  app_id = app._id)}}" class="btn btn-secondary btn-sm">Done</a>
+                    <a href="{{url_for('edit_appointment',  app_id = app._id)}}" class="btn btn-primary btn-sm">Edit</a>
                          
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <strong>{{ task['dept_name'] }} - {{ task['service'] }}</strong>
+                        <strong>{{ app['dept_name'] }} - {{ app['service'] }}</strong>
                         </button>
                     </h5>
                 </div>  
@@ -22,8 +22,8 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
                         <ol>
-                            <li>{{ task['task_description'] }} - {{ task['date_time'] }}</li>
-                            <p>Urgent: {{ task['is_urgent'] }}</p>                             
+                            <li>Description: {{ app['task_description'] }} - Scheduled: {{ app['date_time'] }}</li>
+                            <li>Urgent: {{ app['is_urgent'] }} - Archived: {{ app['is_archived'] }}</li>                             
                         </ol>                
                     </div>
                 </div>

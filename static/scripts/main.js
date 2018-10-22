@@ -1,9 +1,3 @@
-//waits until page is loaded first
-$(document).ready(function () {
-
-});
-
-
 // select currently active department
 $("#departments").change(function() {
     let cur_value = $('option:selected', this).val();
@@ -28,17 +22,3 @@ $("#departments").change(function() {
         }
     });    
 });
-
-// Date Time Picker
-$.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
-    icons: {
-        time: 'far fa-clock',
-        date: 'far fa-calendar',
-        up: 'far fa-arrow-up',
-        down: 'far fa-arrow-down',
-        previous: 'far fa-chevron-left',
-        next: 'far fa-chevron-right',
-        today: 'far fa-calendar-check-o',
-        clear: 'far fa-trash',
-        close: 'far fa-times'
-    } });

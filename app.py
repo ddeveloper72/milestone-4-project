@@ -43,7 +43,7 @@ def add_appointment():
 
 @app.route('/service',  methods=["POST"])
 def service():
-    depts = Search(departments_collection).find_all()
+    depts = departments_collection.find()
     print(depts)
 
     # data comes from cur_value in $("#department").change(function()
@@ -67,41 +67,42 @@ def service():
 # Adds a new appointment
 @app.route('/insert_appointment',  methods=["POST", "GET"])
 def insert_appointment():
-    appointment = mongo.db.appointment
+    appointment = appointments_collection
     appointment.insert_one(request.form.to_dict())
     return redirect(url_for('get_appointment'))
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
-@app.route('/edit_appointment/<task_id>')
-def edit_appointment(task_id):
-    _appointment = Search(appointments_collection).find_by_task_id(task_id)
-    all_depts = Search(departments_collection).find_all()
+@app.route('/edit_appointment/<app_id>')
+def edit_appointment(app_id):    
+    _appointment = appointments_collection.find_one({'_id': ObjectId(app_id)})
+    all_depts = departments_collection.find()
     return render_template('edit_appointment.html', 
                             appointment=_appointment, departments=all_depts)
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
-@app.route('/update_appointment/<task_id>')
-def update(task_id):
-    appointment = appointments_collection
-    appointment.update({'_id': ObjectId(task_id)},
+@app.route('/update_appointment/<app_id>', methods=['POST'])
+def update_appointment(app_id):
+    appointments = appointments_collection
+    appointments.update({'_id': ObjectId(app_id)},
     {
         'dept_name': request.form.get['dept_name'],
         'service': request.form.get['service'],
         'task_description': request.form.get['task_description'],
         'task_name': request.form.get['task_name'],
-        'date_time': request.form.get['datetimepicker1'],
+        'date_time': request.form.get.datetime.datetime('datetimepicker1'),
         'emp_name': request.form.get['emp_name'],
-        'is_urgent': request.form.get['is_urgent']
+        'is_urgent': request.form.get['is_urgent'],
+        'is_archived': request.form.get['is_archived']
     })
     return redirect(url_for('get_appointment'))
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
-@app.route('/delete_appointment/<task_id>')
-def delete_appointment(task_id):
-    appointments_collection.remove({'_id': ObjectId(task_id)})
+@app.route('/delete_appointment/<app_id>')
+def delete_appointment(app_id):
+    appointments_collection.remove({'_id': ObjectId(app_id)})
     return redirect(url_for('get_appointment'))
 
 if __name__ == '__main__':

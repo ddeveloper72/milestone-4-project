@@ -5,11 +5,12 @@
 <div class="row">
     <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
 
+      <!-- Confirm the name of the department from the name of available departments -->
 
       <div class="row">
         <div class="input-field col s12">
           <i class="far fa-address-book prefix"></i>            
-            <select id="departments" name="dept_name">
+            <select id="appointments" name="dept_name">
               <option value="" class="dept" disabled selected>Choose a department</option>
                 {% for dept in departments %} 
                   {% if dept.dept_name == appointment.dept_name %}
@@ -23,18 +24,19 @@
         </div>
       </div>
 
+      <!-- Confirm the name of the service from the list of available services -->
 
       <div class="row">
           <div class="input-field col s12">
               <i class="fas fa-cogs prefix"></i>              
               <select id="service" name="service">
-                <option id="service" value="{{ appointment['service'] }}" selected >{{ appointment['service'] }}</option>
-                  
+                <option id="service" value="{{ appointment['service'] }}" selected >{{ appointment['service'] }}</option>                  
               </select>
               <label>Service</label>
           </div>
       </div>
 
+      <!-- Edit task name -->
 
       <div class="row">
           <div class="input-field col s12">
@@ -43,6 +45,8 @@
             <label for="icon_prefix">Appointment Name</label>
           </div>
         </div>
+
+        <!-- Edit task description name -->
 
 
         <div class="row">
@@ -53,6 +57,8 @@
           </div>
       </div>
 
+      <!-- Edit employee name -->
+
       <div class="row">
           <div class="input-field col s12">
             <i class="far fa-user prefix"></i>
@@ -61,29 +67,24 @@
           </div>
         </div>
 
-      <!-- Date/Time Picker -->
+      <!-- Edit Date/Time Picker -->
 
       <div class="container">
           <div class="row">
               <div class="col-sm-6">
                   <div class="form-group">
                       <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" value="{{ appointment['date_time'] }}data-target="#datetimepicker1"/>
+                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment['date_time'] }}" data-target="#datetimepicker1"/>
                           <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i>{{ appointment['date_time'] }}</div>
+                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
                       </div>
                   </div>
               </div>
-              <script type="text/javascript">
-                  $(function () {
-                      $('#datetimepicker1').datetimepicker();
-                  });
-              </script>
           </div>
       </div>
 
-      <!-- Task Urgency Selector -->
+      <!-- Edit Task Urgency Selector -->
 
       <div class="row">
         <div class="switch">
@@ -98,6 +99,23 @@
           </label>
         </div>
       </div>
+
+      <!-- Task Archived Selector -->
+      <div class="row">
+        <div class="switch">
+          <label>
+              {% if appointment['is_archived'] %}
+            <input id="is_archived" name="is_archived" type="checkbox" checked>
+            {% else %}
+            <input id="is_archived" name="is_archived" type="checkbox">
+            {% endif %}
+            <span class="lever"></span>
+           Dismiss / Archive
+          </label>
+        </div>
+      </div>
+
+
       <div class="row">
         <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
             <i class="fas fa-folder-plus"></i>
