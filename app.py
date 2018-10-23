@@ -80,6 +80,27 @@ def edit_appointment(app_id):
     return render_template('edit_appointment.html', 
                             appointment=_appointment, departments=all_depts)
 
+@app.route('/service_update',  methods=["POST", "GET"])
+def service_update():
+    departments = departments_collection.find()
+    print(departments)
+
+    # data comes from cur_value in $("#department").change(function()
+    data = request.form['dept_name']
+    print(data)
+    
+    for dept in departments:
+        if dept['dept_name'] == data:
+            service = dept['service']
+            print(service) 
+    #return data to                 
+    if service:
+        return jsonify({"data": service})
+    print(service) 
+
+    return jsonify({"error" : "an error occured"})
+
+
 # Basebuild function
 # Lets us edit the data for an existing appointment
 @app.route('/update_appointment/<app_id>', methods=['POST'])

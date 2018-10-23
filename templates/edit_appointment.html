@@ -10,7 +10,7 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="far fa-address-book prefix"></i>            
-            <select id="appointments" name="dept_name">
+            <select id="departments" name="dept_name">
               <option value="" class="dept" disabled selected>Choose a department</option>
                 {% for dept in departments %} 
                   {% if dept.dept_name == appointment.dept_name %}
@@ -123,6 +123,5 @@
       </div>
     </form>
   </div>
-
 
 {% endblock %}
