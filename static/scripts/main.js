@@ -4,7 +4,7 @@ $("#departments").change(function() {
     console.log(cur_value);
     $.ajax({
         data: {
-            ref : cur_value
+            dept_name : cur_value
         },
         type: 'POST',
         url: '/service'

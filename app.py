@@ -41,21 +41,21 @@ def add_appointment():
     
     return render_template("add_appointment.html", facility = facility, departments = departments)
 
-@app.route('/service',  methods=["POST"])
+@app.route('/service',  methods=["POST", "GET"])
 def service():
-    depts = departments_collection.find()
-    print(depts)
+    departments = departments_collection.find()
+    print(departments)
 
     # data comes from cur_value in $("#department").change(function()
     data = request.form['dept_name']
     print(data)
     
-    for dept in depts:
+    for dept in departments:
         if dept['dept_name'] == data:
-            services = dept['service']
+            service = dept['service']
             print(service) 
     #return data to                 
-    if services:
+    if service:
         return jsonify({"data": service})
     print(service) 
 
