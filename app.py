@@ -106,7 +106,8 @@ def service_update():
 @app.route('/update_appointment/<app_id>', methods=['POST'])
 def update_appointment(app_id):
     appointments = appointments_collection
-    appointments.update({'_id': ObjectId(app_id)},
+    print('nishant')
+    appointments.findOneAndUpdate({'_id': app_id},
     {
         'dept_name': request.form.get['dept_name'],
         'service': request.form.get['service'],
