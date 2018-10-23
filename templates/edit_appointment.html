@@ -3,7 +3,7 @@
 
 <h3>Edit Task!</h3>
 <div class="row">
-    <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
+    <form action="{{url_for('update_appointment', app_id=appointment._id)}}" method="POST" class="col s12">
 
       <!-- Confirm the name of the department from the name of available departments -->
 

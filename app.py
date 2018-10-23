@@ -1,8 +1,11 @@
 # Load/import pre-requisites. Constucted using Python 3.7.0
 import os
+import datetime
+from datetime import datetime
 from flask import Flask, render_template, redirect, request, url_for, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import datetime
 
 from classes import Search
 
@@ -107,16 +110,16 @@ def service_update():
 def update_appointment(app_id):
     appointments = appointments_collection
     print('nishant')
-    appointments.findOneAndUpdate({'_id': app_id},
+    appointments.update({'_id': ObjectId(app_id)},
     {
-        'dept_name': request.form.get['dept_name'],
-        'service': request.form.get['service'],
-        'task_description': request.form.get['task_description'],
-        'task_name': request.form.get['task_name'],
-        'date_time': request.form.get.datetime.datetime('datetimepicker1'),
-        'emp_name': request.form.get['emp_name'],
-        'is_urgent': request.form.get['is_urgent'],
-        'is_archived': request.form.get['is_archived']
+        'dept_name': request.form.get('dept_name'),
+        'service': request.form.get('service'),
+        'task_description': request.form.get('task_description'),
+        'task_name': request.form.get('task_name'),
+        'date_time': request.form.get('datetimepicker1'),
+        'emp_name': request.form.get('emp_name'),
+        'is_urgent': request.form.get('is_urgent'),
+        'is_archived': request.form.get('is_archived')
     })
     return redirect(url_for('get_appointment'))
 
