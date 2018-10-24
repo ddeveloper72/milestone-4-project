@@ -141,6 +141,9 @@ def get_departments():
 
 
 
+# Basebuild function
+# Lets us edit the name of a specific department
+@app.route('/get_departments')
 @app.route('/edit_department/<dept_id>')
 def edit_department(dept_id):
     return render_template('edit_department.html', 
@@ -148,11 +151,12 @@ def edit_department(dept_id):
                                 {'_id': ObjectId(dept_id)}))
 
 
+# Basebuild function
+# The name of a specific department is written back to the document
 @app.route('/update_department/<dept_id>', methods=['POST'])
-def update_category(dept_id):
-    departments_collection.update(
-        {'_id': ObjectId(dept_id)},
-        {'dept_name': request.form.get('dept_name')}) 
+def update_department(dept_id):
+    departments_collection.update({'_id': ObjectId(dept_id)},
+        {'$set': {'dept_name': request.form.get('dept_name')}}) 
         # NOT ['category_name'] is not subscriptable
     return redirect(url_for('get_departments'))
 

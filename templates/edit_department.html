@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
         
-    <div class="row">
-        <h3>Edit Department</h3>
+<h3>Change the Department Name!</h3>
+
         <div class="row">
             <form action ="{{url_for('update_department', dept_id=department._id)}}" method="POST" class= "col s12">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="far fa-address-book prefix"></i> 
                         <input id="dept_name" name="dept_name" type="text" class="validate" value="{{department.dept_name}}"/>
-                        <label for="dept_name">Department Name</label>
+                        <label for="dept_name">Change Department Name</label>
                     </div>
                 </div>
                 <div class="row">
@@ -19,5 +19,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    
 {% endblock %}
