@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+        
+    <div class="row">
+        <h3>Edit Department</h3>
+        <div class="row">
+            <form action ="{{url_for('update_department', dept_id=department._id)}}" method="POST" class= "col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="far fa-address-book prefix"></i> 
+                        <input id="dept_name" name="dept_name" type="text" class="validate" value="{{department.dept_name}}"/>
+                        <label for="dept_name">Department Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Catagory
+                        <i class="fas fa-folder-plus"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

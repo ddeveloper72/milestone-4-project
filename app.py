@@ -83,6 +83,7 @@ def edit_appointment(app_id):
     return render_template('edit_appointment.html', 
                             appointment=_appointment, departments=all_depts)
 
+
 @app.route('/service_update',  methods=["POST", "GET"])
 def service_update():
     departments = departments_collection.find()
@@ -129,6 +130,35 @@ def delete_appointment(app_id):
     appointments_collection.remove({'_id': ObjectId(app_id)})
     return redirect(url_for('get_appointment'))
 
+
+# Basebuild function
+# Lets us return the names of all the departments
+@app.route('/get_departments')
+def get_departments():
+    departments = Search(departments_collection).find_all()
+    return render_template("get_departments.html",
+                            departments = departments)
+
+
+
+@app.route('/edit_department/<dept_id>')
+def edit_department(dept_id):
+    return render_template('edit_department.html', 
+                            department = departments_collection.find_one(
+                                {'_id': ObjectId(dept_id)}))
+
+
+@app.route('/update_department/<dept_id>', methods=['POST'])
+def update_category(dept_id):
+    departments_collection.update(
+        {'_id': ObjectId(dept_id)},
+        {'dept_name': request.form.get('dept_name')}) 
+        # NOT ['category_name'] is not subscriptable
+    return redirect(url_for('get_departments'))
+
+
+
+
 if __name__ == '__main__':
     
     # assign a port ID works with Vscode
@@ -137,6 +167,9 @@ if __name__ == '__main__':
         port=os.getenv('PORT'),
         # debug set to true to help during development
         debug=True)
+
+
+
 
 """ if __name__ == '__main__':
 
