@@ -25,3 +25,13 @@ $("#departments").change(function() {
     });    
 });
 
+$(function () {
+    $('#datetimepicker2').datetimepicker({ 
+        bootstricons: {
+            time: "far fa-clock",
+            date: "far fa-calendar",
+            up: "fas fa-arrow-up",
+            down: "fas fa-arrow-down"
+        }
+    });
+});

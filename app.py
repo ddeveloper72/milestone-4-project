@@ -110,16 +110,18 @@ def service_update():
 @app.route('/update_appointment/<app_id>', methods=['POST'])
 def update_appointment(app_id):
     appointments = appointments_collection
-    appointments.update({'_id': ObjectId(app_id)},
-    {
+    appointments.update_many({'_id': ObjectId(app_id)},
+    {'$set': {
         'dept_name': request.form.get('dept_name'),
         'service': request.form.get('service'),
         'task_description': request.form.get('task_description'),
         'task_name': request.form.get('task_name'),
-        'date_time': request.form.get('datetimepicker1'),
+        'date_time': request.form.get('date_time'),
         'emp_name': request.form.get('emp_name'),
         'is_urgent': request.form.get('is_urgent'),
         'is_archived': request.form.get('is_archived')
+    }
+        
     })
     return redirect(url_for('get_appointment'))
 
@@ -155,7 +157,7 @@ def edit_department(dept_id):
 # The name of a specific department is written back to the document
 @app.route('/update_department/<dept_id>', methods=['POST'])
 def update_department(dept_id):
-    departments_collection.update({'_id': ObjectId(dept_id)},
+    departments_collection.update_one({'_id': ObjectId(dept_id)},
         {'$set': {'dept_name': request.form.get('dept_name')}}) 
         # NOT ['category_name'] is not subscriptable
     return redirect(url_for('get_departments'))

@@ -75,8 +75,8 @@
                   <div class="form-group">
                       <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                           <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment['date_time'] }}" data-target="#datetimepicker1"/>
-                          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                           </div>
                       </div>
                   </div>
@@ -89,7 +89,7 @@
       <div class="row">
         <div class="switch">
           <label>
-              {% if appointment['is_urgent'] %}
+              {% if appointment.is_urgent %}
             <input id="is_urgent" name="is_urgent" type="checkbox" checked>
             {% else %}
             <input id="is_urgent" name="is_urgent" type="checkbox">
@@ -104,7 +104,7 @@
       <div class="row">
         <div class="switch">
           <label>
-              {% if appointment['is_archived'] %}
+              {% if appointment.is_archived %}
             <input id="is_archived" name="is_archived" type="checkbox" checked>
             {% else %}
             <input id="is_archived" name="is_archived" type="checkbox">
