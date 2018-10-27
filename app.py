@@ -162,7 +162,14 @@ def update_department(dept_id):
         # NOT ['category_name'] is not subscriptable
     return redirect(url_for('get_departments'))
 
-
+# Basebuild function
+# The name of a specific department is written back to the document
+@app.route('/update_service/<dept_id>', methods=['POST'])
+def update_service(dept_id):
+    departments_collection.update_one({'_id': ObjectId(dept_id)},
+        {'$set': {'service': request.form.get('service')}}) 
+        # NOT ['category_name'] is not subscriptable
+    return redirect(url_for('get_departments'))
 
 
 if __name__ == '__main__':
