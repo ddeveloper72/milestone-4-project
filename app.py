@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import Flask, render_template, redirect, request, url_for, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import datetime
+import json
 
 from classes import Search
 
@@ -95,11 +95,11 @@ def service_update():
     
     for dept in departments:
         if dept['dept_name'] == data:
-            service = dept['service']
+            service = dept[{'service': ['name']}]
             print(service) 
     #return data to                 
     if service:
-        return jsonify({"data": service})
+        return jsonify({'data': service})
     print(service) 
 
     return jsonify({"error" : "an error occured"})
@@ -167,9 +167,11 @@ def update_department(dept_id):
 @app.route('/update_service/<dept_id>', methods=['POST'])
 def update_service(dept_id):
     departments_collection.update_one({'_id': ObjectId(dept_id)},
-        {'$set': {'service': request.form.get('service')}}) 
-        # NOT ['category_name'] is not subscriptable
+
+        {'$set': {'service.name': request.form.get('service.name') }}) 
+    print(service.name)   
     return redirect(url_for('get_departments'))
+    
 
 
 if __name__ == '__main__':
