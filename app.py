@@ -168,8 +168,9 @@ def update_department(dept_id):
 def update_service(dept_id):
     departments_collection.update_one({'_id': ObjectId(dept_id)},
 
-        {'$set': {'service.name': request.form.get('service.name') }}) 
-    print(service.name)   
+        {'$set': {'service.$[].name': request.form.get('service')}})
+        
+       
     return redirect(url_for('get_departments'))
     
 
