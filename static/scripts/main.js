@@ -18,7 +18,8 @@ $("#departments").change(function() {
             console.log(data);
             let optionToFill = $("#service");
             optionToFill.find('option').remove().end();
-            data.data.forEach((element) => {
+            data.data.forEach(function (element) {
+                console.log(element);
                 optionToFill.append(`<option value="${element}" class="dept">${element}</option>`);
             });
         }

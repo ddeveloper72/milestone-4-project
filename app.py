@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 appointments_collection = mongo.db.appointment
 facilities_collection = mongo.db.facility
 departments_collection = mongo.db.departments
-
+services_collection = mongo.db.serviceItem
 
 
 
@@ -31,7 +31,7 @@ departments_collection = mongo.db.departments
 @app.route('/get_appointment')
 def get_appointment():
     appointment = Search(appointments_collection).find_all()
-    return render_template("appointment.html",
+    return render_template("appointment.html", page_title="Appointments",
                             appointment = appointment)
 
 # Basebuild function
@@ -42,7 +42,7 @@ def add_appointment():
     facility = Search(facilities_collection).find_all()
     departments = Search(departments_collection).find_all()
     
-    return render_template("add_appointment.html", facility = facility, departments = departments)
+    return render_template("add_appointment.html", page_title="Add an Appointment", facility = facility, departments = departments)
 
 @app.route('/service',  methods=["POST", "GET"])
 def service():
@@ -56,14 +56,15 @@ def service():
     for dept in departments:
         if dept['dept_name'] == data:
             service = dept['service']
-            print(service) 
+                       
+    print(service) 
+
     #return data to                 
     if service:
-        return jsonify({"data": service})
+        return jsonify({'data': service})
     print(service) 
 
     return jsonify({"error" : "an error occured"})
-
     
 
 # Basebuild function
@@ -86,14 +87,14 @@ def edit_appointment(app_id):
 
 @app.route('/service_update',  methods=["POST", "GET"])
 def service_update():
-    departments = departments_collection.find()
-    print(departments)
+    services = services_collection.find()
+    print(services)
 
     # data comes from cur_value in $("#department").change(function()
     data = request.form['dept_name']
     print(data)
     
-    for dept in departments:
+    for dept in services:
         if dept['dept_name'] == data:
             service = dept[{'service': ['name']}]
             print(service) 
@@ -138,7 +139,7 @@ def delete_appointment(app_id):
 @app.route('/get_departments')
 def get_departments():
     departments = Search(departments_collection).find_all()
-    return render_template("get_departments.html",
+    return render_template("get_departments.html", page_title="All Departments",
                             departments = departments)
 
 
@@ -146,12 +147,11 @@ def get_departments():
 # Basebuild function
 # Lets us edit the name of a specific department
 @app.route('/get_departments')
-@app.route('/edit_department/<dept_id>')
-def edit_department(dept_id):
-    return render_template('edit_department.html', 
+@app.route('/department/<dept_id>')
+def department(dept_id):
+    return render_template('department.html',  page_title="Department",
                             department = departments_collection.find_one(
                                 {'_id': ObjectId(dept_id)}))
-
 
 # Basebuild function
 # The name of a specific department is written back to the document
@@ -159,14 +159,14 @@ def edit_department(dept_id):
 def update_department(dept_id):
     departments_collection.update_one({'_id': ObjectId(dept_id)},
         {'$set': {'dept_name': request.form.get('dept_name')}}) 
-        # NOT ['category_name'] is not subscriptable
+        
     return redirect(url_for('get_departments'))
 
 # Basebuild function
 # The name of a specific department is written back to the document
-@app.route('/update_service/<dept_id>', methods=['POST'])
-def update_service(dept_id):
-    departments_collection.update_one({'_id': ObjectId(dept_id)},
+@app.route('/update_service/<serv_id>', methods=['POST'])
+def update_service(serv_id):
+    services_collection.update_one({'_id': ObjectId(serv_id)},
 
         {'$set': {'service.$[].name': request.form.get('service')}})
         

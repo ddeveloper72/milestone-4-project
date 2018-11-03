@@ -41,7 +41,7 @@
       <div class="row">
           <div class="input-field col s12">
               <i class="far fa-clipboard prefix"></i>
-            <input id="task_name" name="task_name" type="text" class="validate form-control-sm" value="{{ appointment['task_name'] }}">
+            <input id="task_name" name="task_name" type="text" class="validate form-control-sm" value="{{ appointment.task_name }}">
             <label for="icon_prefix">Appointment Name</label>
           </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="row">
           <div class="input-field col s12">
               <i class="far fa-sticky-note prefix"></i>
-            <textarea name="task_description" id="task_description" class ="form-control-sm"/>{{ appointment['task_description'] }}</textarea>
+            <textarea name="task_description" id="task_description" class ="form-control-sm"/>{{ appointment.task_description }}</textarea>
             <label for="icon_telephone">Appointment Description</label>
           </div>
       </div>
@@ -62,7 +62,7 @@
       <div class="row">
           <div class="input-field col s12">
             <i class="far fa-user prefix"></i>
-              <textarea name ="emp_name" id="emp_name" class ="form-control-sm"/>{{ appointment['emp_name'] }}</textarea>
+              <textarea name ="emp_name" id="emp_name" class ="form-control-sm"/>{{ appointment.emp_name }}</textarea>
             <label for ="icon_prefix">Created By</label>
           </div>
         </div>
@@ -74,7 +74,7 @@
               <div class="col-sm-6">
                   <div class="form-group">
                       <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment['date_time'] }}" data-target="#datetimepicker1"/>
+                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment.date_time }}" data-target="#datetimepicker1"/>
                                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                           </div>

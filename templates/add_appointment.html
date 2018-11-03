@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+<h2>{{ page_title }} <span class="fa-stack">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>    
+</span></h2>
 
-<h3>Add an Appointment</h3>
+
 <div class="row">
     <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
 
@@ -13,7 +17,7 @@
           <select id="facility" name="site_name">
             <option value="" disabled selected>Select Your Facility</option>
             {% for booking in facility %} 
-            <option value="{{ booking['site_name'] }}">{{ booking['site_name'] }}</option>
+            <option value="{{ booking.site_name }}">{{ booking.site_name }}</option>
             {% endfor %}
           </select>
           <label>Facility</label>
@@ -28,7 +32,7 @@
             <select id="departments" name="dept_name">
                 <option value="" class="dept" disabled selected>Choose a department</option>
                 {% for dept in departments %}
-                <option id="{{ dept['dept_name'] }}" value="{{ dept['dept_name'] }}">{{ dept['dept_name'] }}</option>
+                <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
                 {% endfor %}
             </select>
             <label>Department</label>
@@ -39,10 +43,10 @@
 
       <div class="row">
           <div class="input-field col s12">
-              <i class="fas fa-cogs prefix"></i>              
+              <i class="fas fa-cogs prefix"></i>       
               <select id="service" name="service">
                   <option id="service" value="" disabled selected>Select a department from list above</option>
-              </select>
+              </select>              
               <label>Service</label>
           </div>
       </div>
