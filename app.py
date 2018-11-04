@@ -87,7 +87,7 @@ def edit_appointment(app_id):
 
 @app.route('/service_update',  methods=["POST", "GET"])
 def service_update():
-    services = services_collection.find()
+    services = departments_collection.find()
     print(services)
 
     # data comes from cur_value in $("#department").change(function()
@@ -96,7 +96,7 @@ def service_update():
     
     for dept in services:
         if dept['dept_name'] == data:
-            service = dept[{'service': ['name']}]
+            service = dept['service']
             print(service) 
     #return data to                 
     if service:
