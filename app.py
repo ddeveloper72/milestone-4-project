@@ -146,7 +146,6 @@ def get_departments():
 
 # Basebuild function
 # Lets us edit the name of a specific department
-@app.route('/get_departments')
 @app.route('/department/<dept_id>')
 def department(dept_id):
     return render_template('department.html',  page_title="Department",
@@ -154,13 +153,28 @@ def department(dept_id):
                                 {'_id': ObjectId(dept_id)}))
 
 # Basebuild function
+# Lets us edit the name of a specific department
+@app.route('/edit_department/<dept_id>')
+def edit_department(dept_id):
+    return render_template('edit_department.html',  page_title="Edit Department",
+                            department = departments_collection.find_one(
+                                {'_id': ObjectId(dept_id)}))
+
+# Basebuild function
 # The name of a specific department is written back to the document
 @app.route('/update_department/<dept_id>', methods=['POST'])
 def update_department(dept_id):
-    departments_collection.update_one({'_id': ObjectId(dept_id)},
-        {'$set': {'dept_name': request.form.get('dept_name')}}) 
+    departments_collection.update_many({'_id': ObjectId(dept_id)},
+        {'$set': {
+            'dept_name': request.form.get('dept_name'),
+            'main_contact.$[].phone': request.form.get('phone1'),
+            'main_contact.$[].email': request.form.get('email'),
+            'site.$[].phone': request.form.get('phone2')
+        }
+        }) 
         
     return redirect(url_for('get_departments'))
+
 
 # Basebuild function
 # The name of a specific department is written back to the document

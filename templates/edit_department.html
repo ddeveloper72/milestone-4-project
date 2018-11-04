@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+<h2>{{ page_title }} <span class="fa-stack">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>
+    </span></h2>   
         
 <h3>Change the Department Name!</h3>
 
@@ -12,44 +16,51 @@
                         <label for="dept_name">Change Department Name</label>
                     </div>
                 </div>
+                
                 <div class="row">
-                    <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Catagory
+                        <div class="col-md-4">
+                            
+                            <b>Main Contact:</b> <br />
+                            Phone: <input id="phone" name="phone1" type="tel"  class="validate" value="{{department.main_contact[0:][0].phone}}" required/><br />
+                            E-mail: <input id="email" name="email" type="email"  class="validate" value="{{department.main_contact[0:][0].email}}" required/><br />
+                            <b>Where to find us:</b> <br />
+                            Location: {{department.site[0:][0].location}}<br />
+                            Phone: <input name="phone2" type="tel"  class="validate" value="{{department.site[0:][0].phone}}" required/><br />
+                            <!-- Phone: {{department.site[0:][0].phone}}<br /> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                    <button class="btn btn-primary btn-sm" type="submit" name="action">Update Department
                         <i class="fas fa-folder-plus"></i>
                     </button>
                 </div>
             </form>
         </div>
        
-    <h3>Change the Services!</h3>
-        
+    <!-- <h3>Change the Services!</h3>       
         
         <div class="row">
             <form  action ="{{url_for('update_service', serv_id=department._id)}}" method="POST" class= "col s12">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="far fa-address-book prefix"></i>                     
-                        <ol id="service" class="form-group list-group">
-                            
-                            {% for item in department.service[0:] %}
-                                
+                        <ol id="service" class="form-group list-group">                            
+                            {% for item in department.service[0:] %}                                
                                 <li>{{"%s\n"|format(item)}}
+ -->
+
+
                                     <!-- <div class="add-remove-element">
                                         <button onclick="add_service(this)" class="add-element btn btn-info btn-sm" type="button"><i class="fas fa-folder-plus"></i></button>
                                         <button onclick="remove_service(this)" class="add-element btn btn-warning btn-sm" type="button"><i class="fas fa-folder-minus"></i></button>
                                     </div> -->
-                                
+                                <!-- 
                                     <input name="service-{{loop.index}}" value="{{item[0:]}}" id="service" type="text" class="col-8 form-control" placeholder="Your New Service Here" minlength="3" maxlength="30"/>
-                                
                                 </li>
-                             
-                                
-                                {% endfor %}
-
-                        </input>
+                              {% endfor %}
+                            </input>
                         </ol>
-                    
-                        
-                        <label for="service">Change Service Name</label>
+                       <label for="service">Change Service Name</label>
                     </div>
                 </div>
                 <div class="row">
@@ -58,6 +69,6 @@
                     </button>
                 </div>
             </form>
-        </div>
+        </div> -->
     
 {% endblock %}
