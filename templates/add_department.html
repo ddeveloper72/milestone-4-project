@@ -14,7 +14,7 @@
                             {% for item in template[0:][0].sites %}
                             
                             <div class="form-check">
-                                {% if item|lower in template[0:][0].sits %}
+                                {% if item|lower in template[0:][0].sites %}
                                 <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
                                 {% else %}
                                 <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}">
