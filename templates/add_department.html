@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ page_title }} <span class="fa-stack">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>    
+</span></h2>
+<div class="card">
+    <form action="{#{url_for('insert_department')}#}" method="POST" class="col s12">
+            <div class="card-header" id="headingOne">       
+                <div class="img">
+                    <img class="card-img-top" src="{#{ department.img_url }#}" alt="{#{ department.dept_name }#}">
+                </div>
+                <div id="department" class="col-12">
+                            {% for item in template[0:][0].sites %}
+                            
+                            <div class="form-check">
+                                {% if item|lower in template[0:][0].sits %}
+                                <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
+                                {% else %}
+                                <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}">
+                                {% endif %}
+                                <label class="form-check-label" for="department-{{ loop.index }}">
+                                    {{item}}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>    
+                 <h5>{#{ department.dept_info }#}</h5>    
+            
+    </form>
+</div>
+{% endblock %}

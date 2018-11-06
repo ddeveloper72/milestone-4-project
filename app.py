@@ -22,6 +22,7 @@ appointments_collection = mongo.db.appointment
 facilities_collection = mongo.db.facility
 departments_collection = mongo.db.departments
 services_collection = mongo.db.serviceItem
+template_collection = mongo.db.templates
 
 
 
@@ -175,6 +176,13 @@ def update_department(dept_id):
         
     return redirect(url_for('get_departments'))
 
+# Basebuild function
+# The name of a specific department is written back to the document
+@app.route('/add_department')
+def add_department():
+    template = template_collection.find()
+    return render_template("add_department.html", page_title="Add a Department", 
+                        template = template)
 
 # Basebuild function
 # The name of a specific department is written back to the document

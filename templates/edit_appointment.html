@@ -14,9 +14,9 @@
               <option value="" class="dept" disabled selected>Choose a department</option>
                 {% for dept in departments %} 
                   {% if dept.dept_name == appointment.dept_name %}
-                    <option value="{{ dept['dept_name'] }}" selected >{{ dept['dept_name'] }}</option>
+                    <option value="{{ dept.dept_name }}" selected >{{ dept.dept_name }}</option>
                   {% else %}
-                    <option value="{{ dept['dept_name'] }}">{{ dept['dept_name'] }}</option>
+                    <option value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
                   {% endif %}
                 {% endfor %}
               </select>
