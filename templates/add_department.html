@@ -10,23 +10,63 @@
                 <div class="img">
                     <img class="card-img-top" src="{#{ department.img_url }#}" alt="{#{ department.dept_name }#}">
                 </div>
-                <div id="department" class="col-12">
-                            {% for item in template[0:][0].sites %}
-                            
-                            <div class="form-check">
-                                {% if item|lower in template[0:][0].sites %}
-                                <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
-                                {% else %}
-                                <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}">
-                                {% endif %}
-                                <label class="form-check-label" for="department-{{ loop.index }}">
-                                    {{item}}
-                                </label>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>    
-                 <h5>{#{ department.dept_info }#}</h5>    
+                <div id="site" class="card col-12">
+                        <i class="far fa-building prefix"></i>
+                    {% for item in template[0:][0].sites %}
+                    
+                    <div class="form-check">
+                        {% if item|lower in template[0:][0].sites %}
+                        <input class="form-check-input" name="site-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
+                        {% else %}
+                        <input class="form-check-input" name="site-{{ loop.index }}" type="checkbox" value="{{item}}">
+                        {% endif %}
+                        <label class="form-check-label" for="site-{{ loop.index }}">
+                            {{item}}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id="department" class="card col-12">
+                        <i class="far fa-address-book prefix"></i> 
+                    {% for item in template[0:][0].departments %}
+                    
+                    <div class="form-check">
+                        {% if item|lower in template[0:][0].department %}
+                        <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
+                        {% else %}
+                        <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}">
+                        {% endif %}
+                        <label class="form-check-label" for="department-{{ loop.index }}">
+                            {{item}}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id="service" class="card col-12">
+                        <i class="fas fa-cogs prefix"></i> 
+                    {% for value in services.service %}
+                                                 
+                    
+                    <div class="form-check">
+                        {% if value|lower in services.service  %}
+                        <input class="form-check-input" name="service-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
+                        {% else %}
+                        <input class="form-check-input" name="service-{{ loop.index }}" type="checkbox" value="{{item}}">
+                        {% endif %}
+                        <label class="form-check-label" for="service-{{ loop.index }}">
+                            {{value}}
+                        </label>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+
+
+
+            </div>    
+         <h5>{#{ department.dept_info }#}</h5>    
             
     </form>
 </div>

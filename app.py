@@ -181,8 +181,13 @@ def update_department(dept_id):
 @app.route('/add_department')
 def add_department():
     template = template_collection.find()
+    services = services_collection.find()
+
+    for serv in services:
+        print(serv)
+
     return render_template("add_department.html", page_title="Add a Department", 
-                        template = template)
+                        template = template, services = serv)
 
 # Basebuild function
 # The name of a specific department is written back to the document
