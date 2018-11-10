@@ -1,73 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>{{ page_title }} <span class="fa-stack">
-    <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>    
-</span></h2>
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>
+    </span></h2>
 <div class="card">
     <form action="{#{url_for('insert_department')}#}" method="POST" class="col s12">
-            <div class="card-header" id="headingOne">       
-                <div class="img">
-                    <img class="card-img-top" src="{#{ department.img_url }#}" alt="{#{ department.dept_name }#}">
-                </div>
-                <div id="site" class="card col-12">
+        <div class="card-header col s12" id="headingOne">
+            <div class="img">
+                <img class="card-img-top" src="{{ data.img_url }}" alt="{{ data.dept_name }}">
+            </div>
+
+
+            <!-- Select the name of the facility from the list of available facility names -->
+
+            <div id="add_dept" class="card col s12">
+                <div class="row">
+                    <div class="input-field col s12">
                         <i class="far fa-building prefix"></i>
-                    {% for item in template[0:][0].sites %}
-                    
-                    <div class="form-check">
-                        {% if item|lower in template[0:][0].sites %}
-                        <input class="form-check-input" name="site-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
-                        {% else %}
-                        <input class="form-check-input" name="site-{{ loop.index }}" type="checkbox" value="{{item}}">
-                        {% endif %}
-                        <label class="form-check-label" for="site-{{ loop.index }}">
-                            {{item}}
-                        </label>
+                        <select id="facility" name="site_name">
+                            <option value="" disabled selected>Select Your Facility</option>
+                            {% for site_name in facility %}
+                            <option value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Facility</label>
                     </div>
-                    {% endfor %}
                 </div>
+            </div>
 
-                <div id="department" class="card col-12">
-                        <i class="far fa-address-book prefix"></i> 
-                    {% for item in template[0:][0].departments %}
-                    
-                    <div class="form-check">
-                        {% if item|lower in template[0:][0].department %}
-                        <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
-                        {% else %}
-                        <input class="form-check-input" name="department-{{ loop.index }}" type="checkbox" value="{{item}}">
-                        {% endif %}
-                        <label class="form-check-label" for="department-{{ loop.index }}">
-                            {{item}}
-                        </label>
+
+
+            <!-- Select the name of the department we want from the list of available department names -->
+
+            <div id="add_dept" class="card col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="far fa-address-book prefix"></i>
+                        <select id="add_department" name="dept_name">
+                            <option value="" class="dept" disabled selected>Choose a department</option>
+                            {% for dept in data %}
+                            <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Department</label>
                     </div>
-                    {% endfor %}
                 </div>
+            </div>
 
-                <div id="service" class="card col-12">
-                        <i class="fas fa-cogs prefix"></i> 
-                    {% for value in services.service %}
-                                                 
-                    
-                    <div class="form-check">
-                        {% if value|lower in services.service  %}
-                        <input class="form-check-input" name="service-{{ loop.index }}" type="checkbox" value="{{item}}" checked>
-                        {% else %}
-                        <input class="form-check-input" name="service-{{ loop.index }}" type="checkbox" value="{{item}}">
-                        {% endif %}
-                        <label class="form-check-label" for="service-{{ loop.index }}">
-                            {{value}}
-                        </label>
+            <!-- Check boxes to let us select the name of the services we want available in our department -->
+
+            <div id="service" class="card col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-cogs prefix"></i>
+                        <div class="form-check">
+                            <ul id="list_service" name="service" style="list-style-type:none"></ul>
+                            <label>Select the Service's for your department</label>
+                        </div>
                     </div>
-                    
-                    {% endfor %}
                 </div>
-
-
-
-            </div>    
-         <h5>{#{ department.dept_info }#}</h5>    
-            
+            </div>
+        </div>
+        <h5>{#{ department.dept_info }#}</h5>
     </form>
 </div>
 {% endblock %}

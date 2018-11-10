@@ -22,7 +22,8 @@ appointments_collection = mongo.db.appointment
 facilities_collection = mongo.db.facility
 departments_collection = mongo.db.departments
 services_collection = mongo.db.serviceItem
-template_collection = mongo.db.templates
+dept_template_collection = mongo.db.dept_templates
+site_template_collection = mongo.db.site_templates
 
 
 
@@ -177,17 +178,41 @@ def update_department(dept_id):
     return redirect(url_for('get_departments'))
 
 # Basebuild function
-# The name of a specific department is written back to the document
-@app.route('/add_department')
+# The sites and departments are rendered to html
+@app.route('/add_department',  methods=["POST", "GET"])
 def add_department():
-    template = template_collection.find()
-    services = services_collection.find()
-
-    for serv in services:
-        print(serv)
-
+       
+    items = dept_template_collection.find()    
+    facility = site_template_collection.find()    
+        
     return render_template("add_department.html", page_title="Add a Department", 
-                        template = template, services = serv)
+                        data = items, facility = facility)
+
+# Basebuild function
+# The services are matched to the department selected
+@app.route('/dept_update',  methods=["POST", "GET"])
+def dept_update():
+    services = dept_template_collection.find() 
+    print(services)
+
+    # data comes from cur_value in $("#department").change(function()
+    data = request.form['dept_name']
+    print(data)
+    
+    for dept in services:
+        if dept['dept_name'] == data:
+            service = dept['service']
+            print(service) 
+    #return data to                 
+    if service:
+        return jsonify({'data': service})
+    print(service) 
+
+    return jsonify({"error" : "an error occured"})
+
+
+
+
 
 # Basebuild function
 # The name of a specific department is written back to the document
