@@ -46,7 +46,7 @@ $("#add_department").change(function() {
             input.find('li').remove().end();
             data.data.forEach(function (element) {
                 console.log(element);
-                input.append(`<li><input class="form-check-input" id="service" type="checkbox" value="${element}" unchecked>${element}</input></li>`)
+                input.append(`<li><input class="form-check-input" id="service" name="service" type="checkbox" value="${element}" unchecked>${element}</input></li>`)
                 
                 
             });

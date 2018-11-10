@@ -5,7 +5,7 @@
         <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>
     </span></h2>
 <div class="card">
-    <form action="{#{url_for('insert_department')}#}" method="POST" class="col s12">
+    <form action="{{url_for('insert_department')}}" method="POST" class="col s12">
         <div class="card-header col s12" id="headingOne">
             <div class="img">
                 <img class="card-img-top" src="{{ data.img_url }}" alt="{{ data.dept_name }}">
@@ -21,7 +21,7 @@
                         <select id="facility" name="site_name">
                             <option value="" disabled selected>Select Your Facility</option>
                             {% for site_name in facility %}
-                            <option value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
+                            <option name="location" value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
                             {% endfor %}
                         </select>
                         <label>Facility</label>
@@ -40,7 +40,7 @@
                         <select id="add_department" name="dept_name">
                             <option value="" class="dept" disabled selected>Choose a department</option>
                             {% for dept in data %}
-                            <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
+                            <option name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
                             {% endfor %}
                         </select>
                         <label>Department</label>
@@ -51,18 +51,26 @@
             <!-- Check boxes to let us select the name of the services we want available in our department -->
 
             <div id="service" class="card col s12">
+                
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-cogs prefix"></i>
+                        
                         <div class="form-check">
                             <ul id="list_service" name="service" style="list-style-type:none"></ul>
                             <label>Select the Service's for your department</label>
                         </div>
+                    
                     </div>
                 </div>
             </div>
         </div>
         <h5>{#{ department.dept_info }#}</h5>
+        <div class="row">
+            <button class="btn btn-primary btn-sm" type="submit" name="action">Add Department
+                <i class="fas fa-folder-plus"></i>
+            </button>
+          </div>
     </form>
 </div>
 {% endblock %}

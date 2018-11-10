@@ -12,8 +12,8 @@ from classes import Search
 app = Flask(__name__)
 
 # Connect to external MongoDB database through URI variable hosted on app server. 
-app.config["MONGO_DBNAME"] = 'mediacal_tm'
-app.config["MONGO_URI"] = os.getenv('MONGO_URI')
+app.config['MONGO_DBNAME'] = 'mediacal_tm'
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
@@ -33,25 +33,25 @@ site_template_collection = mongo.db.site_templates
 @app.route('/get_appointment')
 def get_appointment():
     appointment = Search(appointments_collection).find_all()
-    return render_template("appointment.html", page_title="Appointments",
+    return render_template('appointment.html', page_title='Appointments',
                             appointment = appointment)
 
 # Basebuild function
 
-@app.route('/add_appointment', methods=["POST", "GET"])
+@app.route('/add_appointment', methods=['POST', 'GET'])
 def add_appointment():
     
     facility = Search(facilities_collection).find_all()
     departments = Search(departments_collection).find_all()
     
-    return render_template("add_appointment.html", page_title="Add an Appointment", facility = facility, departments = departments)
+    return render_template('add_appointment.html', page_title='Add an Appointment', facility = facility, departments = departments)
 
-@app.route('/service',  methods=["POST", "GET"])
+@app.route('/service',  methods=['POST', 'GET'])
 def service():
     departments = departments_collection.find()
     print(departments)
 
-    # data comes from cur_value in $("#department").change(function()
+    # data comes from cur_value in $('#department').change(function()
     data = request.form['dept_name']
     print(data)
     
@@ -66,12 +66,12 @@ def service():
         return jsonify({'data': service})
     print(service) 
 
-    return jsonify({"error" : "an error occured"})
+    return jsonify({'error' : 'an error occured'})
     
 
 # Basebuild function
 # Adds a new appointment
-@app.route('/insert_appointment',  methods=["POST", "GET"])
+@app.route('/insert_appointment',  methods=['POST', 'GET'])
 def insert_appointment():
     appointment = appointments_collection
     appointment.insert_one(request.form.to_dict())
@@ -87,12 +87,12 @@ def edit_appointment(app_id):
                             appointment=_appointment, departments=all_depts)
 
 
-@app.route('/service_update',  methods=["POST", "GET"])
+@app.route('/service_update',  methods=['POST', 'GET'])
 def service_update():
     services = departments_collection.find()
     print(services)
 
-    # data comes from cur_value in $("#department").change(function()
+    # data comes from cur_value in $('#department').change(function()
     data = request.form['dept_name']
     print(data)
     
@@ -105,7 +105,7 @@ def service_update():
         return jsonify({'data': service})
     print(service) 
 
-    return jsonify({"error" : "an error occured"})
+    return jsonify({'error' : 'an error occured'})
 
 
 # Basebuild function
@@ -141,7 +141,7 @@ def delete_appointment(app_id):
 @app.route('/get_departments')
 def get_departments():
     departments = Search(departments_collection).find_all()
-    return render_template("get_departments.html", page_title="All Departments",
+    return render_template('get_departments.html', page_title='All Departments',
                             departments = departments)
 
 
@@ -150,7 +150,7 @@ def get_departments():
 # Lets us edit the name of a specific department
 @app.route('/department/<dept_id>')
 def department(dept_id):
-    return render_template('department.html',  page_title="Department",
+    return render_template('department.html',  page_title='Department',
                             department = departments_collection.find_one(
                                 {'_id': ObjectId(dept_id)}))
 
@@ -158,7 +158,7 @@ def department(dept_id):
 # Lets us edit the name of a specific department
 @app.route('/edit_department/<dept_id>')
 def edit_department(dept_id):
-    return render_template('edit_department.html',  page_title="Edit Department",
+    return render_template('edit_department.html',  page_title='Edit Department',
                             department = departments_collection.find_one(
                                 {'_id': ObjectId(dept_id)}))
 
@@ -179,23 +179,23 @@ def update_department(dept_id):
 
 # Basebuild function
 # The sites and departments are rendered to html
-@app.route('/add_department',  methods=["POST", "GET"])
+@app.route('/add_department',  methods=['POST', 'GET'])
 def add_department():
        
     items = dept_template_collection.find()    
     facility = site_template_collection.find()    
         
-    return render_template("add_department.html", page_title="Add a Department", 
+    return render_template('add_department.html', page_title='Add a Department', 
                         data = items, facility = facility)
 
 # Basebuild function
 # The services are matched to the department selected
-@app.route('/dept_update',  methods=["POST", "GET"])
+@app.route('/dept_update',  methods=['POST', 'GET'])
 def dept_update():
     services = dept_template_collection.find() 
     print(services)
 
-    # data comes from cur_value in $("#department").change(function()
+    # data comes from cur_value in $('#department').change(function()
     data = request.form['dept_name']
     print(data)
     
@@ -208,8 +208,43 @@ def dept_update():
         return jsonify({'data': service})
     print(service) 
 
-    return jsonify({"error" : "an error occured"})
+    return jsonify({'error' : 'an error occured'})
 
+# Basebuild function
+# Insert new department into collection
+@app.route('/insert_department', methods=['POST'])
+def insert_department():
+       
+    department = departments_collection
+    #try:
+    department_doc = {
+            'dept_name': request.form.get('dept_name'),
+            'dept_info': 'Infomation about this department',
+            'mg_url': '',
+            'main_contact': [
+            {
+              'phone': '',
+              'email': ''
+            },
+            {
+              'email': '',
+              'phone': ''
+            }
+            ],
+            'site': {
+                'location': request.form.get('site_name'),
+                'phone': ''
+            },
+            'service':  [
+                 request.form.get('service')
+            ]
+            }
+    
+    department.insert_one(department_doc)
+    #except:
+        #print('Error adding department to collection')
+       
+    return redirect(url_for('get_departments'))
 
 
 
@@ -239,11 +274,11 @@ if __name__ == '__main__':
 
 
 
-""" if __name__ == '__main__':
+''' if __name__ == '__main__':
 
     # Cloud 9 Environmental variables
 
     app.run(host=os.environ.get('IP'),
     port=int(os.environ.get('PORT')),
     # debug set to true to help during development
-    debug=True) """
+    debug=True) '''
