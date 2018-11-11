@@ -19,7 +19,7 @@
                     <a href="{{url_for('department', dept_id = dept._id)}}" class="btn btn-primary btn-sm">Edit</a>
                          
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <strong>{{dept.dept_name}}</strong>
+                        <strong>{{ dept.dept_name }} - {{ dept.site[0].location }}</strong>
                         </button>
                     </h5>
                 </div> 

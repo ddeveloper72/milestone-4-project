@@ -5,10 +5,11 @@
         <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>
     </span></h2>
 <div class="card">
+        <div class="box">
     <form action="{{url_for('insert_department')}}" method="POST" class="col s12">
         <div class="card-header col s12" id="headingOne">
-            <div class="img">
-                <img class="card-img-top" src="{{ data.img_url }}" alt="{{ data.dept_name }}">
+            <div class="img" id="dept_img">
+                    <img class="card-img-top" src="http://clipart.coolclips.com/480/vectors/tf05309/CoolClips_vc062037.png" id="dept_img">
             </div>
 
 
@@ -57,8 +58,8 @@
                         <i class="fas fa-cogs prefix"></i>
                         
                         <div class="form-check">
-                            <ul id="list_service" name="service" style="list-style-type:none"></ul>
-                            <label>Select the Service's for your department</label>
+                            <ul id="list_service" name="service" style="list-style-type:none">
+                            <label>Select the Service's for your department</label></ul>
                         </div>
                     
                     </div>
@@ -72,5 +73,6 @@
             </button>
           </div>
     </form>
+    </div>
 </div>
 {% endblock %}

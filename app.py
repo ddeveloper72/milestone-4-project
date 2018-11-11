@@ -211,6 +211,30 @@ def dept_update():
     return jsonify({'error' : 'an error occured'})
 
 # Basebuild function
+# The services are matched to the department selected
+@app.route('/deptimg_update',  methods=['POST', 'GET'])
+def dept_imgupdate():
+    image = dept_template_collection.find() 
+    
+
+    # data comes from cur_value in $('#department').change(function()
+    data = request.form['dept_name']
+    print(data)
+    
+    for dept in image:
+        if dept['dept_name'] == data:
+            image = dept['img_url']
+            print(image) 
+    #return data to                 
+    if service:
+        return jsonify({'data': image})
+    print(image) 
+
+    return jsonify({'error' : 'an error occured'})
+
+
+
+# Basebuild function
 # Insert new department into collection
 @app.route('/insert_department', methods=['POST'])
 def insert_department():
@@ -220,7 +244,7 @@ def insert_department():
     department_doc = {
             'dept_name': request.form.get('dept_name'),
             'dept_info': 'Infomation about this department',
-            'mg_url': '',
+            'img_url': '',
             'main_contact': [
             {
               'phone': '',
@@ -231,10 +255,10 @@ def insert_department():
               'phone': ''
             }
             ],
-            'site': {
+            'site': [{
                 'location': request.form.get('site_name'),
                 'phone': ''
-            },
+            }],
             'service':  [
                  request.form.get('service')
             ]
