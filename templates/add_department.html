@@ -8,11 +8,14 @@
         <div class="box">
     <form action="{{url_for('insert_department')}}" method="POST" class="col s12">
         <div class="card-header col s12" id="headingOne">
-            <div class="img" id="dept_img">
-                     
+
+            <!-- Select the image url that relates to the department name -->
+
+            
+                <div class="img" id="dept_img" name="dept_img"> 
                     <img class="card-img-top" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}" id="dept_img">
-                    
                 </div>
+            
 
 
             <!-- Select the name of the facility from the list of available facility names -->

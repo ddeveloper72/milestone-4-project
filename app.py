@@ -184,11 +184,10 @@ def update_department(dept_id):
 def add_department():
        
     items = dept_template_collection.find()    
-    facility = site_template_collection.find()
-    imgholder = image_template_collection.find()    
+    facility = site_template_collection.find()        
         
     return render_template('add_department.html', page_title='Add a Department', 
-                       imgholder = imgholder, data = items, facility = facility)
+                       data = items, facility = facility)
 
 # Basebuild function
 # The services are matched to the department selected
@@ -246,7 +245,7 @@ def insert_department():
     department_doc = {
             'dept_name': request.form.get('dept_name'),
             'dept_info': 'Infomation about this department',
-            'img_url': '',
+            'img_url': request.form.get('dept_img'),
             'main_contact': [
             {
               'phone': '',

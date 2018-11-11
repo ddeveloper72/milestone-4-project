@@ -45,7 +45,7 @@ $("#add_department").change(function() {
             let optionToFill  = $("#dept_img");
             optionToFill.find('img').remove().end();
             data.data.forEach(function (element) {
-            optionToFill.append(`<img class="card-img-top" src="${element}" alt="{{ data.dept_name }}">`)               
+            optionToFill.append(`<img class="card-img-top" value="dept_name" src="${element}" alt="Department Image">`)               
                 
         });
     }
