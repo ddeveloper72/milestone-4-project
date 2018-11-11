@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ page_title }} <span class="fa-stack">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>
+    </span></h2>
+<div class="card">
+        <div class="box">
+    <form action="{{url_for('insert_department')}}" method="POST" class="col s12">
+        <div class="card-header col s12" id="headingOne">
+            <div class="img" id="dept_img">
+                    <img class="card-img-top" src="http://clipart.coolclips.com/480/vectors/tf05309/CoolClips_vc062037.png" id="dept_img">
+            </div>
+
+
+            <!-- Select the name of the facility from the list of available facility names -->
+
+            <div id="add_dept" class="card col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="far fa-building prefix"></i>
+                        <select id="facility" name="site_name">
+                            <option value="" disabled selected>Select Your Facility</option>
+                            {% for site_name in facility %}
+                            <option name="location" value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Facility</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Select the name of the department we want from the list of available department names -->
+
+            <div id="add_dept" class="card col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="far fa-address-book prefix"></i>
+                        <select id="add_department" name="dept_name">
+                            <option value="" class="dept" disabled selected>Choose a department</option>
+                            {% for dept in data %}
+                            <option name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Department</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Check boxes to let us select the name of the services we want available in our department -->
+
+            <div id="service" class="card col s12">
+                
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-cogs prefix"></i>
+                        
+                        <div class="form-check">
+                            <ul id="list_service" name="service" style="list-style-type:none">
+                            <label>Select the Service's for your department</label></ul>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5>{#{ department.dept_info }#}</h5>
+        <div class="row">
+            <button class="btn btn-primary btn-sm" type="submit" name="action">Add Department
+                <i class="fas fa-folder-plus"></i>
+            </button>
+          </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

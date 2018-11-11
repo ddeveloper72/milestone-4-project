@@ -3,67 +3,89 @@
 
 <h3>Edit Task!</h3>
 <div class="row">
-    <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
+    <form action="{{url_for('update_appointment', app_id=appointment._id)}}" method="POST" class="col s12">
+
+      <!-- Confirm the name of the department from the name of available departments -->
+
       <div class="row">
         <div class="input-field col s12">
-          <i class="material-icons prefix">poll</i>
-          <select id="departments" name="deptName">
-              <option value="" disabled selected>Choose Department</option>
-              {% for dept in departments %} 
-                  {% if dept.dept_name == dept.dept_name %}
-                  <option value="{{dept.deptName}}" selected > {{dept.deptName}}</option>
+          <i class="far fa-address-book prefix"></i>            
+            <select id="departments" name="dept_name">
+              <option value="" class="dept" disabled selected>Choose a department</option>
+                {% for dept in departments %} 
+                  {% if dept.dept_name == appointment.dept_name %}
+                    <option value="{{ dept.dept_name }}" selected >{{ dept.dept_name }}</option>
                   {% else %}
-                  <option value="{{dept.deptName}}" > {{dept.deptName}}</option>
-                  {% endif%}
-              {% endfor %}
-          </select>
+                    <option value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
           <label>Department</label>
         </div>
       </div>
-      <div class="row">
-        <div class="input-field col s12">          
-          <i class="material-icons prefix">poll</i>
-          <select id="services" name="service">
-            <option value="" disabled selected>Choose Service</option>
-            {% for dept in services %} 
-                {% if dept.service == dept.service %}
-                <option value="{{dept.service}}" selected > {{dept.service}}</option>
-                {% else %}
-                <option value="{{dept.service}}" > {{dept.service}}</option>
-                {% endif%}
-            {% endfor %}
-        </select>
-        <label>Service Type</label>
-      </div>
-      </div>
+
+      <!-- Confirm the name of the service from the list of available services -->
+
       <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">assignment</i>
-            <input id="task_name" name="task_name" type="text" class="validate" value="{{appointment.task_name}}">
-            <label for="icon_prefix">Task Name</label>
+              <i class="fas fa-cogs prefix"></i>              
+              <select id="service" name="service">
+                <option id="service" value="{{ appointment.service }}" selected >{{ appointment.service }}</option>                  
+              </select>
+              <label>Service</label>
+          </div>
+      </div>
+
+      <!-- Edit task name -->
+
+      <div class="row">
+          <div class="input-field col s12">
+              <i class="far fa-clipboard prefix"></i>
+            <input id="task_name" name="task_name" type="text" class="validate form-control-sm" value="{{ appointment.task_name }}">
+            <label for="icon_prefix">Appointment Name</label>
           </div>
         </div>
+
+        <!-- Edit task description name -->
+
+
         <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">subject</i>
-            <textarea name="task_description" id="task_description" class ="materialize-textarea"/>{{appointment.task_description}}</textarea>
-            <label for="icon_telephone">Task Description</label>
+              <i class="far fa-sticky-note prefix"></i>
+            <textarea name="task_description" id="task_description" class ="form-control-sm"/>{{ appointment.task_description }}</textarea>
+            <label for="icon_telephone">Appointment Description</label>
           </div>
       </div>
+
+      <!-- Edit employee name -->
+
       <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">today</i>
-            <input id="sched_date" name="sched_date" type="text" class ="datepicker materialize-textarea" /></input>
-            <label for="icon_prefix">Original Date {{appointment.sched_date}}</label>
-          </div>
-      </div>
-      <div class="row">
-          <div class="input-field col s12">
-              <i class="material-icons prefix">watch_late</i>
-              <input id ="sched_time" name ="sched_time" type="text" class ="timepicker materialize-textarea"></input>
-              <label for ="icon_prefix">Original Time {{appointment.sched_time}}</label>
+            <i class="far fa-user prefix"></i>
+              <textarea name ="emp_name" id="emp_name" class ="form-control-sm"/>{{ appointment.emp_name }}</textarea>
+            <label for ="icon_prefix">Created By</label>
           </div>
         </div>
+
+      <!-- Edit Date/Time Picker -->
+
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment.date_time }}" data-target="#datetimepicker1"/>
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Edit Task Urgency Selector -->
+
       <div class="row">
         <div class="switch">
           <label>
@@ -77,13 +99,29 @@
           </label>
         </div>
       </div>
+
+      <!-- Task Archived Selector -->
       <div class="row">
-        <button class="btn waves-effect waves-light" type="submit" name="action">Edit Task
-          <i class="material-icons right">playlist_add</i>
+        <div class="switch">
+          <label>
+              {% if appointment.is_archived %}
+            <input id="is_archived" name="is_archived" type="checkbox" checked>
+            {% else %}
+            <input id="is_archived" name="is_archived" type="checkbox">
+            {% endif %}
+            <span class="lever"></span>
+           Dismiss / Archive
+          </label>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
+            <i class="fas fa-folder-plus"></i>
         </button>
       </div>
     </form>
   </div>
-
 
 {% endblock %}

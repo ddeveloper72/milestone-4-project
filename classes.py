@@ -4,6 +4,7 @@ from flask import Flask, redirect, request, jsonify, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
+
 app = Flask(__name__)
 
 # Connect to external MongoDB database through URI variable hosted on app server. 
@@ -17,6 +18,8 @@ appointments_collection = mongo.db.appointment
 facility_collection = mongo.db.facility
 departments_collection = mongo.db.departments
 services_collection = mongo.db.serviceItem
+dept_template_collection = mongo.db.dept_templates
+site_template_collection = mongo.db.site_templates
 
 class Search:
     def __init__(self, collection):
@@ -30,7 +33,6 @@ class Search:
 
     def find_by_task_id(self, id):
         return self.collection.find_one({"_id": ObjectId(id)})
-
 
 
 

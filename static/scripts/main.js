@@ -1,77 +1,98 @@
-//waits until page is loaded first
-$(document).ready(function () {
-    Materialize.updateTextFields();
-    $('.collapsible').collapsible();
-    $('select').material_select();
-    $('.button-collapse').sideNav();
-    $('.datepicker').pickadate();
-    $('.timepicker').pickatime();
-});
+// select currently active department & return the data to python @app.route
 
-// Date picker:
-$('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15, // Creates a dropdown of 15 years to control year,
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Ok',
-    closeOnSelect: false // Close upon selecting a date,
-});
-
-// Credit to https://github.com/chingyawhao/materialize-clockpicker/
-// Time picker:
 $("#departments").change(function() {
-    let cur_value = $('option:selected', this).val();
+    let cur_value = $('option:selected' , this).val();
     console.log(cur_value);
     $.ajax({
         data: {
-            ref : cur_value
-        },
-        type: 'POST',
-        url: '/services'
+            dept_name : cur_value
+        },        
+
+        type: 'POST', // to python @app.route
+        url: window.location.href.indexOf("edit") !== -1 ? "/service_update" :  "service"
     })
     .done((data) => {
         if (data.error) {
             console.log(data.error)
         } else {
             console.log(data);
-            let optionToFill = $("#services");
-            optionToFill.find("option").remove().end();
-            data.data.forEach((element) => {
-                optionToFill
-                .append(`<option value="${element}">${element}</option>`);
+            let optionToFill = $("#service");
+            optionToFill.find('option').remove().end();
+            data.data.forEach(function (element) {
+                console.log(element);
+                optionToFill.append(`<option value="${element}" class="dept">${element}</option>`);
             });
         }
     });    
 });
 
-
-// Secondary TEST jQuery function
-/* $("#departments").change(function() {
+$("#add_department").change(function() {
     let cur_value = $('option:selected', this).val();
     console.log(cur_value);
     $.ajax({
         data: {
-            ref : cur_value
-        },
-        type: 'POST',
-        url: '/services'
+            dept_name : cur_value
+        },        
+
+        type: 'POST', // to python @app.route
+        url: "/deptimg_update" 
     })
     .done((data) => {
         if (data.error) {
             console.log(data.error)
         } else {
             console.log(data);
-            let optionToFill = $("#services");
-            optionToFill.find('option').remove().end();
-            data.data.forEach((element) => {
-                $("ul").last().append(`<li class="bob"><span>${element}</span></li>`)
-                    optionToFill.append(`<option value="${element}" class="dept">${element}</option>`);
-            });
-            $(".bob").click(function() {
-                $(this).removeClass("bob").addClass("active").addClass("selected");
+            let optionToFill  = $("#dept_img");
+            optionToFill.find('img').remove().end();
+            data.data.forEach(function (element) {
+            optionToFill.append(`<img class="card-img-top" src="${element}" alt="{{ data.dept_name }}">`)               
+                
+        });
+    }
+});    
+});
+
+$("#add_department").change(function() {
+    let cur_value = $('option:selected', this).val();
+    console.log(cur_value);
+    $.ajax({
+        data: {
+            dept_name : cur_value
+        },        
+
+        type: 'POST', // to python @app.route
+        url: "/dept_update" 
+    })
+    .done((data) => {
+        if (data.error) {
+            console.log(data.error)
+        } else {
+            console.log(data);
+            let input  = $("#list_service");
+            input.find('li').remove().end();
+            data.data.forEach(function (element) {
+                console.log(element);
+                input.append(`<li><input class="form-check-input" id="list_service" name="service" type="checkbox" value="${element}" unchecked>${element}</input></li>`)
+                
+                
             });
         }
     });    
-}); */
+});
 
+var selected = [];
+$('#list_service input:checked').each(function() {
+    selected.push($(this).attr('name'));
+    return this.name
+});
+
+$(function () {
+    $('#datetimepicker2').datetimepicker({ 
+        bootstricons: {
+            time: "far fa-clock",
+            date: "far fa-calendar",
+            up: "fas fa-arrow-up",
+            down: "fas fa-arrow-down"
+        }
+    });
+});
