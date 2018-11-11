@@ -24,6 +24,7 @@ departments_collection = mongo.db.departments
 services_collection = mongo.db.serviceItem
 dept_template_collection = mongo.db.dept_templates
 site_template_collection = mongo.db.site_templates
+image_template_collection = mongo.db.image_templates
 
 
 
@@ -183,10 +184,11 @@ def update_department(dept_id):
 def add_department():
        
     items = dept_template_collection.find()    
-    facility = site_template_collection.find()    
+    facility = site_template_collection.find()
+    imgholder = image_template_collection.find()    
         
     return render_template('add_department.html', page_title='Add a Department', 
-                        data = items, facility = facility)
+                       imgholder = imgholder, data = items, facility = facility)
 
 # Basebuild function
 # The services are matched to the department selected

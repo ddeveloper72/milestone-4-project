@@ -20,6 +20,7 @@ departments_collection = mongo.db.departments
 services_collection = mongo.db.serviceItem
 dept_template_collection = mongo.db.dept_templates
 site_template_collection = mongo.db.site_templates
+image_template_collection = mongo.db.image_templates
 
 class Search:
     def __init__(self, collection):
