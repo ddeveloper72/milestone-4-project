@@ -45,7 +45,8 @@ $("#add_department").change(function() {
             let optionToFill  = $("#dept_img");
             optionToFill.find('img').remove().end();
             data.data.forEach(function (element) {
-            optionToFill.append(`<img class="card-img-top" value="dept_name" src="${element}" alt="Department Image">`)               
+            optionToFill.append(`<img class="card-img-top" name="img_url" src="${element}" alt="Department Image"><br>
+            <li><input class="form-check-input" id="dept_img" name="img_url" value="${element}" unchecked>${element}</input></li>`)               
                 
         });
     }

@@ -245,7 +245,7 @@ def insert_department():
     department_doc = {
             'dept_name': request.form.get('dept_name'),
             'dept_info': 'Infomation about this department',
-            'img_url': request.form.get('dept_img'),
+            'img_url': request.form.get('img_url'),
             'main_contact': [
             {
               'phone': '',
