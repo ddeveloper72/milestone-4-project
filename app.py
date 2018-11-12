@@ -260,9 +260,7 @@ def insert_department():
                 'location': request.form.get('site_name'),
                 'phone': ''
             }],
-            'service':  [
-                 request.form.get('service')
-            ]
+            'service':  request.form.getlist('service'),
             }
     
     department.insert_one(department_doc)
