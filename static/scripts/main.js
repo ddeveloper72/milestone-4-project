@@ -47,7 +47,7 @@ $("#add_department").change(function() {
             data.data.forEach(function (element) {
             optionToFill.replaceWith(`<div class="img" id="dept_img" name="dept_img"> 
             <img class="card-img-top" name="dept_img" src="${element}" alt="Department Image">
-            <input class="form-check-input" id="dept_img" name="img_url" value="${element}" unchecked>${element}</input>
+            <input id="dept_img" type="hidden" name="img_url" value="${element}"></input>
             /div>`)
            
                 
