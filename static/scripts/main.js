@@ -1,5 +1,4 @@
-// select currently active department & return the data to python @app.route
-
+/* Service select script that generates a list dependent on the department selected              */
 $("#departments").change(function() {
     let cur_value = $('option:selected' , this).val();
     console.log(cur_value);
@@ -26,6 +25,10 @@ $("#departments").change(function() {
     });    
 });
 
+/* Image select script used in add_department.html                                              */
+/* Re-using function to select an image that relates to the department being selected           */
+/* Using the same function to also inject a hdden input field that takes the actual image url   */
+/* that can be retrieved for for the purpose of adding to the depatment document.               */
 $("#add_department").change(function() {
     let cur_value = $('option:selected', this).val();
     console.log(cur_value);
@@ -56,6 +59,7 @@ $("#add_department").change(function() {
 });    
 });
 
+/* Services select script used in add_department.html                                            */
 $("#add_department").change(function() {
     let cur_value = $('option:selected', this).val();
     console.log(cur_value);
@@ -84,12 +88,15 @@ $("#add_department").change(function() {
     });    
 });
 
+
+/* Services select script used in add_appointment.html                                           */
 var selected = [];
 $('#list_service input:checked').each(function() {
     selected.push($(this).attr('name'));
     return this.name
 });
 
+/* Datetime picker config script used in add_appointment.html                                     */
 $(function () {
     $('#datetimepicker2').datetimepicker({ 
         bootstricons: {
