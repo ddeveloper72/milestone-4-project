@@ -192,13 +192,19 @@ def add_department():
 # Basebuild function - WORK IN PROGRESS
 # Check that the new department doesn't already exist in the hospital
 
-""" @app.route('/dept_site_check',  methods=['POST', 'GET'])
+@app.route('/dept_site_check',  methods=['POST', 'GET'])
 def dept_site_check():
 
-    if departments_collection.find_one({"dept_name":{'dept_name'}}) == request.form['dept_name'] and 
-        departments_collection.find_one({"site":{'location'}}) == request.form['location']:
-    
-        print('Department name matched document /dept_site_check') """
+    dept = request.form['dept_name']
+    location = request.form['location']
+
+    for department in facility:
+        if departments_collection.find_one({"dept_name":{'dept_name'}}) == dept and 
+            departments_collection.find_one({"site":{'location'}}) == location:
+            flash("This Department already exist at this facility")
+       
+       
+        print('Department name matched document /dept_site_check')
    
   
     
