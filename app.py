@@ -199,8 +199,8 @@ def dept_site_check():
     location = request.form['location']
 
     for department in facility:
-        if departments_collection.find_one({"dept_name":{'dept_name'}}) == dept and 
-            departments_collection.find_one({"site":{'location'}}) == location:
+        if departments_collection.find_one({ "dept_name": dept_name }) == dept and 
+            departments_collection.find_one({ "site": location }) == location:
             flash("This Department already exist at this facility")
        
        
