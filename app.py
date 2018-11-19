@@ -2,7 +2,7 @@
 import os
 import datetime
 from datetime import datetime
-from flask import Flask, render_template, redirect, request, url_for, jsonify
+from flask import Flask, render_template, redirect, request, url_for, jsonify, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import json
@@ -189,21 +189,38 @@ def add_department():
     return render_template('add_department.html', page_title='Add a Department', 
                        data = items, facility = facility)
 
+# Basebuild function - WORK IN PROGRESS
+# Check that the new department doesn't already exist in the hospital
+
+""" @app.route('/dept_site_check',  methods=['POST', 'GET'])
+def dept_site_check():
+
+    if departments_collection.find_one({"dept_name":{'dept_name'}}) == request.form['dept_name'] and 
+        departments_collection.find_one({"site":{'location'}}) == request.form['location']:
+    
+        print('Department name matched document /dept_site_check') """
+   
+  
+    
+
+   
+
 # Basebuild function
 # The services are matched to the department selected
 @app.route('/dept_update',  methods=['POST', 'GET'])
 def dept_update():
+    
     services = dept_template_collection.find() 
     print(services)
 
-    # data comes from cur_value in $('#department').change(function()
+    # data comes from cur_value in $('#department').change(function()location = request.form['dept_name']
     data = request.form['dept_name']
-    print(data)
+    print(data + ' from /dept_update')
     
     for dept in services:
         if dept['dept_name'] == data:
             service = dept['service']
-            print(service) 
+            print(service)
     #return data to                 
     if service:
         return jsonify({'data': service})
@@ -220,7 +237,7 @@ def dept_imgupdate():
 
     # data comes from cur_value in $('#department').change(function()
     data = request.form['dept_name']
-    print(data)
+    #print(data)
     
     for dept in image:
         if dept['dept_name'] == data:
