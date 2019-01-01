@@ -117,9 +117,13 @@
 
 
       <div class="row">
-        <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
-            <i class="fas fa-folder-plus"></i>
-        </button>
+        <h5 class="mb-0">
+          <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
+              <i class="fas fa-folder-plus"></i>
+          </button>
+          <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a>
+        </h5>
+      
       </div>
     </form>
   </div>
