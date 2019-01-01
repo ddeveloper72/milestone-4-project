@@ -96,14 +96,24 @@ $('#list_service input:checked').each(function() {
     return this.name
 });
 
-/* Datetime picker config script used in add_appointment.html                                     */
+/* Datetime picker config script. Time increments in 15min intervals                             */
 $(function () {
-    $('#datetimepicker2').datetimepicker({ 
-        bootstricons: {
-            time: "far fa-clock",
-            date: "far fa-calendar",
-            up: "fas fa-arrow-up",
-            down: "fas fa-arrow-down"
-        }
+    $('#datetimepicker1').datetimepicker({
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar-alt',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'far fa-calendar-check',
+            clear: 'fas fa-trash',
+            close: 'fas fa-times'
+        },
+        locale: 'en-ie',
+		allowInputToggle: true,
+		minDate: moment(),
+		stepping: 15,
+		showClose: true
     });
 });

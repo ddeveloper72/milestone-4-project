@@ -27,7 +27,7 @@
                         <select id="facility" name="site_name">
                             <option value="" disabled selected>Select Your Facility</option>
                             {% for site_name in facility %}
-                            <option name="location" value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
+                            <option name="site_name" value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
                             {% endfor %}
                         </select>
                         <label>Facility</label>
@@ -55,16 +55,16 @@
             </div>
 
             <section>
-            {% with messages = get_flashed_messages() %} 
-            {% if messages %}
-            <div class="flashes success" role="alert">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class=flashes>
                 {% for message in messages %}
-                <div class="notice">{{ message }}</div>
+                  <li>{{ message }}</li>
                 {% endfor %}
-            </div>
-            {% endif %} 
-            {% endwith %}
-
+                </ul>
+                {% endif %}
+                {% endwith %}
+            {% block body %}{% endblock %}
             </section>
 
             <!-- Check boxes to let us select the name of the services we want available in our department -->

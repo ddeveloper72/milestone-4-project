@@ -10,6 +10,7 @@ import json
 from classes import Search
 
 app = Flask(__name__)
+app.secret_key = 'some_secret'
 
 # Connect to external MongoDB database through URI variable hosted on app server. 
 app.config['MONGO_DBNAME'] = 'mediacal_tm'
@@ -192,19 +193,15 @@ def add_department():
 # Basebuild function - WORK IN PROGRESS
 # Check that the new department doesn't already exist in the hospital
 
-@app.route('/dept_site_check',  methods=['POST', 'GET'])
+""" @app.route('/dept_site_check',  methods=['POST', 'GET'])
 def dept_site_check():
 
     dept = request.form['dept_name']
     location = request.form['location']
 
-    for department in facility:
-        if departments_collection.find_one({ "dept_name": dept_name }) == dept and 
-            departments_collection.find_one({ "site": location }) == location:
-            flash("This Department already exist at this facility")
-       
-       
-        print('Department name matched document /dept_site_check')
+    for x in departments_collection.find_one({},{ "_id": 0, "dept_name": 1,  "site": { "location": 1 }}):
+        flash("This Department already exist at this facility")
+        print(x + "Test") """
    
   
     
@@ -215,9 +212,28 @@ def dept_site_check():
 # The services are matched to the department selected
 @app.route('/dept_update',  methods=['POST', 'GET'])
 def dept_update():
+
+    if request.method == 'POST': 
+        dept = request.form['dept_name']
+        print(dept)
+
+    location = request.form.get['location', False]
+    print(location)    
+        
+        
+    
     
     services = dept_template_collection.find() 
     print(services)
+    if dept_template_collection.find(
+         {},{ "_id": 0, 'dept_name': 1, 
+            'site.location': 1 }):
+
+        print(f'This department, {dept}, already exists at {location}')
+        flash(f'This department, {dept}, already exists at {location}')
+        
+    
+
 
     # data comes from cur_value in $('#department').change(function()location = request.form['dept_name']
     data = request.form['dept_name']
@@ -230,8 +246,9 @@ def dept_update():
     #return data to                 
     if service:
         return jsonify({'data': service})
-    print(service) 
+    #print(service) 
 
+    
     return jsonify({'error' : 'an error occured'})
 
 # Basebuild function
