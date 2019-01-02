@@ -2,123 +2,127 @@
 {% block content %}
 <h2>{{ page_title }} <span class="fa-stack">
     <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="far fa-clipboard fa-stack-1x fa-inverse"></i>    
+    <i class="far fa-calendar-check fa-stack-1x fa-inverse"></i>    
 </span></h2>
 
-
-<div class="row">
-    <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
+<div class="box"> 
+  <div class="card-header">  
+    <div class="row">
+      <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
 
       <!-- Select the name of the facility from the list of available facility names -->
 
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="row">
+          <div class="input-field col s12">
             <i class="far fa-building prefix"></i>
-          <select id="facility" name="site_name">
-            <option value="" disabled selected>Select Your Facility</option>
-            {% for booking in facility %} 
-            <option value="{{ booking.site_name }}">{{ booking.site_name }}</option>
-            {% endfor %}
-          </select>
-          <label>Facility</label>
+              <select id="facility" name="site_name">
+                  <option value="" disabled selected>Select Your Facility</option>
+                  {% for booking in facility %} 
+                  <option value="{{ booking.site_name }}">{{ booking.site_name }}</option>
+                  {% endfor %}
+              </select>
+            <label>Facility</label>
+          </div>
         </div>
-      </div>
 
       <!-- Select the name of the department from the name of available departments -->
 
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="far fa-address-book prefix"></i>            
-            <select id="departments" name="dept_name">
-                <option value="" class="dept" disabled selected>Choose a department</option>
-                {% for dept in departments %}
-                <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
-                {% endfor %}
-            </select>
-            <label>Department</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="far fa-address-book prefix"></i>            
+              <select id="departments" name="dept_name">
+                  <option value="" class="dept" disabled selected>Choose a department</option>
+                  {% for dept in departments %}
+                  <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
+                  {% endfor %}
+              </select>
+              <label>Department</label>
+          </div>
         </div>
-      </div>
 
       <!-- Select the name of the service from the list of available services -->
 
-      <div class="row">
-          <div class="input-field col s12">
-              <i class="fas fa-cogs prefix"></i>       
-              <select id="service" name="service">
-                  <option id="service" value="" disabled selected>Select a department from list above</option>
-              </select>              
-              <label>Service</label>
-          </div>
-      </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-cogs prefix"></i>       
+                <select id="service" name="service">
+                    <option id="service" value="" disabled selected>Select a department from list above</option>
+                </select>              
+                <label>Service</label>
+            </div>
+        </div>
 
       <!-- Add task name -->
 
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="far fa-clipboard prefix"></i>
-            <input id="task_name" name="task_name" type="text" class="form-control-sm validate">
-          <label for="icon_prefix">Appointment Name</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="far fa-clipboard prefix"></i>
+              <input id="task_name" name="task_name" type="text" class="form-control-sm validate">
+            <label for="icon_prefix">Appointment Name</label>
+          </div>
         </div>
-      </div>
 
       <!-- Add task description -->
 
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="far fa-sticky-note prefix"></i>
-            <textarea name="task_description" id="task_description" class ="form-control-sm"/></textarea>
-          <label for="icon_telephone">Task Description</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="far fa-sticky-note prefix"></i>
+              <textarea name="task_description" id="task_description" class ="form-control-sm"/></textarea>
+            <label for="icon_telephone">Task Description</label>
+          </div>
         </div>
-      </div>
 
       <!-- Add employee name -->
 
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="far fa-user prefix"></i>
-            <textarea name ="emp_name" id="emp_name" class ="form-control-sm"/></textarea>
-          <label for ="icon_prefix">Created By</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="far fa-user prefix"></i>
+              <textarea name ="emp_name" id="emp_name" class ="form-control-sm"/></textarea>
+            <label for ="icon_prefix">Created By</label>
+          </div>
         </div>
-      </div>
 
       <!-- Date/Time Picker -->
 
-      <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                        <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="" data-target="#datetimepicker1"/>
-                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="container">
+          <div class="row">
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="" data-target="#datetimepicker1"/>
+                          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
-          </div>
-      </div>
+        </div>
 
       <!-- Task Urgency Selector -->
 
-      <div class="row">
-        <div class="switch">
-          <label>
-          <input id="is_urgent" name="is_urgent" type="checkbox">
-          <span class="lever"></span>
-          Is Urgent
-          </label>
+        <div class="row">
+          <div class="switch">
+            <label>
+            <input id="is_urgent" name="is_urgent" type="checkbox">
+            <span class="lever"></span>
+            Is Urgent
+            </label>
+          </div>
         </div>
-      </div>
 
 
-      <div class="row">
-        <h5 class="mb-0">
-          <button class="btn btn-primary btn-sm" type="submit" name="action">Add Task
-            <i class="fas fa-layer-group right"></i>
-          </button>
-          <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a>
-          </h5>
-      </div>
-  </form>
+        <div class="row">
+          <h5 class="mb-0">
+            <button class="btn btn-primary btn-sm" type="submit" name="action">Add Task
+              <i class="fas fa-layer-group right"></i>
+            </button>
+            <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a>
+            </h5>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
 {% endblock %}
