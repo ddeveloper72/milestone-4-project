@@ -2,23 +2,21 @@
 {% block content %}
 <h2>{{ page_title }} <span class="fa-stack">
         <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fas fa-clipboard-list fa-stack-1x fa-inverse"></i>
+        <i class="far fa-calendar-check fa-stack-1x fa-inverse"></i>
     </span></h2>
 
-    <div id="accordion">
+    <div id="accordion" class="accordion">
     {% for app in appointment %}
-    <ul>
+    <ul class="no-bullet">
         <li>
         
         <div class="card">
                 <div class="card-header" id="headingOne">       
                     <h5 class="mb-0">
     
-                    <i class="fas fa-expand-arrows-alt"></i>
-                    <a href="{{url_for('delete_appointment',  app_id = app._id)}}" class="btn btn-secondary btn-sm">Done</a>
-                    <a href="{{url_for('edit_appointment',  app_id = app._id)}}" class="btn btn-primary btn-sm">Edit</a>
+                    <i class="fas fa-bookmark"></i>
                          
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <strong>{{ app.dept_name }} - {{ app.service }}</strong>
                         </button>
                     </h5>
@@ -26,6 +24,8 @@
                 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
+                    <a href="{{url_for('delete_appointment',  app_id = app._id)}}" class="btn btn-secondary btn-sm">Done</a>
+                    <a href="{{url_for('edit_appointment',  app_id = app._id)}}" class="btn btn-primary btn-sm">Edit</a>
                         <ol>
                             <li>Description: {{ app.task_description }} - Scheduled: {{ app.date_time }}</li>
                             <li>Urgent: {{ app.is_urgent }} - Archived: {{ app.is_archived }}</li>                             
