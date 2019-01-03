@@ -2,6 +2,9 @@
 {% block content %}
 
 <h3>Edit Task!</h3>
+
+<div class="box"> 
+  <div class="card-header">
 <div class="row">
     <form action="{{url_for('update_appointment', app_id=appointment._id)}}" method="POST" class="col s12">
 
@@ -87,7 +90,7 @@
       <!-- Edit Task Urgency Selector -->
 
       <div class="row">
-        <div class="switch">
+        <div class="switch col-md-4">
           <label>
               {% if appointment.is_urgent %}
             <input id="is_urgent" name="is_urgent" type="checkbox" checked>
@@ -102,7 +105,7 @@
 
       <!-- Task Archived Selector -->
       <div class="row">
-        <div class="switch">
+        <div class="switch col-md-4">
           <label>
               {% if appointment.is_archived %}
             <input id="is_archived" name="is_archived" type="checkbox" checked>
@@ -117,15 +120,19 @@
 
 
       <div class="row">
-        <h5 class="mb-0">
+        <h5 class="col-md-4">
           <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
               <i class="fas fa-folder-plus"></i>
           </button>
-          <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a>
+          <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a><br />
+          <br />
+          <a href="{{url_for('delete_appointment',  app_id=appointment._id)}}" class="btn btn-secondary btn-sm">Delete</a>
         </h5>
       
       </div>
     </form>
+  </div>
+  </div>
   </div>
 
 {% endblock %}
