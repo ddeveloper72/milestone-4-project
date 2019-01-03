@@ -179,6 +179,7 @@ def update_department(dept_id):
         
     return redirect(url_for('get_departments'))
 
+
 # Basebuild function
 # The sites and departments are rendered to html
 @app.route('/add_department',  methods=['POST', 'GET'])
@@ -190,66 +191,30 @@ def add_department():
     return render_template('add_department.html', page_title='Add a Department', 
                        data = items, facility = facility)
 
-# Basebuild function - WORK IN PROGRESS
-# Check that the new department doesn't already exist in the hospital
-
-""" @app.route('/dept_site_check',  methods=['POST', 'GET'])
-def dept_site_check():
-
-    dept = request.form['dept_name']
-    location = request.form['location']
-
-    for x in departments_collection.find_one({},{ "_id": 0, "dept_name": 1,  "site": { "location": 1 }}):
-        flash("This Department already exist at this facility")
-        print(x + "Test") """
-   
-  
-    
-
    
 
 # Basebuild function
 # The services are matched to the department selected
 @app.route('/dept_update',  methods=['POST', 'GET'])
 def dept_update():
-
-    if request.method == 'POST': 
-        dept = request.form['dept_name']
-        print(dept)
-
-    location = request.form.get['location', False]
-    print(location)    
-        
-        
-    
-    
     services = dept_template_collection.find() 
     print(services)
-    if dept_template_collection.find(
-         {},{ "_id": 0, 'dept_name': 1, 
-            'site.location': 1 }):
 
-        print(f'This department, {dept}, already exists at {location}')
-        flash(f'This department, {dept}, already exists at {location}')
-        
-    
-
-
-    # data comes from cur_value in $('#department').change(function()location = request.form['dept_name']
+    # data comes from cur_value in $('#department').change(function()
     data = request.form['dept_name']
-    print(data + ' from /dept_update')
+    print(data)
     
     for dept in services:
         if dept['dept_name'] == data:
             service = dept['service']
-            print(service)
+            print(service) 
     #return data to                 
     if service:
         return jsonify({'data': service})
-    #print(service) 
+    print(service) 
 
-    
     return jsonify({'error' : 'an error occured'})
+    
 
 # Basebuild function
 # The services are matched to the department selected
