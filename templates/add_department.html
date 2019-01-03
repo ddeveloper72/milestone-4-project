@@ -86,10 +86,13 @@
         </div>
         <h5>{#{ department.dept_info }#}</h5>
         <div class="row">
+        <h5 class="col-md-4">
             <button class="btn btn-primary btn-sm" type="submit" name="action">Add Department
                 <i class="fas fa-folder-plus"></i>
             </button>
+            <a href="{{url_for('get_departments')}}" class="btn btn-primary btn-sm">Cancel</a>
           </div>
+        </h5>
     </form>
     </div>
 </div>
