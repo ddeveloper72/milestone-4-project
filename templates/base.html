@@ -37,16 +37,31 @@
             </li>
             
               {#% if user.is_authenticated %#}
-                  <li><a href="#">Logout</a></li>
+                  <li class="nav-link"><a href="{{url_for('get_appointment')}}">Logout</a></li>
                         
               {#% else %#}        
-                  <li><a href="{{url_for('login')}}">Login</a></li>
-                  <li><a href="{{url_for('registration')}}">Register</a></li>
+                  <li class="nav-link"><a href="{{url_for('login')}}">Login</a></li>
+                  <li class="nav-link"><a href="{{url_for('register')}}">Register</a></li>
               {#% endif %#}
           
           </ul>
         </div>
       </nav>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if error %}
+      <p class=error><strong>Error:</strong> {{ error }}
+      {% endif %}
+      {% if messages %}
+      <div class="alert">
+        <ul class="flashes no-bullet">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      </div>
+      
+      {% endif %}
+      {% endwith %}
     </header>
     <div class = "container">
       {% block content %}

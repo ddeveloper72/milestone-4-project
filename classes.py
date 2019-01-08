@@ -14,6 +14,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 
 # MongoDb Collections
+users = mongo.db.users
 appointments_collection = mongo.db.appointment
 facility_collection = mongo.db.facility
 departments_collection = mongo.db.departments

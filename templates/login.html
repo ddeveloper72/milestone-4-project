@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load bootstrap_tags %}
+{% extends "base.html" %} 
+
 {% block page_title %}
 Login
 {% endblock page_title %}
@@ -9,14 +9,12 @@ User Login
 {% endblock page_heading %}
 
 {% block content %}
+<div>
+    <p>To Register, <a href="{{ url_for('register') }}">Sign up here</a></p>
+</div>
 
-<!-- <form method="POST">
-    {% csrf_token %}
-    {{ login_form | as_bootstrap }}
-    <button type="submit" class="btn btn-default">login</button>
-</form> -->
 
-<form method=POST action="{{ url_for('login') }}">
+<form method=POST action="{{url_for('login')}}">
     <div class="form-group">
         <label for="exampleInputEmail1">Username</label>
         <input type="text" class="form-control" name="username" placeholder="Username">
@@ -28,5 +26,6 @@ User Login
     <button type="submit" class="btn btn-primary">Log In</button>
 </form>
 
-<p><a href="{% url 'password_reset' %}">Reset Password</a></p>
+
+
 {% endblock content %}

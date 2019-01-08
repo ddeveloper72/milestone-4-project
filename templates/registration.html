@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load bootstrap_tags %}
+
 {% block page_title %}
 Registration
 {% endblock page_title %}
@@ -9,16 +9,12 @@ User Registration
 {% endblock page_heading %}
 
 {% block content %}
-<p>If you have already registered, please login in <a href="{% url 'login' %}">here</a></p>
+<div>
+    <p>If you have already registered, please login in <a href="{{url_for('login')}}">here</a></p>
+</div>
 
 
-<!-- <form method="POST">
-    {% csrf_token %}
-    {{ registration_form | as_bootstrap}} <!-- .as_p render this a paragraph
-    <button type="submit" class="btn btn-default">Register</button>
-</form> -->
-
-<form method=POST action="{{ url_for('register') }}">
+<form method=POST action="{{url_for('register')}}">
     <div class="form-group">
         <label for="exampleInputEmail1">Username</label>
         <input type="text" class="form-control" name="username" placeholder="Username">
@@ -29,7 +25,6 @@ User Registration
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
-
 
 
 

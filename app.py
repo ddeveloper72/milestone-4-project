@@ -1,8 +1,9 @@
 # Load/import pre-requisites. Constucted using Python 3.7.0
 import os
+import bcrypt
 import datetime
 from datetime import datetime
-from flask import Flask, render_template, redirect, request, url_for, jsonify, flash
+from flask import Flask, render_template, session, redirect, request, url_for, jsonify, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import json
@@ -19,6 +20,7 @@ app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 
 # MongoDb Collections
+users = mongo.db.users
 appointments_collection = mongo.db.appointment
 facilities_collection = mongo.db.facility
 departments_collection = mongo.db.departments
@@ -30,15 +32,83 @@ image_template_collection = mongo.db.image_templates
 
 
 # Basebuild function
-# Search for scheduled appointments - no filters.
+# Home page is appointment.html
 @app.route('/')
+@app.route('/appointment')
+def appointments():
+    if 'username' in session:
+        flash('You are logged in as ' + session['username']) 
+
+    return render_template('appointment.html')
+
+
+# Basebuild function
+# Simple user authentication - With no password as per project brief.
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None 
+    
+    if request.method == "POST":
+        username = request.form['username']
+        
+        try:    
+            login_user = users.find_one({'name' : username})
+        except:
+            flash(u'There was an error retrieving the data', 'error')
+            return redirect(url_for('appointments', error=error)) 
+        if login_user:
+            if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
+                session['username'] = username
+                flash('%s has successfully logged in' % username)
+                return redirect(url_for('appointments'))
+            else:
+                flash(u'Invalid username/password combination', 'error')
+                return redirect(url_for('appointments', error=error))
+    else: 
+        flash(f"Sorry no profile for {'username'} found")
+        return render_template('login.html', error=error)
+    
+
+
+
+# Basebuild function
+# Simple user registration - With no password as per project brief.
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    error = None
+    if request.method == 'POST':
+        users = mongo.db.users
+        existing_user = users.find_one({'username' : request.form['username']})
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'username' : request.form['username'], 'password' : hashpass})
+            session['username'] = request.form['username']
+            return redirect(url_for('get_appointment'))
+        
+        flash(u'That username already exists!', 'error') 
+
+    return render_template('registration.html', error=error)
+    
+
+# Basebuild function
+# Logout current user
+@app.route('/logout/<current_user>')
+def logout(current_user):
+    flash('You are are now loged out %s' % current_user) 
+
+    return render_template('get_appointment.html')
+
+# Basebuild function
+# Search for scheduled appointments - no filters.
+
 @app.route('/get_appointment')
 def get_appointment():
     appointment = Search(appointments_collection).find_all()
     return render_template('appointment.html', page_title='Appointments',
                             appointment = appointment)
 
-# Basebuild function
+
 
 @app.route('/add_appointment', methods=['POST', 'GET'])
 def add_appointment():
@@ -47,6 +117,7 @@ def add_appointment():
     departments = Search(departments_collection).find_all()
 
     return render_template("add_appointment.html", facility = facility, departments = departments)
+    
 
 @app.route('/service',  methods=['POST', 'GET'])
 def service():
