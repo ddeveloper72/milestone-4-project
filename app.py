@@ -2,23 +2,25 @@
 import os
 import datetime
 from datetime import datetime
-from flask import Flask, render_template, session, redirect, request, url_for, jsonify, flash
+from flask import Flask, render_template, session, redirect, request, url_for, jsonify, flash, render_template_string
 from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
 import json
 
 from classes import Search
 
 app = Flask(__name__)
-app.secret_key = 'some_secret'
+app.secret_key = os.getenv('SECRET_KEY')
 
 # Connect to external MongoDB database through URI variable hosted on app server. 
 app.config['MONGO_DBNAME'] = 'mediacal_tm'
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
+
 
 # MongoDb Collections
 users = mongo.db.users
@@ -39,14 +41,37 @@ image_template_collection = mongo.db.image_templates
 def appointment():
     if 'username' in session:
         login_user = users.find_one({'username' : session['username']})
-        flash('You are logged in as ' + session['username']) 
+        flash('You are logged in as ' + session['username'], 'bg-success') 
         return render_template('appointment.html', username=session['username'], user_id=login_user['_id'])
 
     return render_template('appointment.html', page_title='Appointments')
 
 
+#Basebuild function
+# Login required
+def loginRequired(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('To access this, please log in first', 'bg-warning')
+            return redirect(url_for('login'))
+    
+    return wrap
+
 # Basebuild function
-# Simple user authentication - With no password as per project brief.
+# Logout current user
+@app.route('/logout')
+@loginRequired
+def logout():
+    flash('You are are now loged out') 
+    session.clear()
+
+    return render_template('appointment.html')
+
+# Basebuild function
+# Simple user authentication 
 @app.route('/login', methods=['GET','POST'])
 def login():
     error = None
@@ -54,23 +79,22 @@ def login():
 
     if request.method == "POST":
         username = request.form['username']
-        password = request.form['pass']
+        password = request.form['password']
 
         try:
             login_user = users.find_one({'username' : username})
         except:
-            flash("Sorry there seems to be problem with the data")
+            flash('Sorry there seems to be problem with the data', 'bg-warning')
             return redirect(url_for('get_appointment')) 
 
         if login_user:
             if check_password_hash(login_user['password'], password):
                 session['username'] = username
-                flash('%s has successfully logged in' % request.form['username'])
+                flash('%s has successfully logged in' % request.form['username'], 'bg-success')
                 return redirect(url_for('get_appointment', username=session['username'], user_id=login_user['_id']))
 
-            flash(u'Invalid username/password combination', 'error')
-            return render_template('login.html', page_title='Log-in', error=error)
-   
+            flash(u'Invalid username/password combination', 'bg-warning')
+            return render_template('login.html', page_title='Log-in', error=error)  
         
     
     return render_template('login.html', page_title='Log-in', error=error)
@@ -87,49 +111,46 @@ def register():
     if request.method == 'POST':
         users = mongo.db.users
         login_user = users.find_one({'username' : request.form['username']})
+        created = datetime.utcnow()
 
         try:
             if login_user is None:
                 hashed_pass = generate_password_hash(request.form['pass'])
                 users.insert_one(
                     {'username' : request.form['username'], 
-                    'password' : hashed_pass})
+                    'password' : hashed_pass,
+                    'site': [],
+                    'department' : [],
+                    'favorites' : [],
+                    'created': created})
             
                 login_user = users.find_one(
                     {'username': request.form['username']})
 
-                session['username'] = request.form['username']
+                session['username'] = request.form['username']  
+                flash('%s has successfully logged in' % request.form['username'], 'bg-success')
                 return redirect(url_for('get_appointment', user_id=login_user['_id']))
 
         except DuplicateKeyError:
-            flash(u'That username already exists!', 'error') 
+            flash(u'That username already exists!', 'bg-warning') 
 
     return render_template('registration.html', page_title='Register', error=error)
     
 
 # Basebuild function
-# Logout current user
-@app.route('/logout')
-def logout(username):
-    flash('You are are now loged out %s' % username) 
-    session.pop('username')
-
-    return render_template('get_appointment.html')
-
-# Basebuild function
 # Search for scheduled appointments - no filters.
-@app.route('/get_appointment', defaults={'user_id': None})
-@app.route('/get_appointment/<user_id>')
-def get_appointment(user_id):
+# , defaults={'user_id': None}
+@app.route('/get_appointment')
+def get_appointment():
     appointment = Search(appointments_collection).find_all()
     return render_template('appointment.html', page_title='Appointments',
                             appointment = appointment)
 
 
 
-@app.route('/add_appointment', methods=['POST', 'GET'], defaults={'user_id': None})
-@app.route('/add_appointment/<user_id>')
-def add_appointment(user_id):
+@app.route('/add_appointment')
+
+def add_appointment():
     
     facility = Search(facilities_collection).find_all()
     departments = Search(departments_collection).find_all()
@@ -163,15 +184,18 @@ def service():
 
 # Basebuild function
 # Adds a new appointment
-@app.route('/insert_appointment',  methods=['POST', 'GET'], defaults={'user_id': None})
-def insert_appointment(user_id):
-    appointment = appointments_collection
-    appointment.insert_one(request.form.to_dict())
-    return redirect(url_for('get_appointment'))
+@app.route('/insert_appointment',  methods=['POST', 'GET'])
+
+def insert_appointment():
+    if 'login_user' in session:
+        appointment = appointments_collection
+        appointment.insert_one(request.form.to_dict())
+        return redirect(url_for('get_appointment'))
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
 @app.route('/edit_appointment/<app_id>')
+
 def edit_appointment(app_id):    
     _appointment = appointments_collection.find_one({'_id': ObjectId(app_id)})
     all_depts = departments_collection.find()

@@ -48,20 +48,19 @@
         </div>
       </nav>
       {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if error %}
-      <p class=error><strong>Error:</strong> {{ error }}
-      {% endif %}
-      {% if messages %}
-      <div class="alert">
-        <ul class="flashes no-bullet">
+        {% if error %}
+          <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}
+          {% if messages %}
             {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
+              <div class="alert {{ category }}">
+                <div class="messages">          
+                  {{ message }}              
+                </div>
+              </div>
             {% endfor %}
-        </ul>
-      </div>
-      
-      {% endif %}
-      {% endwith %}
+          {% endif %}      
+        {% endwith %}
     </header>
     <div class = "container">
       {% block content %}
