@@ -16,7 +16,7 @@
 
                         <i class="fas fa-angle-double-right"></i>
 
-                        <a href="{{url_for('department', dept_id = dept._id)}}" roll="button"><strong>{{ dept.dept_name }} - {{ dept.site[0].location }}</strong></a>
+                        <a href="{{url_for('department', dept_id = dept._id, user_id = user_id)}}" roll="button"><strong>{{ dept.dept_name }} - {{ dept.site[0].location }}</strong></a>
 
                         </h5>
                     </div> 

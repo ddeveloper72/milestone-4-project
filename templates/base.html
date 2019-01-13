@@ -36,13 +36,13 @@
               </div>
             </li>
             
-              {#% if user.is_authenticated %#}
+              {% if session.logged_in %}
                   <li class="nav-link"><a href="{{url_for('get_appointment')}}">Logout</a></li>
                         
-              {#% else %#}        
+              {% else %}        
                   <li class="nav-link"><a href="{{url_for('login')}}">Login</a></li>
                   <li class="nav-link"><a href="{{url_for('register')}}">Register</a></li>
-              {#% endif %#}
+              {% endif %}
           
           </ul>
         </div>
