@@ -3,6 +3,8 @@ import os
 import datetime
 from datetime import datetime
 from flask import Flask, render_template, session, redirect, request, url_for, jsonify, flash, render_template_string
+from flask_login import LoginManager, login_user, logout_user, current_user
+from urllib.parse import urlparse, urljoin
 from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 from bson.objectid import ObjectId
@@ -20,6 +22,8 @@ app.config['MONGO_DBNAME'] = 'mediacal_tm'
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 # MongoDb Collections
@@ -31,7 +35,6 @@ services_collection = mongo.db.serviceItem
 dept_template_collection = mongo.db.dept_templates
 site_template_collection = mongo.db.site_templates
 image_template_collection = mongo.db.image_templates
-
 
 
 # Basebuild function
@@ -52,7 +55,7 @@ def appointment():
 
 #Basebuild function
 # Login required
-def loginRequired(f):
+""" def loginRequired(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' in session:
@@ -61,23 +64,39 @@ def loginRequired(f):
             flash('To access this, please log in first', 'bg-warning')
             return redirect(url_for('login'))
     
-    return wrap
+    return wrap """
 
 # Basebuild function
 # Logout current user
-@app.route('/logout/<user_id>')
-@loginRequired
-def logout(username):
-    flash('You are are now loged out') 
+@app.route('/logout')
+def logout():    
     session.clear()
+    flash('You are now logged out', 'bg-success') 
+    return redirect(url_for('get_appointment'))
 
-    return render_template('appointment.html')
+
+# Basebuild function
+# Simple user authentication 
+""" @app.route('/login', methods=['GET','POST'])
+def login():
+    session['next'] = request.args.get('next')
+    return render_template('login.html') """
+
+# Basebuild function
+# Securely Redirect Back from Flask Snipets to ensure that all redirects 
+# lead back to the same server- our own server.
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+           ref_url.netloc == test_url.netloc
+
 
 # Basebuild function
 # Simple user authentication 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    error = ""
+    error = None
     users = mongo.db.users
 
     if request.method == "POST":
@@ -92,8 +111,15 @@ def login():
 
         if login_user:
             if check_password_hash(login_user['password'], password):
-                session['user'] = login_user
+                session['user'] = username
                 session['logged_in'] = True
+
+                if 'next' in session:
+                    next = session['next']
+
+                    if is_safe_url(next):
+                        redirect(next)
+
                 flash('%s has successfully logged in' % request.form['username'], 'bg-success')
                 return redirect(url_for('get_appointment', user_id=login_user['_id']))
 
@@ -107,8 +133,7 @@ def login():
                             page_title='Log-in', 
                             error=error)
     
-
-
+   
 
 # Basebuild function
 # Simple user registration - With no password as per project brief.
@@ -166,7 +191,9 @@ def get_appointment(user_id):
                                 username=session['user'], 
                                 user_id=login_user['_id'])
 
-    return render_template('login.html', page_title='Log-in')
+    return render_template('appointment.html', page_title='Appointments')
+
+    
 
 @app.route('/add_appointment', defaults={'user_id': None})
 @app.route('/add_appointment/<user_id>')
@@ -183,7 +210,10 @@ def add_appointment(user_id):
                                 username=session['user'], 
                                 user_id=login_user['_id'])
 
-    return render_template('login.html', page_title='Log-in')
+    return render_template("add_appointment.html", 
+                                page_title='Add Appointments',
+                                facility = facility, 
+                                departments = departments)
 
 @app.route('/service',  methods=['POST', 'GET'])
 def service():
