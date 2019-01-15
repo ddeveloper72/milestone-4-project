@@ -7,7 +7,7 @@
 <div class="box">  
     <div class="card-header">     
         <div class="row">
-                <form action ="{{url_for('update_department', dept_id=department._id, user_id = user_id)}}" method="POST" class= "col s12">
+                <form action ="{{url_for('update_department', dept_id=department._id, user_id=user_id)}}" method="POST" class= "col s12">
                     <div class="row">
                         <div class="input-field col s12">
                             <b>Department:</b> <br />                        
@@ -35,7 +35,7 @@
                         <button class="btn btn-primary btn-sm" type="submit" name="action">Update Department
                             <i class="fas fa-folder-plus"></i>
                         </button>
-                        <a href="{{url_for('get_departments, user_id = user_id')}}" class="btn btn-primary btn-sm">Cancel</a><br />
+                        <a href="{{url_for('get_departments', user_id = user_id)}}" class="btn btn-primary btn-sm">Cancel</a><br />
                         <br />
                         <a href="{#{url_for('delete_department', dept_id = department._id , user_id = user_id)}#}" class="btn btn-secondary btn-sm">Delete Department</a>
                         </h5>

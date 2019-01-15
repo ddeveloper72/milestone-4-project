@@ -46,9 +46,9 @@ def appointment():
         login_user = users.find_one({'username' : session['user']})
         flash('You are logged in as ' + session['user'], 'bg-success') 
         return render_template('appointment.html', 
-                                username=session['user'], 
-                                user_id=login_user['_id'])
-
+                                username=session['user'],
+                                 user_id=login_user['_id'])
+        
     return render_template('appointment.html', 
                             page_title='Appointments')
 
@@ -190,8 +190,12 @@ def get_appointment(user_id):
                                 appointment = appointment,
                                 username=session['user'], 
                                 user_id=login_user['_id'])
+    else:
+        appointment = Search(appointments_collection).find_all()
 
-    return render_template('appointment.html', page_title='Appointments')
+    return render_template('appointment.html', 
+                            page_title='Appointments',
+                            appointment = appointment)
 
     
 
@@ -209,6 +213,9 @@ def add_appointment(user_id):
                                 departments = departments, 
                                 username=session['user'], 
                                 user_id=login_user['_id'])
+    else:
+        facility = Search(facilities_collection).find_all()
+        departments = Search(departments_collection).find_all()
 
     return render_template("add_appointment.html", 
                                 page_title='Add Appointments',
@@ -240,7 +247,8 @@ def service():
 
 # Basebuild function
 # Adds a new appointment
-@app.route('/insert_appointment/<user_id>',  methods=['POST', 'GET'])
+@app.route('/insert_appointment', methods=['POST', 'GET'], defaults={'user_id': None})
+@app.route('/insert_appointment/<user_id>')
 def insert_appointment(user_id):
     if 'user' in session:
         login_user = users.find_one({"username": session['user']})
@@ -254,8 +262,8 @@ def insert_appointment(user_id):
 
 # Basebuild function
 # Lets us edit the data for an existing appointment
+@app.route('/edit_appointment', defaults={'user_id': None})
 @app.route('/edit_appointment/<app_id>/<user_id>')
-
 def edit_appointment(app_id, user_id):
     if 'user' in session:
         login_user = users.find_one({"username": session['user']})   
@@ -266,8 +274,9 @@ def edit_appointment(app_id, user_id):
                                 departments=all_depts, 
                                 username=session['user'], 
                                 user_id=login_user['_id'])
-
-    return render_template('login.html', page_title='Log-in')
+    else:
+        flash('To access this information, please login')
+        return redirect(url_for('get_appointment'))
 
 @app.route('/service_update',  methods=['POST', 'GET'])
 def service_update():
@@ -358,7 +367,7 @@ def department(dept_id, user_id):
 
 # Basebuild function
 # Lets us edit the name of a specific department
-@app.route('/edit_department/<dept_id><user_id>')
+@app.route('/edit_department/<dept_id>/<user_id>')
 def edit_department(dept_id, user_id):
     if 'user' in session:
         login_user = users.find_one({"username": session['user']}) 
@@ -455,37 +464,40 @@ def dept_imgupdate():
 
 # Basebuild function
 # Insert new department into collection
-@app.route('/insert_department', methods=['POST'])
-def insert_department():
-       
-    department = departments_collection
-    #try:
-    department_doc = {
-            'dept_name': request.form.get('dept_name'),
-            'dept_info': 'Infomation about this department',
-            'img_url': request.form.get('img_url'),
-            'main_contact': [
-            {
-              'phone': '',
-              'email': ''
-            },
-            {
-              'email': '',
-              'phone': ''
-            }
-            ],
-            'site': [{
-                'location': request.form.get('site_name'),
-                'phone': ''
-            }],
-            'service':  request.form.getlist('service'),
-            }
-    
-    department.insert_one(department_doc)
-    #except:
-        #print('Error adding department to collection')
-       
-    return redirect(url_for('get_departments'))
+@app.route('/insert_department/<user_id>', methods=['POST'])
+def insert_department(user_id):
+     if 'user' in session: 
+        login_user = users.find_one({"username": session['user']})   
+        department = departments_collection
+        #try:
+        department_doc = {
+                'dept_name': request.form.get('dept_name'),
+                'dept_info': 'Infomation about this department',
+                'img_url': request.form.get('img_url'),
+                'main_contact': [
+                {
+                  'phone': '',
+                  'email': ''
+                },
+                {
+                  'email': '',
+                  'phone': ''
+                }
+                ],
+                'site': [{
+                    'location': request.form.get('site_name'),
+                    'phone': ''
+                }],
+                'service':  request.form.getlist('service'),
+                }
+
+        department.insert_one(department_doc)
+        #except:
+            #print('Error adding department to collection')
+
+        return redirect(url_for('get_departments',
+                                username=session['user'], 
+                                user_id=login_user['_id']))
 
 
 
