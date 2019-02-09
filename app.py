@@ -45,7 +45,7 @@ image_template_collection = mongo.db.image_templates
 # Basebuild function
 # Home page is appointment.html
 @app.route('/')
-@app.route('/appointment')
+@app.route('/index')
 def appointment():
     if 'user' in session:
         login_user = users.find_one({'username' : session['user']})
@@ -494,10 +494,6 @@ def insert_department(user_id):
                 {
                   'phone': '',
                   'email': ''
-                },
-                {
-                  'email': '',
-                  'phone': ''
                 }
                 ],
                 'site': [{
