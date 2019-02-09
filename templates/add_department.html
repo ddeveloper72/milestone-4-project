@@ -27,7 +27,7 @@
                         <select id="facility" name="site_name">
                             <option value="" disabled selected>Select Your Facility</option>
                             {% for site_name in facility %}
-                            <option name="site_name" value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
+                            <option name="site_name" id="{{ site_name.site[0].location }}" value="{{ site_name.site[0].location }}">{{ site_name.site[0].location  }}</option>
                             {% endfor %}
                         </select>
                         <label>Facility</label>

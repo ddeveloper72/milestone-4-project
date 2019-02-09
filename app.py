@@ -1,4 +1,6 @@
-# Load/import pre-requisites. Constucted using Python 3.7.0
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Load/import pre-requisites. Constucted using Python 3.6.7                                                #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 import os
 import datetime
 from datetime import datetime
@@ -17,7 +19,9 @@ from classes import Search
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 
-# Connect to external MongoDB database through URI variable hosted on app server. 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Connect to external MongoDB database through URI variable hosted on app server.                          #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 app.config['MONGO_DBNAME'] = 'mediacal_tm'
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
@@ -25,8 +29,9 @@ mongo = PyMongo(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-
-# MongoDb Collections
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# MongoDb Collections                                                                                      #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 users = mongo.db.users
 appointments_collection = mongo.db.appointment
 facilities_collection = mongo.db.facility
@@ -53,7 +58,9 @@ def appointment():
                             page_title='Appointments')
 
 
-#Basebuild function
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Log out, Login and registration views                                                                    #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Login required
 """ def loginRequired(f):
     @wraps(f)
@@ -174,7 +181,9 @@ def register():
                             page_title='Register', 
                             error=error)
     
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Appointments views                                                                                       #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Basebuild function
 # Search for scheduled appointments - no filters.
 # , defaults={'user_id': None}
@@ -332,6 +341,9 @@ def delete_appointment(app_id, user_id):
 
     return render_template('login.html', page_title='Log-in')
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Departments views                                                                                        #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Basebuild function
 # Lets us return the names of all the departments
 @app.route('/get_departments', defaults={'user_id': None})
@@ -419,22 +431,26 @@ def add_department(user_id):
 # The services are matched to the department selected
 @app.route('/dept_update',  methods=['POST', 'GET'])
 def dept_update():
-    services = dept_template_collection.find() 
-    print(services)
+    services = dept_template_collection.find()    
+
+    site = request.form.get('site_name')
+    print(site)
+
+    """ existing_dept = departments_collection.find({'_id': 1, 'dept_name': request.form['dept_name'], 'site': {request.form.get('site_name')} })
+    print(existing_dept) """
+
 
     # data comes from cur_value in $('#department').change(function()
     data = request.form['dept_name']
-    print(data)
-    
+    print(data, site)
     for dept in services:
         if dept['dept_name'] == data:
             service = dept['service']
-            print(service) 
+          # print(service) 
     #return data to                 
     if service:
         return jsonify({'data': service})
-    print(service) 
-
+    # print(service) 
     return jsonify({'error' : 'an error occured'})
     
 
