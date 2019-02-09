@@ -492,13 +492,13 @@ def insert_department(user_id):
                 'img_url': request.form.get('img_url'),
                 'main_contact': [
                 {
-                  'phone': '',
-                  'email': ''
+                  'phone': request.form.get('phone'),
+                  'email': request.form.get('email')
                 }
                 ],
                 'site': [{
                     'location': request.form.get('site_name'),
-                    'phone': ''
+                    'phone': request.form.get('phone1')
                 }],
                 'service':  request.form.getlist('service'),
                 }
