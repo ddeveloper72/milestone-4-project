@@ -512,8 +512,6 @@ def insert_department(user_id):
                                 user_id=login_user['_id']))
 
 
-
-
 # Basebuild function
 # The name of a specific department is written back to the document
 @app.route('/update_service/<serv_id>', methods=['POST'])
@@ -525,7 +523,18 @@ def update_service(serv_id):
        
     return redirect(url_for('get_departments'))
     
+# Basebuild function
+# Lets us delete an existing department
+@app.route('/delete_department/<dept_id>/<user_id>')
+def delete_department(dept_id, user_id):
+    if 'user' in session:
+        login_user = users.find_one({"username": session['user']})      
+        departments_collection.remove({'_id': ObjectId(dept_id)})
+        return redirect(url_for('get_departments', 
+                        username=session['user'], 
+                        user_id=login_user['_id']))
 
+    return render_template('login.html', page_title='Log-in')
 
 if __name__ == '__main__':
     
