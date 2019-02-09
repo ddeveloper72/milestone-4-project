@@ -4,17 +4,19 @@
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="fas fa-folder-plus fa-stack-1x fa-inverse"></i>
     </span></h2>
-<div class="card">
-    <div class="box">
+<div class="box">
+    <div class="card">
+        <div class="box col s6">
+            <!-- Select the image url that relates to the department name -->
+
+            <div class="img" id="dept_img" name="dept_img">
+                <img class="card-img-top" name="dept_img" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
+                    id="dept_img">
+            </div>
+        </div>
         <form action="{{url_for('insert_department', user_id=user_id)}}" method="POST" class="col s12">
             <div class="card-header col s12" id="headingOne">
 
-                <!-- Select the image url that relates to the department name -->
-
-                <div class="img" id="dept_img" name="dept_img">
-                    <img class="card-img-top" name="dept_img" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
-                        id="dept_img">
-                </div>
 
                 <!-- Select the name of the facility from the list of available facility names -->
 
@@ -24,7 +26,7 @@
                             <b>Select Facility then Department:</b><br />
                             <i class="far fa-building prefix"></i>
                             <label for="site_name">Facility: </label>
-                            <select id="facility" name="site_name" class="form-control">
+                            <select id="facility" name="site_name" class="form-control validate">
                                 <option value="" disabled selected>Select Your Facility</option>
                                 {% for site_name in facility %}
                                 <option name="site_name" id="{{ site_name.site[0].location }}" value="{{ site_name.site[0].location }}">{{
@@ -40,7 +42,7 @@
                         <div class="input-field col s6">
                             <i class="far fa-address-book prefix"></i>
                             <label for="dept_name">Department: </label>
-                            <select id="add_department" name="dept_name" class="form-control">
+                            <select id="add_department" name="dept_name" class="form-control validate">
                                 <option value="" disabled selected>Choose a department</option>
                                 {% for dept in data %}
                                 <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{

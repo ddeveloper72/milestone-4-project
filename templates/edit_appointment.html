@@ -3,136 +3,140 @@
 
 <h3>Edit Task!</h3>
 
-<div class="box"> 
-  <div class="card-header">
-<div class="row">
-    <form action="{{url_for('update_appointment', app_id=appointment._id, user_id = user_id)}}" method="POST" class="col s12">
-
-      <!-- Confirm the name of the department from the name of available departments -->
-
+<div class="box">
+  <div class="card">
+    <div class="card-header">
       <div class="row">
-        <div class="input-field col s12">
-          <i class="far fa-address-book prefix"></i>            
-            <select id="departments" name="dept_name">
-              <option value="" class="dept" disabled selected>Choose a department</option>
-                {% for dept in departments %} 
+        <form class="col s12" action="{{url_for('update_appointment', app_id=appointment._id, user_id = user_id)}}"
+          method="POST">
+          <div class="card-header col s12" id="headingOne">
+
+            <!-- Confirm the name of the department from the name of available departments -->
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="far fa-address-book prefix"></i>
+                <label for="dept_name">Department Name :</label>
+                <select id="departments" name="dept_name" class="form-control validate">
+                  <option value="" class="dept" disabled selected>Choose a department</option>
+                  {% for dept in departments %}
                   {% if dept.dept_name == appointment.dept_name %}
-                    <option value="{{ dept.dept_name }}" selected >{{ dept.dept_name }}</option>
+                  <option value="{{ dept.dept_name }}" selected>{{ dept.dept_name }}</option>
                   {% else %}
-                    <option value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
+                  <option value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
                   {% endif %}
-                {% endfor %}
-              </select>
-          <label>Department</label>
-        </div>
-      </div>
-
-      <!-- Confirm the name of the service from the list of available services -->
-
-      <div class="row">
-          <div class="input-field col s12">
-              <i class="fas fa-cogs prefix"></i>              
-              <select id="service" name="service">
-                <option id="service" value="{{ appointment.service }}" selected >{{ appointment.service }}</option>                  
-              </select>
-              <label>Service</label>
-          </div>
-      </div>
-
-      <!-- Edit task name -->
-
-      <div class="row">
-          <div class="input-field col s12">
-              <i class="far fa-clipboard prefix"></i>
-            <input id="task_name" name="task_name" type="text" class="validate form-control-sm" value="{{ appointment.task_name }}">
-            <label for="icon_prefix">Appointment Name</label>
-          </div>
-        </div>
-
-        <!-- Edit task description name -->
-
-
-        <div class="row">
-          <div class="input-field col s12">
-              <i class="far fa-sticky-note prefix"></i>
-            <textarea name="task_description" id="task_description" class ="form-control-sm"/>{{ appointment.task_description }}</textarea>
-            <label for="icon_telephone">Appointment Description</label>
-          </div>
-      </div>
-
-      <!-- Edit employee name -->
-
-      <div class="row">
-          <div class="input-field col s12">
-            <i class="far fa-user prefix"></i>
-              <textarea name ="emp_name" id="emp_name" class ="form-control-sm"/>{{ appointment.emp_name }}</textarea>
-            <label for ="icon_prefix">Created By</label>
-          </div>
-        </div>
-
-      <!-- Edit Date/Time Picker -->
-
-      <div class="container">
-          <div class="row">
-              <div class="col-sm-6">
-                  <div class="form-group">
-                      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment.date_time }}" data-target="#datetimepicker1"/>
-                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                          </div>
-                      </div>
-                  </div>
+                  {% endfor %}
+                </select>
               </div>
+            </div><br />
+
+            <!-- Confirm the name of the service from the list of available services -->
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="fas fa-cogs prefix"></i>
+                <label for="service">Service</label>
+                <select id="service" name="service" class="form-control validate">
+                  <option id="service" value="{{ appointment.service }}" selected>{{ appointment.service }}</option>
+                </select>
+              </div>
+            </div><br />
+
+            <!-- Edit task name -->
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="far fa-clipboard prefix"></i>
+                <label for="icon_prefix">Appointment Name</label>
+                <input id="task_name" name="task_name" type="text" class="form-control validate" placeholder="Patient's name"
+                  value="{{ appointment.task_name }}">
+              </div>
+            </div><br />
+
+            <!-- Edit task description name -->
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="far fa-sticky-note prefix"></i>
+                <label for="task_description">Appointment Description</label>
+                <textarea name="task_description" id="task_description" class="form-control validate" type="text"
+                  placeholder="Add appointment description here" required>{{ appointment.task_description }}</textarea>
+              </div>
+            </div><br />
+
+            <!-- Edit employee name -->
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="far fa-user prefix"></i>
+                <label for="emp_name">Created By</label>
+                <input name="emp_name" id="emp_name" class="form-control validate" placeholder="Add your name here"
+                  value="{{ appointment.emp_name }}" required />
+              </div>
+            </div><br />
+
+            <!-- Edit Date/Time Picker -->
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment.date_time }}"
+                      data-target="#datetimepicker1" required />
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><br />
+
+            <!-- Edit Task Urgency Selector -->
+
+            <div class="row">
+              <div class="switch col-md-4">
+                <label>
+                  {% if appointment.is_urgent %}
+                  <input id="is_urgent" name="is_urgent" type="checkbox" checked>
+                  {% else %}
+                  <input id="is_urgent" name="is_urgent" type="checkbox">
+                  {% endif %}
+                  <span class="lever"></span>
+                  Is Urgent
+                </label>
+              </div>
+            </div>
+
+            <!-- Task Archived Selector -->
+
+            <div class="row">
+              <div class="switch col-md-4">
+                <label>
+                  {% if appointment.is_archived %}
+                  <input id="is_archived" name="is_archived" type="checkbox" checked>
+                  {% else %}
+                  <input id="is_archived" name="is_archived" type="checkbox">
+                  {% endif %}
+                  <span class="lever"></span>
+                  Dismiss / Archive
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <h5 class="col-md-4">
+                <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
+                  <i class="fas fa-folder-plus"></i>
+                </button>
+                <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a><br />
+                <br />
+                <a href="{{url_for('delete_appointment',  app_id=appointment._id, user_id = user_id)}}" class="btn btn-secondary btn-sm confirm-delete">Delete</a>
+              </h5>
+            </div>
           </div>
+        </form>
       </div>
-
-      <!-- Edit Task Urgency Selector -->
-
-      <div class="row">
-        <div class="switch col-md-4">
-          <label>
-              {% if appointment.is_urgent %}
-            <input id="is_urgent" name="is_urgent" type="checkbox" checked>
-            {% else %}
-            <input id="is_urgent" name="is_urgent" type="checkbox">
-            {% endif %}
-            <span class="lever"></span>
-            Is Urgent
-          </label>
-        </div>
-      </div>
-
-      <!-- Task Archived Selector -->
-      <div class="row">
-        <div class="switch col-md-4">
-          <label>
-              {% if appointment.is_archived %}
-            <input id="is_archived" name="is_archived" type="checkbox" checked>
-            {% else %}
-            <input id="is_archived" name="is_archived" type="checkbox">
-            {% endif %}
-            <span class="lever"></span>
-           Dismiss / Archive
-          </label>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <h5 class="col-md-4">
-          <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
-              <i class="fas fa-folder-plus"></i>
-          </button>
-          <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a><br />
-          <br />
-          <a href="{{url_for('delete_appointment',  app_id=appointment._id, user_id = user_id)}}" class="btn btn-secondary btn-sm confirm-delete">Delete</a>
-        </h5>
-      
-      </div>
-    </form>
+    </div>
   </div>
-  </div>
-  </div>
+</div>
 
 {% endblock %}
