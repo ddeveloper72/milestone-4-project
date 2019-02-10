@@ -59,7 +59,7 @@
           <div class="input-field col s12">
               <i class="far fa-address-card"></i>
             <label for="task_name">Appointment Name</label>
-              <input id="task_name" name="task_name" type="text" class="form-control validate" required>
+              <input id="task_name" name="task_name" type="text" placeholder="Patient's name" class="form-control validate" data-toggle="tooltip" data-placement="top" title="Who is this for?" required>
           </div>
         </div><br />
 
@@ -69,7 +69,7 @@
           <div class="input-field col s12">
               <i class="fas fa-pencil-alt"></i>
             <label for="task_description">Task Description</label>
-              <textarea name="task_description" id="task_description" class="form-control validate" required></textarea>
+              <textarea name="task_description" id="task_description" type="text"  placeholder="Add appointment description here" class="form-control validate" data-toggle="tooltip" data-placement="top" title="Give a brief description please" required></textarea>
           </div>
         </div><br />
 
@@ -79,7 +79,7 @@
           <div class="input-field col s12">
               <i class="far fa-user-circle"></i>
             <label for ="emp_name">Created By</label>
-            <input name ="emp_name" id="emp_name" class="form-control validate" required>
+            <input value="{{ session.user }}" name ="emp_name" id="emp_name" class="form-control validate" disabled required>
           </div>
         </div><br />
         
@@ -92,7 +92,7 @@
               <label for ="date_time">Appointment Date/Time</label>
                   <div class="form-group">
                       <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="" data-target="#datetimepicker1"/>
+                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="" data-target="#datetimepicker1" placeholder="dd-mm-yyyy hh:mm" required/>
                           <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                           </div>

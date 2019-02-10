@@ -60,7 +60,7 @@
                 <i class="fas fa-pencil-alt"></i>
                 <label for="task_description">Appointment Description</label>
                 <textarea name="task_description" id="task_description" class="form-control validate" type="text"
-                  placeholder="Add appointment description here" required>{{ appointment.task_description }}</textarea>
+                  placeholder="Add appointment description here" data-toggle="tooltip" data-placement="top" title="Give a brief description please" required>{{ appointment.task_description }}</textarea>
               </div>
             </div><br />
 
@@ -71,7 +71,7 @@
                 <i class="far fa-user-circle"></i>
                 <label for="emp_name">Created By</label>
                 <input name="emp_name" id="emp_name" class="form-control validate" placeholder="Add your name here"
-                  value="{{ appointment.emp_name }}" required />
+                  value="{{ session.user }}" data-toggle="tooltip" data-placement="top" title="Your name is automatically added here" disabled required />
               </div>
             </div><br />
 
@@ -84,7 +84,7 @@
                 <div class="form-group">
                   <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                     <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment.date_time }}"
-                      data-target="#datetimepicker1" required />
+                      data-target="#datetimepicker1"  placeholder="dd-mm-yyyy hh:mm" required />
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                       <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                     </div>

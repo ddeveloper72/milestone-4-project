@@ -122,3 +122,8 @@ $(function () {
 $(document).on('click', '.confirm-delete', function(){
     return confirm('Are you sure you want to delete this?');
 })
+
+/* Add toolips for descriptive user infomation                                                    */
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
