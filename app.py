@@ -488,7 +488,7 @@ def insert_department(user_id):
         #try:
         department_doc = {
                 'dept_name': request.form.get('dept_name'),
-                'dept_info': 'Infomation about this department',
+                'dept_info': request.form.get('dept_info'),
                 'img_url': request.form.get('img_url'),
                 'main_contact': [
                 {

@@ -8,6 +8,7 @@
         <div class="card">
         <div class="card-header col s12">
             <!-- Select the image url that relates to the department name -->
+            <form action="{{url_for('insert_department', user_id=user_id)}}" method="POST" class="col s12">
             <div class="box">
                 <div class="img" id="dept_img" name="dept_img">
                     <img class="card-img-top" name="dept_img" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
@@ -15,7 +16,6 @@
                 </div>
             </div>
         
-        <form action="{{url_for('insert_department', user_id=user_id)}}" method="POST" class="col s12">
             <div class="col s12" id="headingOne">
 
 
@@ -59,7 +59,6 @@
                         <div class="input-field col s6">
                             <i class="fas fa-sitemap prefix"></i>
                             <label>Select the Service's for your department</label>
-
                             <div class="form-check">
                                 <ul id="list_service" name="service" style="list-style-type:none">
                                 </ul>
@@ -67,11 +66,24 @@
 
                         </div>
                     </div>
-                </div>
+                </div><br />
+
+                
                 <div id="add_dept" class="card col s12">
+                <div class="row">
+                        <div class="input-field col s6">
+                            <i class="fas fa-info-circle"></i>
+                            <b>About this department</b><br />
+                            <input id="dept_info" name="dept_info" type="text" placeholder="About the services here" class="form-control validate"
+                            value="" required /><br />
+                        </div>
+                    </div>
+                    
+                    
                     <div class="row">
                         <div class="input-field col s6">
                             <b>Main Contact:</b><br />
+                            <i class="fas fa-mobile-alt"></i>
                             <label for="phone">Department: </label>
                             <input id="phone" name="phone" type="tel" placeholder="phone number" class="form-control validate"
                                 value="" required /><br />
@@ -79,6 +91,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
+                                <i class="far fa-envelope"></i>
                             <label for="email">E-mail: </label>
                             <input id="email" name="email" type="email" placeholder="email address" class="form-control validate"
                                 value="" required /><br />
@@ -86,6 +99,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
+                                <i class="fas fa-phone"></i>
                             <label for="phone">Hospital: </label>
                             <input id="phone" name="phone1" type="tel" placeholder="phone number" class="form-control validate"
                                 value="" required /><br />
