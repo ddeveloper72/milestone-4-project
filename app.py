@@ -180,7 +180,21 @@ def register():
     return render_template('registration.html', 
                             page_title='Register', 
                             error=error)
-    
+
+
+@app.route ('/profile/<user_id>')
+def profile(user_id):
+    if 'user' in session:
+        login_user = users.find_one({"username": session['user']})
+        return render_template('profile.html', 
+                                page_title="Profile Page",
+                                login_user=login_user, 
+                                user_id=login_user['_id'])
+
+    return render_template('appointment.html', 
+                            page_title='Appointments')
+        
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Appointments views                                                                                       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
