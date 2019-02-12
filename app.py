@@ -143,7 +143,7 @@ def login():
    
 
 # Basebuild function
-# Simple user registration - With no password as per project brief.
+# Simple user registration.
 @app.route('/register', methods=['POST', 'GET'])
 
 def register():
@@ -159,9 +159,9 @@ def register():
                 users.insert_one(
                     {'username' : request.form['username'], 
                     'password' : hashed_pass,
-                    'site': [],
-                    'department' : [],
-                    'favorites' : [],
+                    'favourites' : [
+                        'You have no favourites selected yet'
+                        ],
                     'created': created})
             
                 login_user = users.find_one(
@@ -182,17 +182,53 @@ def register():
                             error=error)
 
 
-@app.route ('/profile/<user_id>')
+@app.route ('/profile/<user_id>', methods=['POST', 'GET'])
 def profile(user_id):
     if 'user' in session:
         login_user = users.find_one({"username": session['user']})
+        departments = Search(departments_collection).find_all()
+        facility = site_template_collection.find()  
+        """ users.update_many({'_id': ObjectId(user_id)},
+        {'$set': {
+                'user_contact': [
+                {
+                  'phone': request.form.get('phone'),
+                  'email': request.form.get('email')
+                }],
+                'department': request.form.get('dept_name'),
+                'location': request.form.get('site_name'),
+                'favourites': request.form.getlist('favourites')
+        }
+        }) """
+        
+
         return render_template('profile.html', 
                                 page_title="Profile Page",
                                 login_user=login_user, 
-                                user_id=login_user['_id'])
+                                user_id=login_user['_id'],
+                                facility=facility,
+                                departments = departments)
 
     return render_template('appointment.html', 
                             page_title='Appointments')
+
+@app.route ('/update_profile/<user_id>', methods=['POST'])
+def update_profile(user_id):
+    
+    users.update_many({'_id': ObjectId(user_id)},
+    {'$set': {
+            'user_contact': [
+            {
+              'phone': request.form.get('phone'),
+              'email': request.form.get('email')
+            }],
+            'department': request.form.get('dept_name'),
+            'location': request.form.get('site_name'),
+            'favourites': request.form.getlist('selected')
+    }
+    })
+    return redirect(url_for('get_appointment'))
+
         
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
