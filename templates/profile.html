@@ -10,79 +10,83 @@
         <div class="card-header">
             <form action="{{url_for('update_profile', user_id=user_id)}}" method="POST" class="col s12">
 
-<p>{{ login_user.username }}'s Profile</p>
-<div class="row">
-        <div class="input-field col s6">
-            <i class="far fa-star"></i>
-            <label>Favourites</label>
-            <div class="form-check">
-                    {% for selected in login_user.favourites %}
-                <ul id="favourites" name="favourites" style="list-style-type:none">
-                        <li>
-                        <input class="form-check-input" id="favourites" name="favourites" type="checkbox" value="{{ selected }}" checked>{{ selected }}</input>
-                        </li>
-                </ul>
-                {% endfor %}
-            </div>
+                <p>{{ login_user.username }}'s Profile</p>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="far fa-star"></i>
+                        <label>Favourites</label>
+                        <div class="form-check">
+                            {% for select in login_user.favourites %}
+                            <ul id="favourites" name="favourites" style="list-style-type:none">
+                                <li>
+                                    <input class="form-check-input" id="list_service" name="favourites" type="checkbox"
+                                        value="{{ select }}" checked>{{ select }}</input>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </div>
 
+                    </div>
+                </div><br />
+                <p>Date this profile was crated: {{ login_user.created }}</p>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <b>My Contact Details:</b><br />
+                        <i class="fas fa-mobile-alt"></i>
+                        <label for="phone">Contact: </label>
+                        <input id="phone" name="phone" type="tel" value="{{ login_user.user_contact[0:][0].phone }}"
+                            placeholder="phone number" class="form-control validate" value="" required /><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="far fa-envelope"></i>
+                        <label for="email">E-mail: </label>
+                        <input id="email" name="email" type="email" value="{{ login_user.user_contact[0:][0].email }}"
+                            placeholder="email address" class="form-control validate" value="" required /><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <b>Select Facility then Department:</b><br />
+                        <i class="far fa-building prefix"></i>
+                        <label for="location">Facility: </label>
+                        <select id="facility" name="site_name" class="form-control validate">
+                            <option value="" disabled selected>Select Your Facility</option>
+                            {% for site in facility %}
+                            <option class="form-control" name="site_name" id="{{ site.site_name }}" value="{{ site.site_name }}"
+                                selected>{{
+                                site.site_name }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="far fa-address-book prefix"></i>
+                        <label for="dept_name">Department: </label>
+                        <select name="dept_name" class="form-control validate">
+                            <option value="" disabled selected>Choose a department</option>
+                            {% for dept in departments %}
+                            <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}"
+                                selected>{{
+                                dept.dept_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <h5 class="col-md-4">
+                        <button class="btn btn-primary btn-sm" type="submit" name="action">Update Profile
+                            <i class="fas fa-folder-plus"></i>
+                        </button>
+                        <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a>
+                    </h5>
+                </div>
         </div>
-    </div><br />
-<p>Date this profile was crated: {{ login_user.created }}</p>
-<div class="row">
-    <div class="input-field col s6">
-        <b>My Contact Details:</b><br />
-        <i class="fas fa-mobile-alt"></i>
-        <label for="phone">Contact: </label>
-        <input id="phone" name="phone" type="tel" placeholder="phone number" class="form-control validate"
-            value="" required /><br />
+        </form>
     </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s6">
-                <i class="far fa-envelope"></i>
-            <label for="email">E-mail: </label>
-            <input id="email" name="email" type="email" placeholder="email address" class="form-control validate"
-                value="" required /><br />
-        </div>
-    </div>
-    <div class="row">
-            <div class="input-field col s6">
-                <b>Select Facility then Department:</b><br />
-                <i class="far fa-building prefix"></i>
-                <label for="site_name">Facility: </label>
-                <select id="facility" name="site_name" class="form-control validate">
-                    <option value="" disabled selected>Select Your Facility</option>
-                    {% for site_name in facility %}
-                    <option name="site_name" id="{{ site_name.site[0].location }}" value="{{ site_name.site[0].location }}">{{
-                        site_name.site[0].location }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div><br />
-    <div class="row">
-            <div class="input-field col s6">
-                <i class="far fa-address-book prefix"></i>
-                <label for="dept_name">Department: </label>
-                <select id="add_department" name="dept_name" class="form-control validate">
-                    <option value="" disabled selected>Choose a department</option>
-                    {% for dept in departments %}
-                    <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{
-                        dept.dept_name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div><br />
-        <div class="row">
-                <h5 class="col-md-4">
-                    <button class="btn btn-primary btn-sm" type="submit" name="action">Update Profile
-                        <i class="fas fa-folder-plus"></i>
-                    </button>
-                    <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a>
-                </h5>
-            </div>
-        </div>
-    </form>
-</div>
 </div>
 </div>
 </div>

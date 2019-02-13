@@ -187,26 +187,14 @@ def profile(user_id):
     if 'user' in session:
         login_user = users.find_one({"username": session['user']})
         departments = Search(departments_collection).find_all()
-        facility = site_template_collection.find()  
-        """ users.update_many({'_id': ObjectId(user_id)},
-        {'$set': {
-                'user_contact': [
-                {
-                  'phone': request.form.get('phone'),
-                  'email': request.form.get('email')
-                }],
-                'department': request.form.get('dept_name'),
-                'location': request.form.get('site_name'),
-                'favourites': request.form.getlist('favourites')
-        }
-        }) """
-        
+        facility = Search(facilities_collection).find_all()  
+           
 
         return render_template('profile.html', 
-                                page_title="Profile Page",
-                                login_user=login_user, 
-                                user_id=login_user['_id'],
-                                facility=facility,
+                                page_title = "Profile Page",
+                                login_user = login_user, 
+                                user_id = login_user['_id'],
+                                facility = facility,
                                 departments = departments)
 
     return render_template('appointment.html', 
@@ -214,20 +202,22 @@ def profile(user_id):
 
 @app.route ('/update_profile/<user_id>', methods=['POST'])
 def update_profile(user_id):
-    
+    login_user = users.find_one({"username": session['user']})
     users.update_many({'_id': ObjectId(user_id)},
     {'$set': {
+            'department': request.form.get('dept_name'),
+            'favourites': request.form.getlist('favourites'),
             'user_contact': [
-            {
+                {
               'phone': request.form.get('phone'),
               'email': request.form.get('email')
-            }],
-            'department': request.form.get('dept_name'),
-            'location': request.form.get('site_name'),
-            'favourites': request.form.getlist('selected')
-    }
+                }
+            ],
+            'site_name': request.form.get('site_name'),
+            }
     })
-    return redirect(url_for('get_appointment'))
+    return redirect(url_for('get_appointment', login_user=login_user, 
+                                user_id=login_user['_id']))
 
         
 
