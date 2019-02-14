@@ -1,5 +1,5 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Load/import pre-requisites. Constucted using Python 3.6.7                                                #
+# Load/import pre-requisites. Constructed using Python 3.6.7                                                #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 import os
 import datetime
@@ -32,7 +32,7 @@ login_manager.init_app(app)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # MongoDb Collections                                                                                      #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-users = mongo.db.users
+users_collection = mongo.db.users
 appointments_collection = mongo.db.appointment
 facilities_collection = mongo.db.facility
 departments_collection = mongo.db.departments
@@ -42,14 +42,14 @@ site_template_collection = mongo.db.site_templates
 image_template_collection = mongo.db.image_templates
 
 
-# Basebuild function
+# Base build function
 # Home page is appointment.html
 @app.route('/')
 @app.route('/index')
 def appointment():
     if 'user' in session:
-        login_user = users.find_one({'username' : session['user']})
-        flash('You are logged in as ' + session['user'], 'bg-success') 
+        login_user = users_collection.find_one({'username' : session['user']})
+        flash('You are logged in as ' + session['user'], 'alert-success') 
         return render_template('appointment.html', 
                                 username=session['user'],
                                  user_id=login_user['_id'])
@@ -68,29 +68,29 @@ def appointment():
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash('To access this, please log in first', 'bg-warning')
+            flash('To access this, please log in first', 'alert-warning')
             return redirect(url_for('login'))
     
     return wrap """
 
-# Basebuild function
+# Base build function
 # Logout current user
 @app.route('/logout')
 def logout():    
     session.clear()
-    flash('You are now logged out', 'bg-success') 
+    flash('You are now logged out', 'alert-success') 
     return redirect(url_for('get_appointment'))
 
 
-# Basebuild function
+# Base build function
 # Simple user authentication 
 """ @app.route('/login', methods=['GET','POST'])
 def login():
     session['next'] = request.args.get('next')
     return render_template('login.html') """
 
-# Basebuild function
-# Securely Redirect Back from Flask Snipets to ensure that all redirects 
+# Base build function
+# Securely Redirect Back from Flask Snippets to ensure that all redirects 
 # lead back to the same server- our own server.
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
@@ -99,12 +99,12 @@ def is_safe_url(target):
            ref_url.netloc == test_url.netloc
 
 
-# Basebuild function
+# Base build function
 # Simple user authentication 
 @app.route('/login', methods=['GET','POST'])
 def login():
     error = None
-    users = mongo.db.users
+    users = users_collection
 
     if request.method == "POST":
         username = request.form['username']
@@ -113,7 +113,7 @@ def login():
         try:
             login_user = users.find_one({'username' : username})
         except:
-            flash('Sorry there seems to be problem with the data', 'bg-warning')
+            flash('Sorry there seems to be problem with the data', 'alert-warning')
             return redirect(url_for('get_appointment')) 
 
         if login_user:
@@ -127,10 +127,10 @@ def login():
                     if is_safe_url(next):
                         redirect(next)
 
-                flash('%s has successfully logged in' % request.form['username'], 'bg-success')
+                flash('%s has successfully logged in' % request.form['username'], 'alert-success')
                 return redirect(url_for('get_appointment', user_id=login_user['_id']))
 
-            flash(u'Invalid username/password combination', 'bg-warning')
+            flash(u'Invalid username/password combination', 'alert-warning')
             return render_template('login.html', 
                                     page_title='Log-in', 
                                     error=error)  
@@ -142,14 +142,14 @@ def login():
     
    
 
-# Basebuild function
+# Base build function
 # Simple user registration.
 @app.route('/register', methods=['POST', 'GET'])
 
 def register():
     error = None
     if request.method == 'POST':
-        users = mongo.db.users
+        users = users_collection
         login_user = users.find_one({'username' : request.form['username']})
         created = datetime.utcnow()
 
@@ -170,12 +170,12 @@ def register():
                 session['user'] = request.form['username']  
                 session['logged_in'] = True
                 
-                flash('%s has successfully logged in' % request.form['username'], 'bg-success')
+                flash('%s has successfully logged in' % request.form['username'], 'alert-success')
                 return redirect(url_for('get_appointment', 
                                         user_id=login_user['_id']))
 
         except DuplicateKeyError:
-            flash(u'That username already exists!', 'bg-warning') 
+            flash(u'That username already exists!', 'alert-warning') 
 
     return render_template('registration.html', 
                             page_title='Register', 
@@ -185,7 +185,7 @@ def register():
 @app.route ('/profile/<user_id>', methods=['POST', 'GET'])
 def profile(user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']})
+        login_user = users_collection.find_one({"username": session['user']})
         departments = Search(departments_collection).find_all()
         facility = Search(facilities_collection).find_all()  
            
@@ -202,8 +202,8 @@ def profile(user_id):
 
 @app.route ('/update_profile/<user_id>', methods=['POST'])
 def update_profile(user_id):
-    login_user = users.find_one({"username": session['user']})
-    users.update_many({'_id': ObjectId(user_id)},
+    login_user = users_collection.find_one({"username": session['user']})
+    users_collection.update_many({'_id': ObjectId(user_id)},
     {'$set': {
             'department': request.form.get('dept_name'),
             'favourites': request.form.getlist('favourites'),
@@ -224,14 +224,14 @@ def update_profile(user_id):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Appointments views                                                                                       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Basebuild function
+# Base build function
 # Search for scheduled appointments - no filters.
 # , defaults={'user_id': None}
 @app.route('/get_appointment', defaults={'user_id': None})
 @app.route('/get_appointment/<user_id>')
 def get_appointment(user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']})
+        login_user = users_collection.find_one({"username": session['user']})
         appointment = Search(appointments_collection).find_all()
     
         return render_template('appointment.html', 
@@ -252,7 +252,7 @@ def get_appointment(user_id):
 @app.route('/add_appointment/<user_id>')
 def add_appointment(user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']})
+        login_user = users_collection.find_one({"username": session['user']})
         facility = Search(facilities_collection).find_all()
         departments = Search(departments_collection).find_all()
 
@@ -291,16 +291,16 @@ def service():
         return jsonify({'data': service})
     print(service) 
 
-    return jsonify({'error' : 'an error occured'})
+    return jsonify({'error' : 'an error occurred'})
     
 
-# Basebuild function
+# Base build function
 # Adds a new appointment
 @app.route('/insert_appointment', methods=['POST', 'GET'], defaults={'user_id': None})
 @app.route('/insert_appointment/<user_id>')
 def insert_appointment(user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']})
+        login_user = users_collection.find_one({"username": session['user']})
         appointment = appointments_collection
         appointment.insert_one(request.form.to_dict())
         return redirect(url_for('get_appointment',
@@ -309,13 +309,13 @@ def insert_appointment(user_id):
 
     return render_template('login.html', page_title='Log-in')
 
-# Basebuild function
+# Base build function
 # Lets us edit the data for an existing appointment
 @app.route('/edit_appointment', defaults={'user_id': None})
 @app.route('/edit_appointment/<app_id>/<user_id>')
 def edit_appointment(app_id, user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']})   
+        login_user = users_collection.find_one({"username": session['user']})   
         _appointment = appointments_collection.find_one({'_id': ObjectId(app_id)})
         all_depts = departments_collection.find()
         return render_template('edit_appointment.html', 
@@ -345,10 +345,10 @@ def service_update():
         return jsonify({'data': service})
     print(service) 
 
-    return jsonify({'error' : 'an error occured'})
+    return jsonify({'error' : 'an error occurred'})
 
 
-# Basebuild function
+# Base build function
 # Lets us edit the data for an existing appointment
 @app.route('/update_appointment/<app_id>', methods=['POST'])
 def update_appointment(app_id):
@@ -368,12 +368,12 @@ def update_appointment(app_id):
     })
     return redirect(url_for('get_appointment'))
 
-# Basebuild function
+# Base build function
 # Lets us edit the data for an existing appointment
 @app.route('/delete_appointment/<app_id>/<user_id>')
 def delete_appointment(app_id, user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']})      
+        login_user = users_collection.find_one({"username": session['user']})      
         appointments_collection.remove({'_id': ObjectId(app_id)})
         return redirect(url_for('get_appointment', 
                         username=session['user'], 
@@ -384,13 +384,13 @@ def delete_appointment(app_id, user_id):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Departments views                                                                                        #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Basebuild function
+# Base build function
 # Lets us return the names of all the departments
 @app.route('/get_departments', defaults={'user_id': None})
 @app.route('/get_departments/<user_id>')
 def get_departments(user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']}) 
+        login_user = users_collection.find_one({"username": session['user']}) 
         departments = Search(departments_collection).find_all()
         return render_template('get_departments.html', 
                                 page_title='All Departments',
@@ -402,12 +402,12 @@ def get_departments(user_id):
 
 
 
-# Basebuild function
+# Base build function
 # Lets us edit the name of a specific department
 @app.route('/department/<dept_id>/<user_id>')
 def department(dept_id, user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']}) 
+        login_user = users_collection.find_one({"username": session['user']}) 
         return render_template('department.html',  
                                 page_title='Department',
                                 department = departments_collection.find_one(
@@ -417,12 +417,12 @@ def department(dept_id, user_id):
 
     return render_template('login.html', page_title='Log-in')
 
-# Basebuild function
+# Base build function
 # Lets us edit the name of a specific department
 @app.route('/edit_department/<dept_id>/<user_id>')
 def edit_department(dept_id, user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']}) 
+        login_user = users_collection.find_one({"username": session['user']}) 
         return render_template('edit_department.html',  
                                 page_title='Edit Department',
                                 department = departments_collection.find_one(
@@ -432,7 +432,7 @@ def edit_department(dept_id, user_id):
 
     return render_template('login.html', page_title='Log-in')
 
-# Basebuild function
+# Base build function
 # The name of a specific department is written back to the document
 @app.route('/update_department/<dept_id>', methods=['POST'])
 def update_department(dept_id):
@@ -448,13 +448,13 @@ def update_department(dept_id):
     return redirect(url_for('get_departments'))
 
 
-# Basebuild function
+# Base build function
 # The sites and departments are rendered to html
 @app.route('/add_department',  methods=['POST', 'GET'], defaults={'user_id': None})
 @app.route('/add_department/<user_id>')
 def add_department(user_id):
     if 'user' in session: 
-        login_user = users.find_one({"username": session['user']})  
+        login_user = users_collection.find_one({"username": session['user']})  
         items = dept_template_collection.find()    
         facility = site_template_collection.find()        
         
@@ -467,7 +467,7 @@ def add_department(user_id):
     return render_template('login.html', page_title='Log-in')
    
 
-# Basebuild function
+# Base build function
 # The services are matched to the department selected
 @app.route('/dept_update',  methods=['POST', 'GET'])
 def dept_update():
@@ -491,10 +491,10 @@ def dept_update():
     if service:
         return jsonify({'data': service})
     # print(service) 
-    return jsonify({'error' : 'an error occured'})
+    return jsonify({'error' : 'an error occurred'})
     
 
-# Basebuild function
+# Base build function
 # The services are matched to the department selected
 @app.route('/deptimg_update',  methods=['POST', 'GET'])
 def dept_imgupdate():
@@ -514,16 +514,16 @@ def dept_imgupdate():
         return jsonify({'data': image})
     print(image) 
 
-    return jsonify({'error' : 'an error occured'})
+    return jsonify({'error' : 'an error occurred'})
 
 
 
-# Basebuild function
+# Base build function
 # Insert new department into collection
 @app.route('/insert_department/<user_id>', methods=['POST'])
 def insert_department(user_id):
      if 'user' in session: 
-        login_user = users.find_one({"username": session['user']})   
+        login_user = users_collection.find_one({"username": session['user']})   
         department = departments_collection
         #try:
         department_doc = {
@@ -552,7 +552,7 @@ def insert_department(user_id):
                                 user_id=login_user['_id']))
 
 
-# Basebuild function
+# Base build function
 # The name of a specific department is written back to the document
 @app.route('/update_service/<serv_id>', methods=['POST'])
 def update_service(serv_id):
@@ -563,18 +563,37 @@ def update_service(serv_id):
        
     return redirect(url_for('get_departments'))
     
-# Basebuild function
+# Base build function
 # Lets us delete an existing department
 @app.route('/delete_department/<dept_id>/<user_id>')
 def delete_department(dept_id, user_id):
     if 'user' in session:
-        login_user = users.find_one({"username": session['user']})      
+        login_user = users_collection.find_one({"username": session['user']})      
         departments_collection.remove({'_id': ObjectId(dept_id)})
         return redirect(url_for('get_departments', 
                         username=session['user'], 
                         user_id=login_user['_id']))
 
     return render_template('login.html', page_title='Log-in')
+
+
+@app.route('/add_favourite/<dept_id>/<user_id>', methods=['GET'])
+def add_favourite(dept_id, user_id):
+    try:
+        login_user = users_collection.find_one({'_id': ObjectId(user_id)})
+    except:
+        flash('There was an error retrieving the data from the database', 'alert-danger')
+        return redirect(request.referrer)
+    if dept_id in login_user["favourites"]:
+        flash('This department is already in your favourites', 'alert-warning')
+        return redirect(request.referrer)
+    else: 
+        departments_collection.find_one({'_id': ObjectId(dept_id)})
+        users_collection.update({'_id': ObjectId(user_id)},
+        {'$push': {'favourites': dept_id}})
+
+        flash('This department has been added as a favourite', 'alert-success')
+        return redirect(request.referrer)
 
 if __name__ == '__main__':
     

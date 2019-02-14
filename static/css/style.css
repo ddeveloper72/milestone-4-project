@@ -49,3 +49,6 @@ nav .brand-logo {
     list-style-type: none;
 }
 
+.fa-favourite {
+    color: rgba(207, 6, 6, 0.65);
+}

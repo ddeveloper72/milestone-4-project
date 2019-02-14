@@ -14,7 +14,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 
 # MongoDb Collections
-users = mongo.db.users
+users_collection = mongo.db.users
 appointments_collection = mongo.db.appointment
 facility_collection = mongo.db.facility
 departments_collection = mongo.db.departments
@@ -33,8 +33,8 @@ class Search:
     def find_one(self):
         return self.collection.find_one()
 
-    def find_by_task_id(self, id):
-        return self.collection.find_one({"_id": ObjectId(id)})
+    def find_one_by_id(self, id):
+        return self.collection.find_one_by_id({"_id": ObjectId(id)})
 
 
 
