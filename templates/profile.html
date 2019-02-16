@@ -16,11 +16,11 @@
                     <span class="fa-favourite"><i class="fas fa-heart"></i></span>                        
                         <label>Favourites</label>
                         <div class="form-check">
-                            {% for select in login_user.favourites %}
+                            {% for select in login_user.likes %}
                             <ul id="favourites" name="favourites" style="list-style-type:none">
                                 <li>
                                     <input class="form-check-input" id="list_service" name="favourites" type="checkbox"
-                                        value="{{ select }}" checked>{{ select }}</input>
+                                        value="{{ select }}" checked />{{ select }}
                                 </li>
                             </ul>
                             {% endfor %}

@@ -185,9 +185,18 @@ def register():
 @app.route ('/profile/<user_id>', methods=['POST', 'GET'])
 def profile(user_id):
     if 'user' in session:
-        login_user = users_collection.find_one({"username": session['user']})
-        departments = Search(departments_collection).find_all()
-        facility = Search(facilities_collection).find_all()  
+        login_user = users_collection.find_one({'username': session['user']})
+
+
+        """ id_likes = users_collection.find_one({'username': session['user']}, {'likes': '', "_id":0})['likes']
+        if search == ['']:  
+            depts = departments_collection.find({"$and": [{"dept_name": "dept_name"}, {"_id": {"$in": id_likes }} ] })
+        else:
+            depts = departments_collection.find({"$and": [{"dept_name": "dept_name"}, {"_id": {"$in": id_likes }} ] })
+        print (id_likes) """
+
+        departments = departments_collection.find_one()
+        facility = facilities_collection.find_one()  
            
 
         return render_template('profile.html', 
@@ -206,7 +215,7 @@ def update_profile(user_id):
     users_collection.update_many({'_id': ObjectId(user_id)},
     {'$set': {
             'department': request.form.get('dept_name'),
-            'favourites': request.form.getlist('favourites'),
+            'likes': request.form.getlist('favourites'),
             'user_contact': [
                 {
               'phone': request.form.get('phone'),
@@ -584,13 +593,17 @@ def add_favourite(dept_id, user_id):
     except:
         flash('There was an error retrieving the data from the database', 'alert-danger')
         return redirect(request.referrer)
-    if dept_id in login_user["favourites"]:
+    if dept_id in login_user["likes"]:
         flash('This department is already in your favourites', 'alert-warning')
         return redirect(request.referrer)
     else: 
-        departments_collection.find_one({'_id': ObjectId(dept_id)})
+        
+        departments_collection.find_one({'_id': ObjectId(dept_id)}) 
         users_collection.update({'_id': ObjectId(user_id)},
-        {'$push': {'favourites': dept_id}})
+        {'$push': 
+        {'likes': dept_id}
+        
+        })
 
         flash('This department has been added as a favourite', 'alert-success')
         return redirect(request.referrer)
