@@ -187,48 +187,44 @@ def register():
 # User Profile Views                                                                                       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Base build function
-# Show profile page
+# Show profile page, check for likes by the user and display them.
 @app.route ('/profile/<user_id>', methods=['POST', 'GET'])
 def profile(user_id):
     if 'user' in session:
         login_user = users_collection.find_one({'username': session['user']})
         departments = Search(departments_collection).find_all()
-        facility = Search(facilities_collection).find_all() 
+        facility = Search(facilities_collection).find_all()    
+
+        try:
+            id_deptlikes = users_collection.find({'username': session['user']})
+            print(id_deptlikes)
+            list_deptlikes = []
+            likes =  [i['likes'] for i in id_deptlikes]
+
+            for like in likes[0]:
+                list_deptlikes.append({"_id": ObjectId(like)})            
+            
+            favourites = [i for i in departments_collection.find( { "$or": list_deptlikes})] 
 
 
-    
+        except:
+            flash('There are no favourites in your profile yet', 'alert-warning')
+        
+        else:
+            return render_template('profile.html', 
+                                    page_title = "Profile Page",
+                                    login_user = login_user, 
+                                    user_id = login_user['_id'],
+                                    favourites = favourites,
+                                    facility = facility,
+                                    departments = departments)
 
-    id_deptlikes = users_collection.find({'username': session['user']})
-   # print(id_deptlikes)
-    
-    
-    list_deptlikes = []
-   
-
-    likes =  [i['likes'] for i in id_deptlikes]
-    for like in likes[0]:
-
-        list_deptlikes.append({"_id": ObjectId(like)})
-    print(list_deptlikes)
-
-    favourites = [i for i in departments_collection.find( { "$or": list_deptlikes})]
-    # print(favourites)
-
-                
-      
-
-           
-
-    return render_template('profile.html', 
-                            page_title = "Profile Page",
-                            login_user = login_user, 
-                            user_id = login_user['_id'],
-                            favourites = favourites,
+    return render_template('profile.html',      
+                            page_title='Profile', 
+                            login_user = login_user,
+                            user_id = user_id,
                             facility = facility,
                             departments = departments)
-
-    """ return render_template('appointment.html', 
-                            page_title='Appointments') """
 
 # Base build function
 # Update profile db
