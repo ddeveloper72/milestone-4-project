@@ -13,16 +13,59 @@
                 <p>{{ login_user.username }}'s Profile</p>
                 <div class="row">
                     <div class="input-field col s6">
-                    <span class="fa-favourite"><i class="fas fa-heart"></i></span>                        
-                        <label>Favourites</label>
+                        <span class="fa-favourite"><i class="fas fa-heart"></i></span>
+                        <label>Favourite Departments</label>
                         <div class="form-check">
-                            {% for select in login_user.likes %}
-                            <ul id="favourites" name="favourites" style="list-style-type:none">
-                                <li>
-                                    <input class="form-check-input" id="list_service" name="favourites" type="checkbox"
-                                        value="{{ select }}" checked />{{ select }}
-                                </li>
-                            </ul>
+                            {% for x in favourites %}
+                            <div class="card col-sm-s12">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="img">
+                                                <a href="{{url_for('department', dept_id = x._id, user_id = user_id)}}">
+                                            <img class="card-img-top" src="{{ x.img_url }}" alt="{{ x.dept_name }}"></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-8">
+
+                                        <ul id="favourites" name="favourites" style="list-style-type:none">
+                                            <div class="row">
+                                                <li class="box">
+                                                    <div class="row">
+                                                        <input class="form-check-input" id="list_service" name="favourites"
+                                                            type="checkbox" value="{{ x._id }}" checked />
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="s12 col-auto">
+                                                            <i class="far fa-address-book prefix"></i>
+                                                            <label for="dept_name">Department: <span class="label">{{
+                                                                    x.dept_name }}</span></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row s12">
+                                                        <div class="col-6 col-auto">
+                                                            <i class="far fa-building prefix"></i>
+                                                            <label for="location">Facility: </label>
+                                                            <div class="label">{{ x.site[0].location }}</div>
+                                                        </div>
+
+
+                                                        <div class="col-auto">
+                                                            <i class="fas fa-mobile-alt"></i>
+                                                            <label for="phone">Contact: </label>
+                                                            <div class="label">{{ x.site[0].phone }}</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
                             {% endfor %}
                         </div>
 
@@ -54,10 +97,13 @@
                         <select id="facility" name="site_name" class="form-control validate">
                             <option value="" disabled selected>Select Your Facility</option>
                             {% for site in facility %}
+                            {% if site.site_name == login_user.site_name %}
                             <option class="form-control" name="site_name" id="{{ site.site_name }}" value="{{ site.site_name }}"
-                                selected>{{
+                                selected>{{ site.site_name }}</option>
+                            {% else %}
+                            <option class="form-control" name="site_name" id="{{ site.site_name }}" value="{{ site.site_name }}">{{
                                 site.site_name }}</option>
-
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
@@ -69,9 +115,14 @@
                         <select name="dept_name" class="form-control validate">
                             <option value="" disabled selected>Choose a department</option>
                             {% for dept in departments %}
+                            {% if dept.dept_name == login_user.dept_name %}
                             <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}"
                                 selected>{{
                                 dept.dept_name }}</option>
+                            {% else %}
+                            <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{
+                                dept.dept_name }}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>

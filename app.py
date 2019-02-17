@@ -11,7 +11,8 @@ from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from functools import wraps
+import operator
+from functools import wraps, reduce
 import json
 
 from classes import Search
@@ -182,39 +183,60 @@ def register():
                             error=error)
 
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# User Profile Views                                                                                       #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Base build function
+# Show profile page
 @app.route ('/profile/<user_id>', methods=['POST', 'GET'])
 def profile(user_id):
     if 'user' in session:
         login_user = users_collection.find_one({'username': session['user']})
+        departments = Search(departments_collection).find_all()
+        facility = Search(facilities_collection).find_all() 
 
 
-        """ id_likes = users_collection.find_one({'username': session['user']}, {'likes': '', "_id":0})['likes']
-        if search == ['']:  
-            depts = departments_collection.find({"$and": [{"dept_name": "dept_name"}, {"_id": {"$in": id_likes }} ] })
-        else:
-            depts = departments_collection.find({"$and": [{"dept_name": "dept_name"}, {"_id": {"$in": id_likes }} ] })
-        print (id_likes) """
+    
 
-        departments = departments_collection.find_one()
-        facility = facilities_collection.find_one()  
+    id_deptlikes = users_collection.find({'username': session['user']})
+   # print(id_deptlikes)
+    
+    
+    list_deptlikes = []
+   
+
+    likes =  [i['likes'] for i in id_deptlikes]
+    for like in likes[0]:
+
+        list_deptlikes.append({"_id": ObjectId(like)})
+    print(list_deptlikes)
+
+    favourites = [i for i in departments_collection.find( { "$or": list_deptlikes})]
+    # print(favourites)
+
+                
+      
+
            
 
-        return render_template('profile.html', 
-                                page_title = "Profile Page",
-                                login_user = login_user, 
-                                user_id = login_user['_id'],
-                                facility = facility,
-                                departments = departments)
+    return render_template('profile.html', 
+                            page_title = "Profile Page",
+                            login_user = login_user, 
+                            user_id = login_user['_id'],
+                            favourites = favourites,
+                            facility = facility,
+                            departments = departments)
 
-    return render_template('appointment.html', 
-                            page_title='Appointments')
+    """ return render_template('appointment.html', 
+                            page_title='Appointments') """
 
+# Base build function
+# Update profile db
 @app.route ('/update_profile/<user_id>', methods=['POST'])
 def update_profile(user_id):
     login_user = users_collection.find_one({"username": session['user']})
     users_collection.update_many({'_id': ObjectId(user_id)},
     {'$set': {
-            'department': request.form.get('dept_name'),
             'likes': request.form.getlist('favourites'),
             'user_contact': [
                 {
@@ -223,12 +245,35 @@ def update_profile(user_id):
                 }
             ],
             'site_name': request.form.get('site_name'),
+            'dept_name': request.form.get('dept_name'),
             }
     })
-    return redirect(url_for('get_appointment', login_user=login_user, 
-                                user_id=login_user['_id']))
+    flash('Your profile has been updated', 'alert-success')
+    return redirect(request.referrer)
 
+# Base build function
+# Create a favourite/like and add to the user profile db
+@app.route('/add_favourite/<dept_id>/<user_id>', methods=['POST','GET'])
+def add_favourite(dept_id, user_id):
+    try:
+        login_user = users_collection.find_one({'_id': ObjectId(user_id)})
+    except:
+        flash('There was an error retrieving the data from the database', 'alert-danger')
+        return redirect(request.referrer)
+    if dept_id in login_user["likes"]:
+        flash('This department is already in your favourites', 'alert-warning')
+        return redirect(request.referrer)
+    else: 
         
+        departments_collection.find_one({'_id': ObjectId(dept_id)}) 
+        users_collection.update({'_id': ObjectId(user_id)},
+        {'$push': 
+        {'likes': dept_id}
+        
+        })
+
+        flash('This department has been added as a favourite', 'alert-success')
+        return redirect(request.referrer)    
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Appointments views                                                                                       #
@@ -586,27 +631,6 @@ def delete_department(dept_id, user_id):
     return render_template('login.html', page_title='Log-in')
 
 
-@app.route('/add_favourite/<dept_id>/<user_id>', methods=['GET'])
-def add_favourite(dept_id, user_id):
-    try:
-        login_user = users_collection.find_one({'_id': ObjectId(user_id)})
-    except:
-        flash('There was an error retrieving the data from the database', 'alert-danger')
-        return redirect(request.referrer)
-    if dept_id in login_user["likes"]:
-        flash('This department is already in your favourites', 'alert-warning')
-        return redirect(request.referrer)
-    else: 
-        
-        departments_collection.find_one({'_id': ObjectId(dept_id)}) 
-        users_collection.update({'_id': ObjectId(user_id)},
-        {'$push': 
-        {'likes': dept_id}
-        
-        })
-
-        flash('This department has been added as a favourite', 'alert-success')
-        return redirect(request.referrer)
 
 if __name__ == '__main__':
     

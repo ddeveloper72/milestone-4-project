@@ -35,6 +35,8 @@ class Search:
 
     def find_one_by_id(self, id):
         return self.collection.find_one_by_id({"_id": ObjectId(id)})
+    
+   
 
 
 
