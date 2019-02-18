@@ -27,7 +27,7 @@ The user's profile will let them select the medical facility at which they work.
 
 The user must then be able to the see the other departments at the medical facility.  They must be able to schedule an appointment for a service, offered by another department.  They must be able to mark the appointment a priority or not as well as favourite the department.  A favourites list of the departments must be available from their own profile.  They user must be able to unfavourite a department as well as to cancel or amend an appointment scheduled.
 
-A nice to have, which is still being concidered for the design, will be to let the user rate a consultation by giving it stars out of 5.
+A nice to have, which is still being considered for the design, will be to let the user rate a consultation by giving it stars out of 5.
 
 ## 2 .The UX Design
 *(This template is with thanks from 
@@ -38,16 +38,16 @@ A nice to have, which is still being concidered for the design, will be to let t
 
 | Focus                                                       | User Needs                                                            | Business Objectives                             |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
-| What are you aiming to achieve?                             | To be able to save medical facility department & service informtion  |  |
+| What are you aiming to achieve?                             | To be able to save medical facility department & service information  |  |
 |                                                             | To be able to find and use services within a medical facility.  |  |
-| For whom?                                                   | To be able to see a list of favorite departments.  |  |
+| For whom?                                                   | To be able to see a list of favourite departments.  |  |
 | TARGET AUDIENCE                                             | To be able to add new departments or services to the medical facility  |  |
 |                                                             | To be able to change existing department or services  |  |
 |                                                             | To be able to remove a service from a department.  |  |
 |                                                             | To be able to book and edit a booking for a consultation.  |  |
-|                                                             | To be able to rate a servce on completion of a consultation out of 5 stars.  |  |
+|                                                             | To be able to rate a service on completion of a consultation out of 5 stars.  |  |
 |                                                             | To be able to add and change contact information for a service.  |  |
-|                                                             | To be abel to set an urgency to a booking for a consultation.  |  |
+|                                                             | To be able to set an urgency to a booking for a consultation.  |  |
 
 
 
@@ -55,15 +55,15 @@ A nice to have, which is still being concidered for the design, will be to let t
 
 | Focus                                                       | Functional Specification                                              | Content Requirements                            |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
-| Which features?                                             | View all services with an option to vew just favorites  | A non-relational database has been chosen. See database schema below. |
+| Which features?                                             | View all services with an option to view just favourites  | A non-relational database has been chosen. See database schema below. |
 | What’s on the table?                                        | View all bookings, filterable by service and by urgency |  |
 |                                                             | View service |  |
 |                                                             | Update service |  |
 |                                                             | Add appointment |  |
 |                                                             | Update appointment |  |
 |                                                             | Complete an appointment |  |
-|                                                             | Delete an appointmet |  |
-|                                                             | Add / remove a favorite service |  |
+|                                                             | Delete an appointment |  |
+|                                                             | Add / remove a favourite service |  |
 |                                                             | Create a user login |  |
 |                                                             | Create a user dashboard |  |
 |                                                             | Create a user settings profile |  |
@@ -74,12 +74,12 @@ A nice to have, which is still being concidered for the design, will be to let t
 | Focus                                                       | Interaction Design                                                           | Information Architecture                                                               |
 |-------------------------------------------------------------|------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
 | How is the information structured?                          | Where am I? / How did I get here? / What can I do here? / Where can I go?    | Organizational / Navigational schemas (tree / nested list / hub and spoke / dashboard) |
-|                                                             | A list of departments offored by a facility will be displayed, with a login button | Tree Structure |
-| How is it logically grouped?                                | A user will be prompted for thir name to log in.  If one does not exist, they will be prompted to setup a new profile in a department of their choice, or create a new department.  Their profile name will need to be different from all the other profiles. | Start/home page |
+|                                                             | A list of departments offered by a facility will be displayed, with a login button | Tree Structure |
+| How is it logically grouped?                                | A user will be prompted for their name to log in.  If one does not exist, they will be prompted to setup a new profile in a department of their choice, or create a new department.  Their profile name will need to be different from all the other profiles. | Start/home page |
 |                                                             | The user will be able to customize the services that they offer from their department. | Login facility/Create a new account |
-|                                                             | The user will be able to see a list of services oppored by other departments and favorite the services offored by those departments. | Profile page for configuring department and services. |
+|                                                             | The user will be able to see a list of services offered by other departments and favourite the services offered by those departments. | Profile page for configuring department and services. |
 |                                                             | The user will be able to schedule appointments for consultations in other departments, mark them important and amend/delete their appointment.  Should an appointment already exist for that time-slot for that service, the user will be prompted to pick a different time/date from a list of available slots in that week. | Add/remove departments and the information about them. |
-|                                                             | Toggle icons, will let the user select or deselect departmetns to keep as their favorites. | Add/remove services and the information about them. |
+|                                                             | Toggle icons, will let the user select or deselect departments to keep as their favourites. | Add/remove services and the information about them. |
 
 
 #### Skeleton
@@ -87,11 +87,11 @@ A nice to have, which is still being concidered for the design, will be to let t
 | Focus                                                       | Interface Design                                       | Navigational Design  | Information Design  |
 |-------------------------------------------------------------|--------------------------------------------------------|----------------------|---------------------|
 | How will the information be represented?                    | See wireframes                                         |                      |                     |
-| How will the user navigate to the information and features? | See mockups designs | All Services |  |
+| How will the user navigate to the information and features? | See mock-ups designs | All Services |  |
 |                                                             |  | Manage Profile (Create & edit) |  |
 |                                                             |  | Browse departments & services |  |
 |                                                             |  | Create & edit own bookings |  |
-|                                                             |  | Favourite departmets & services (Add & remove |  |
+|                                                             |  | Favourite departments & services (Add & remove |  |
 |                                                             |  | Login & logout |  |
 
 
@@ -135,17 +135,24 @@ A nice to have, which is still being concidered for the design, will be to let t
 ```javascript
 
 {
-    "dept": "Laboratory",
-    "dept_info": "Infomation about this department",
-    "img_url": "url reference to a category image for this department",
-    "serv": [
-        "Blood bank",
-        "Biochemistry",
-        "Haematology",
-        "Histopathology",
-        "Microbiology",
-        "Public health diagnostic services",
-        "Serology/immunology"
+    "_id": {
+        "$oid": ""
+    },
+    "dept_name": "",
+    "dept_info": "",
+    "img_url": "",
+    "main_contact": [
+        {
+            "phone": "",
+            "email": ""
+        }
+    ],
+    "service": [""],
+    "site": [
+        {
+            "location": "",
+            "phone": ""
+        }
     ]
 }
 
@@ -156,31 +163,23 @@ A nice to have, which is still being concidered for the design, will be to let t
 ```javascript
 
 {
-    "name": "",
-    "staffNum": "",
+    "_id": {
+        "$oid": ""
+    },
+    "username": "",
     "password": "",
-    "siteInfo": {
-    "siteName": [
-      "siteId"
+    "dept_name": "",
+    "likes": [dept_id],
+    "created": {
+        "$date": ""
+    },
+    "user_contact": [
+        {
+            "phone": "",
+            "email": ""
+        }
     ],
-    "deptId": [
-      "deptId"
-    ]
-  },
-  "profession": [
-    "professionId"
-  ],
-  "img_url": "",
-  "department_head": "off",
-  "fav_dept": [
-    "deptId"
-  ],
-  "fav_serv": [
-    "servId"
-  ],
-  "appointments": [
-    "appointmentId"
-  ]
+    "site_name": ""
 }
 
 ```

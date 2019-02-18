@@ -400,11 +400,13 @@ def service_update():
 
 # Base build function
 # Lets us edit the data for an existing appointment
-@app.route('/update_appointment/<app_id>', methods=['POST'])
-def update_appointment(app_id):
+@app.route('/update_appointment/<app_id>/<user_id>', methods=['POST'])
+def update_appointment(app_id, user_id):
+
     appointments = appointments_collection
     appointments.update_many({'_id': ObjectId(app_id)},
     {'$set': {
+        'user_id': user_id,
         'dept_name': request.form.get('dept_name'),
         'service': request.form.get('service'),
         'task_description': request.form.get('task_description'),
@@ -484,10 +486,11 @@ def edit_department(dept_id, user_id):
 
 # Base build function
 # The name of a specific department is written back to the document
-@app.route('/update_department/<dept_id>', methods=['POST'])
-def update_department(dept_id):
+@app.route('/update_department/<dept_id>/<user_id>', methods=['POST'])
+def update_department(dept_id, user_id):
     departments_collection.update_many({'_id': ObjectId(dept_id)},
         {'$set': {
+            'user_id': user_id,
             'dept_name': request.form.get('dept_name'),
             'main_contact.$[].phone': request.form.get('phone1'),
             'main_contact.$[].email': request.form.get('email'),
@@ -577,6 +580,7 @@ def insert_department(user_id):
         department = departments_collection
         #try:
         department_doc = {
+                'user_id': user_id,
                 'dept_name': request.form.get('dept_name'),
                 'dept_info': request.form.get('dept_info'),
                 'img_url': request.form.get('img_url'),
