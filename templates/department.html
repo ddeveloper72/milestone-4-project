@@ -8,29 +8,21 @@
 <div class="card">
     <div class="box">
         <div class="card-header">
-            <h5 class="mb-0">
 
                 <div class="img">
                     <img class="card-img-top" src="{{ department.img_url }}" alt="{{ department.dept_name }}">
                 </div>
-                <div class="col s12">
-                    <div class="row">
-
-                        <a href="{{ url_for('edit_department',  dept_id=department._id, user_id=user_id) }}" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="{{ url_for('get_departments', user_id=user_id) }}" class="btn btn-primary btn-sm">Cancel</a>
-
-                        <form action="{{ url_for('add_favourite', dept_id=department._id, user_id=user_id) }}" method="POST">
-                            <button value="{{ department._id }}" type="submit" name="action" class="btn btn-outline-warning btn-sm"
-                                data-toggle="tooltip" data-placement="right" title="Add to favourites">
-                                <span class="fa-favourite"><i class="fas fa-heart"></i></span></button>
-                        </form>
-                    </div>
-                </div>
-                <strong>{{ department.dept_name }}</strong>
-            </h5>
-            <h5>{{ department.dept_info }}</h5>
+                
+                
+                <form action="{{ url_for('add_favourite', dept_id=department._id, user_id=user_id) }}" method="POST">
+                    <button value="{{ department._id }}" type="submit" name="action" class="btn btn-outline-warning btn-sm"
+                    data-toggle="tooltip" data-placement="right" title="Add to favourites">
+                    <span class="fa-favourite"><i class="fas fa-heart"></i></span><strong> {{ department.dept_name }}</strong></button>
+                </form><br />
+                <h5>{{ department.dept_info }}</h5>
         </div>
 
+        <div class="box">
         <div class="row">
             <ul>
                 {% for item in department.service[0:] %}
@@ -40,17 +32,40 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-
-                <b>Main Contact:</b> <br />
-                Phone: {{ department.main_contact[0:][0].phone }}<br />
-                E-mail: <a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a><br />
-                <b>Where to find us:</b> <br />
-                Location: {{ department.site[0:][0].location }}<br />
-                Phone: {{ department.site[0:][0].phone }}<br />
-            </div>
         </div>
+        <div class="card">
+        <div class="box">
+            
+                <div class="row s12">
+                    <div class="col-6 col-auto">
+                        <b>Main Contact:</b> <br />
+                        Phone: {{ department.main_contact[0:][0].phone }}<br />
+                        E-mail: <a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a><br /><br />
+
+                    </div>
+
+               
+                
+                    <div class="col-auto">
+                        <b>Where to find us:</b><br />
+                        Location: {{ department.site[0:][0].location }}<br />
+                        Phone: {{ department.site[0:][0].phone }}<br /><br />
+
+                    </div>
+
+                </div>
+            
+                <div class="row">
+                    <h5 class=" col s4">                        
+                        <a href="{{ url_for('edit_department',  dept_id=department._id, user_id=user_id) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{{ url_for('get_departments', user_id=user_id) }}" class="btn btn-primary btn-sm">Cancel</a>
+                    </h5>
+                </div>
+            </div>        
+    </div>        
+            
+
+
     </div>
 </div>
 
