@@ -631,24 +631,17 @@ def delete_department(dept_id, user_id):
     return render_template('login.html', page_title='Log-in')
 
 
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Development/Production environment test for debug                                                        #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 if __name__ == '__main__':
     
-    # assign a port ID works with Vscode
+    if os.environ.get("DEVELOPMENT"):
    
-    app.run(host=os.getenv('IP'),
-        port=os.getenv('PORT'),
-        # debug set to true to help during development
-        debug=True)
-
-
-
-
-''' if __name__ == '__main__':
-
-    # Cloud 9 Environmental variables
-
-    app.run(host=os.environ.get('IP'),
-    port=int(os.environ.get('PORT')),
-    # debug set to true to help during development
-    debug=True) '''
+        app.run(host=os.getenv('IP'),
+            port=os.getenv('PORT'),            
+            debug=True)
+    else:
+        app.run(host=os.getenv('IP'),
+            port=os.getenv('PORT'),            
+            debug=False)
