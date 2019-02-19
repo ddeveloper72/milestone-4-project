@@ -127,3 +127,5 @@ $(document).on('click', '.confirm-delete', function(){
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+
+

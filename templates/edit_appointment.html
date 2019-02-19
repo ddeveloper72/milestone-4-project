@@ -60,7 +60,8 @@
                 <i class="fas fa-pencil-alt"></i>
                 <label for="task_description">Appointment Description</label>
                 <textarea name="task_description" id="task_description" class="form-control validate" type="text"
-                  placeholder="Add appointment description here" data-toggle="tooltip" data-placement="top" title="Give a brief description please" required>{{ appointment.task_description }}</textarea>
+                  placeholder="Add appointment description here" data-toggle="tooltip" data-placement="top" title="Give a brief description please"
+                  required>{{ appointment.task_description }}</textarea>
               </div>
             </div><br />
 
@@ -71,7 +72,8 @@
                 <i class="far fa-user-circle"></i>
                 <label for="user_name">Created By</label>
                 <input name="user_name" id="uder_name" class="form-control validate" placeholder="Add your name here"
-                  value="{{ session.user }}" data-toggle="tooltip" data-placement="top" title="Your name is automatically added here" disabled required />
+                  value="{{ session.user }}" data-toggle="tooltip" data-placement="top" title="Your name is automatically added here"
+                  disabled required />
               </div>
             </div><br />
 
@@ -79,12 +81,12 @@
 
             <div class="row">
               <div class="col-sm-6">
-              <i class="far fa-clock"></i>
-              <label for ="date_time">Appointment Date/Time</label>
+                <i class="far fa-clock"></i>
+                <label for="date_time">Appointment Date/Time</label>
                 <div class="form-group">
                   <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                     <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input" value="{{ appointment.date_time }}"
-                      data-target="#datetimepicker1"  placeholder="dd-mm-yyyy hh:mm" required />
+                      data-target="#datetimepicker1" placeholder="dd-mm-yyyy hh:mm" required />
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                       <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                     </div>
@@ -96,42 +98,51 @@
             <!-- Edit Task Urgency Selector -->
 
             <div class="row">
-              <div class="switch col-md-4">
+              <h5 class="col-md-4">
                 <label>
                   {% if appointment.is_urgent %}
-                  <input id="is_urgent" name="is_urgent" type="checkbox" checked>
+                  <input id="toggle-one" name="is_urgent" type="checkbox" checked data-toggle="toggle" data-on="<span class='fa-urgent'><i class='fas fa-exclamation-circle'></i></span> Urgent"
+                    data-off="<span class='fa-success'><i class='fas fa-check-circle'></i></span> Normal" data-onstyle="outline-secondary"
+                    data-offstyle="outline-success" data-style="border" data-size="sm" data-width="115">
                   {% else %}
-                  <input id="is_urgent" name="is_urgent" type="checkbox">
+
+                  <input id="toggle-one" name="is_urgent" type="checkbox" data-toggle="toggle" data-on="<span class='fa-urgent'><i class='fas fa-exclamation-circle'></i></span> Urgent"
+                    data-off="<span class='fa-success'><i class='fas fa-check-circle'></i></span> Normal" data-onstyle="outline-secondary"
+                    data-offstyle="outline-success" data-style="border" data-size="sm" data-width="115">
                   {% endif %}
-                  <span class="lever"></span>
-                  Is Urgent
+
                 </label>
-              </div>
+              </h5>
             </div>
 
             <!-- Task Archived Selector -->
 
             <div class="row">
-              <div class="switch col-md-4">
+              <h5 class="col-md-4">
                 <label>
                   {% if appointment.is_archived %}
-                  <input id="is_archived" name="is_archived" type="checkbox" checked>
+                  <input id="toggle-one" name="is_archived" type="checkbox" data-toggle="toggle" data-on="<span class='fa-primary'><i class='fas fa-check-circle'></i></span> Complete"
+                    data-off="<span class='fa-warning'><i class='fas fa-clock'></i></span> Pending" data-onstyle="outline-success"
+                    data-offstyle="outline-secondary" data-style="border" data-size="sm" data-width="115">
                   {% else %}
-                  <input id="is_archived" name="is_archived" type="checkbox">
+
+                  <input id="toggle-one" name="is_archived" type="checkbox" data-toggle="toggle" data-on="<span class='fa-primary'><i class='fas fa-check-circle'></i></span> Complete"
+                    data-off="<span class='fa-warning'><i class='fas fa-clock'></i></span> Pending" data-onstyle="outline-success"
+                    data-offstyle="outline-success" data-style="border" data-size="sm" data-width="115">
                   {% endif %}
-                  <span class="lever"></span>
-                  Dismiss / Archive
+
                 </label>
-              </div>
+              </h5>
             </div>
             <div class="row">
               <h5 class="col-md-4">
-                <button class="btn btn-primary btn-sm" type="submit" name="action">Edit Task
-                  <i class="fas fa-folder-plus"></i>
+                <button class="btn btn-dark btn-sm" type="submit" name="action">Edit Task
+                  <span class="fa-warning"><i class="fas fa-folder-plus"></i></span>
                 </button>
-                <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a><br />
+                <a href="{{url_for('get_appointment')}}" class="btn btn-dark btn-sm">Cancel</a><br />
                 <br />
-                <a href="{{url_for('delete_appointment',  app_id=appointment._id, user_id = user_id)}}" class="btn btn-secondary btn-sm confirm-delete">Delete</a>
+                <a href="{{url_for('delete_appointment',  app_id=appointment._id, user_id = user_id)}}" 
+                class="btn btn-secondary btn-sm confirm-delete">Delete <span class="fa-warning"><i class="fas fa-trash-alt"></i></span></a>
               </h5>
             </div>
           </div>

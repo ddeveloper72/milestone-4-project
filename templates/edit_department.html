@@ -48,13 +48,13 @@
                         </div>
                         <div class="row">
                             <h5 class=" col s4">
-                                <button class="btn btn-primary btn-sm" type="submit" name="action">Update Department
-                                    <i class="fas fa-folder-plus"></i>
+                                <button class="btn btn-dark btn-sm" type="submit" name="action">Update  
+                                    <span class="fa-warning"><i class="fas fa-folder-plus"></i></span> 
                                 </button>
-                                <a href="{{url_for('get_departments', user_id = user_id)}}" class="btn btn-primary btn-sm">Cancel</a><br />
+                                <a href="{{url_for('get_departments', user_id = user_id)}}" class="btn btn-dark btn-sm">Cancel</a><br />
                                 <br />
                                 <a href="{{url_for('delete_department', dept_id = department._id , user_id = user_id)}}"
-                                    class="btn btn-secondary btn-sm confirm-delete disabled">Delete Department</a>
+                                    class="btn btn-secondary btn-sm confirm-delete disabled">Delete <span class="fa-warning"><i class="fas fa-trash-alt"></i></span></a>
                             </h5>
                         </div>
                     </div>

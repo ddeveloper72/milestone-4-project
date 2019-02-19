@@ -49,10 +49,29 @@ nav .brand-logo {
     list-style-type: none;
 }
 
+.fa-primary {
+    color: #0069D9;
+}
 .fa-urgent {
     color: #DC3545;
 }
 
 .fa-success {
     color: #28A745;
+}
+
+.fa-warning {
+    color: #FFC107;
+}
+
+.fa-secondary {
+    color: #6C757D;
+}
+
+.data-onstyle {
+background:#FFF3CD; 
+}
+
+.toggle-handle {
+background-color: #f40606;
 }
