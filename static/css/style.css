@@ -49,6 +49,10 @@ nav .brand-logo {
     list-style-type: none;
 }
 
-.fa-favourite {
-    color: rgba(207, 6, 6, 0.65);
+.fa-urgent {
+    color: #DC3545;
+}
+
+.fa-success {
+    color: #28A745;
 }

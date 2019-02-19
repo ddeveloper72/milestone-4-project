@@ -7,40 +7,82 @@
         <i class="fa fa-circle fa-stack-2x"></i>
         <i class="far fa-calendar-check fa-stack-1x fa-inverse"></i>
     </span></h2>
-    <div id="accordion">  
-    
-    {% for app in appointment %}
-    
-    <ul class="no-bullet">
-        <li>        
-        <div class="card">
-                <div class="card-header" id="heading{{ loop.index }}">       
-                    <h5 class="mb-0">
-    
-                    <i class="fas fa-bookmark"></i>
-                         
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="false" 
-                        aria-controls="collapse{{ loop.index }}" data-toggle="tooltip" data-placement="right" title="Select to expand">
-                        <strong>{{ app.dept_name }} - {{ app.service }}</strong>
-                        </button>
+<div class="card">
+    <div id="accordion">
+
+        {% for app in appointment %}
+
+        <ul class="no-bullet">
+            <li>
+                <div class="card-header" id="heading{{ loop.index }}">
+                    <h5 class="mb-0">                           
+                        <i class="fas fa-angle-double-right"></i>
+                        <button class="btn" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}"
+                            aria-expanded="false" aria-controls="collapse{{ loop.index }}" data-toggle="tooltip"
+                            data-placement="right" title="Select to expand">
+                            <strong>{{ app.dept_name }} - {{ app.service }}</strong>
+                        </button>                    
                     </h5>
-                </div>                
-                <div id="collapse{{ loop.index }}" class=" panel-collapse collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordion">
-                        <div class="card-body">
-                    {% if session.logged_in %}
-                    <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-primary btn-sm">Edit</a>
-                    {% else %}
-                    <a href="#" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Login to continue" disabled>Edit</a>
-                    {% endif %}  
-                        <ol>
-                            <li>Description: {{ app.task_description }} - Scheduled: {{ app.date_time }}</li>
-                            <li>Urgent: {{ app.is_urgent }} - Archived: {{ app.is_archived }}</li>                             
-                        </ol>                
+                </div>
+
+                <div id="collapse{{ loop.index }}" class=" panel-collapse collapse" aria-labelledby="heading{{ loop.index }}"
+                    data-parent="#accordion">
+                    <div class="card-body">
+                        
+                        {% if session.logged_in %}
+                        <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-primary btn-sm">Edit</a>
+                        {% else %}
+                        <a href="#" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Login to continue"
+                            disabled>Edit</a>
+                        {% endif %}
+
+                        <div class="card">
+                            <div class="box">
+                                <div class="row s12">
+
+                                    <div class="col-6 col-auto">
+                                        <i class="far fa-address-card"></i>
+                                        <label for="icon_prefix"> Appointment Name: </label> {{ app.task_name }}
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="far fa-user-circle"></i>
+                                        <label for="icon_prefix"> Created by: </label> {{ app.user_name }}
+                                    </div>
+                                    <div class="col-6 col-auto">
+                                        <i class="far fa-clock"></i>
+                                        <label for="icon_prefix"> Scheduled: </label> {{ app.date_time }}
+                                    </div>
+
+                                    <div class="col-auto">
+
+                                        {% if app.is_urgent %}
+                                        <span class="fa-urgent">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            <label for="fa-urgent"> Urgent</label>
+                                        </span>
+
+                                        {% else %}
+                                        <span class="fa-success">
+                                            <i class="far fa-check-circle"></i>
+                                            <label for="fa-urgent"> Standard</label>
+                                        </span>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-12 col-auto">
+                                        <i class="fas fa-pencil-alt"></i>
+                                        <label for="icon_prefix"> Description: </label> {{ app.task_description }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
-    </ul>     
-    {% endfor %}   
-</div>              
+            </li>
+        </ul>
+
+        {% endfor %}
+
+    </div>
+</div>
 {% endblock %}
