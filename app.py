@@ -230,7 +230,7 @@ def profile(user_id):
 # Update profile db
 @app.route ('/update_profile/<user_id>', methods=['POST'])
 def update_profile(user_id):
-    login_user = users_collection.find_one({"username": session['user']})
+    # login_user = users_collection.find_one({"username": session['user']})
     users_collection.update_many({'_id': ObjectId(user_id)},
     {'$set': {
             'likes': request.form.getlist('favourites'),

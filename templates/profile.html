@@ -13,7 +13,7 @@
                 <p>{{ login_user.username }}'s Profile</p>
                 <div class="row">
                     <div class="input-field col s6">
-                        <span class="fa-favourite"><i class="fas fa-heart"></i></span>
+                        <span class="fa-urgent"><i class="fas fa-heart"></i></span>
                         <label>Favourite Departments</label>
                         {% if favourites is defined %}
                         <div class="form-check">
@@ -179,10 +179,10 @@
                 </div><br />
                 <div class="row">
                     <h5 class="col-md-4">
-                        <button class="btn btn-primary btn-sm" type="submit" name="action">Update Profile
-                            <i class="fas fa-folder-plus"></i>
+                        <button class="btn btn-dark btn-sm" type="submit" name="action">Update Profile
+                            <span class="fa-warning"><i class="fas fa-folder-plus"></i></span>
                         </button>
-                        <a href="{{url_for('get_appointment')}}" class="btn btn-primary btn-sm">Cancel</a>
+                        <a href="{{url_for('get_appointment')}}" class="btn btn-dark btn-sm">Cancel</a>
                     </h5>
                 </div>
         </div>
