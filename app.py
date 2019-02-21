@@ -46,17 +46,15 @@ image_template_collection = mongo.db.image_templates
 # Base build function
 # Home page is appointment.html
 @app.route('/')
-@app.route('/index')
 def appointment():
     if 'user' in session:
         login_user = users_collection.find_one({'username' : session['user']})
         flash('You are logged in as ' + session['user'], 'alert-success') 
-        return render_template('appointment.html', 
+        return redirect(url_for('get_appointment', 
                                 username=session['user'],
-                                 user_id=login_user['_id'])
+                                 user_id=login_user['_id']))
         
-    return render_template('appointment.html', 
-                            page_title='Appointments')
+    return redirect(url_for('get_appointment'))
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
