@@ -21,7 +21,7 @@
 
                 <!-- Select the name of the facility from the list of available facility names -->
 
-                <div id="add_dept" class="card col s12">
+                <div class="card col s12">
                     <div class="row">
                         <div class="input-field col s6">
                             <b>Select Facility then Department:</b><br />
@@ -30,7 +30,7 @@
                             <select id="facility" name="site_name" class="form-control validate">
                                 <option value="" disabled selected>Select Your Facility</option>
                                 {% for site_name in facility %}
-                                <option name="site_name" id="{{ site_name.site[0].location }}" value="{{ site_name.site[0].location }}">{{
+                                <option class="form-control" name="site_name" id="{{ site_name.site[0].location }}" value="{{ site_name.site[0].location }}">{{
                                     site_name.site[0].location }}</option>
                                 {% endfor %}
                             </select>
@@ -52,6 +52,8 @@
                             </select>
                         </div>
                     </div><br />
+
+                    
 
                     <!-- Check boxes to let us select the name of the services we want available in our department -->
 
