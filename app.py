@@ -4,6 +4,7 @@
 import os
 import datetime
 from datetime import datetime
+from time import gmtime, strftime
 from flask import Flask, render_template, session, redirect, request, url_for, jsonify, flash, render_template_string
 from flask_login import LoginManager, login_user, logout_user, current_user
 from urllib.parse import urlparse, urljoin
@@ -405,7 +406,7 @@ def update_appointment(app_id, user_id):
     appointments.update_many({'_id': ObjectId(app_id)},
     {'$set': {
         'user_id': user_id,
-        'created': str(datetime.utcnow()),
+        'created': datetime.utcnow(),
         'dept_name': request.form.get('dept_name'),
         'service': request.form.get('service'),
         'task_description': request.form.get('task_description'),
@@ -628,7 +629,6 @@ def delete_department(dept_id, user_id):
                         user_id=login_user['_id']))
 
     return render_template('login.html', page_title='Log-in')
-
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Development/Production environment test for debug                                                        #
