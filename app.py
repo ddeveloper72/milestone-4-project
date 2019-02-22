@@ -405,6 +405,7 @@ def update_appointment(app_id, user_id):
     appointments.update_many({'_id': ObjectId(app_id)},
     {'$set': {
         'user_id': user_id,
+        'created': str(datetime.utcnow()),
         'dept_name': request.form.get('dept_name'),
         'service': request.form.get('service'),
         'task_description': request.form.get('task_description'),
