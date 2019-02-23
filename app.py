@@ -446,7 +446,7 @@ def get_departments(user_id):
         login_user = users_collection.find_one({"username": session['user']}) 
         departments = Search(departments_collection).find_all()
         return render_template('get_departments.html', 
-                                page_title='All Departments',
+                                page_title='Departments',
                                 departments = departments, 
                                 username=session['user'], 
                                 user_id=login_user['_id'])
