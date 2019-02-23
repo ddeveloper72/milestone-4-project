@@ -27,9 +27,9 @@
                                 <div class="card-body">
                                     
                                     {% if session.logged_in %}
-                                    <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-secondary btn-sm">Edit <i class="fas fa-edit"></i></a>
+                                    <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-secondary btn-md">Edit <i class="fas fa-edit"></i></a>
                                     {% else %}
-                                    <a href="#" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="right" title="Login to continue"
+                                    <a href="#" class="btn btn-secondary btn-md" data-toggle="tooltip" data-placement="right" title="Login to continue"
                                         disabled>Edit</a>
                                     {% endif %}
             
