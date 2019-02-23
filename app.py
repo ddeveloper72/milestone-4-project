@@ -367,7 +367,8 @@ def edit_appointment(app_id, user_id):
         login_user = users_collection.find_one({"username": session['user']})   
         _appointment = appointments_collection.find_one({'_id': ObjectId(app_id)})
         all_depts = departments_collection.find()
-        return render_template('edit_appointment.html', 
+        return render_template('edit_appointment.html',
+                                page_title='Edit Appointment',
                                 appointment=_appointment, 
                                 departments=all_depts, 
                                 username=session['user'], 
