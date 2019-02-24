@@ -14,12 +14,19 @@
                                 <div class="card-header col-sm-12" id="headingOne">
                                     <div class="row">
                                         <div class="input-field col-sm-12">
-                                            <b>Department:</b><br />
+                                            <b>Department Information:</b><br />
                                             <label for="dept_name">Department Name :</label>
                                             <input id="dept_name" name="dept_name" type="text" class="form-control validate"
                                                 value="{{department.dept_name}}" /><br />
                                         </div>
                                     </div>
+                                    <div class="row">
+                                            <div class="input-field col-sm-12">
+                                                <label for="dept_info">Department Information:</label>
+                                                <input id="dept_info" name="dept_info" type="text" class="form-control validate"
+                                                    value="{{department.dept_info}}" /><br />
+                                            </div>
+                                        </div>
                                     <div class="row">
                                         <div class="input-field col-sm-12">
                                             <label for="phone">Phone: </label>
@@ -49,13 +56,13 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <h5 class="col-sm-12 text-right">
-                                            <button class="btn btn-success btn-md" type="submit" name="action">Save
-                                            </button>
-                                            <a href="{{url_for('get_departments', user_id = user_id)}}" class="btn btn-dark btn-md mx-3">Cancel</a>
+                                        <div class="col-sm-12 text-right">
                                             <a href="{{url_for('delete_department', dept_id = department._id , user_id = user_id)}}"
                                                 class="btn btn-danger btn-md confirm-delete">Delete </a>
-                                        </h5>
+                                                <a href="{{url_for('get_departments', user_id = user_id)}}" class="btn btn-dark btn-md mx-3">Cancel</a>
+                                                <button class="btn btn-success btn-md" type="submit" name="action">Save
+                                                </button>
+                                            </div>
                                     </div>
                                 </div>
                             </form>
@@ -71,6 +78,7 @@
                     <i class="fas fa-clinic-medical fa-inverse"></i>
                 </h2>
                 <div class="card-body">
+
                 </div>
             </div>
         </div>
