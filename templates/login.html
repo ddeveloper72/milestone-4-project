@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block page_title %}
 Login
@@ -9,27 +9,27 @@ User Login
 {% endblock page_heading %}
 
 {% block content %}
-<h2>{{ page_title }} <span class="fa-stack">
-    <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>    
-</span></h2>
-<div>
-    <p>To Register, <a href="{{ url_for('register') }}">Sign up here</a></p>
-</div>
 
-
-<form method=POST action="{{url_for('login')}}">
-    <div class="form-group">
-        <label for="exampleInputEmail1">Username</label>
-        <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="username">
+<div class="container mt-5">
+    <h2>{{ page_title }}
+        <i class="fas fa-user-md fa-inverse"></i>
+    </h2>
+    <div>
+        <p>To Register, <a href="{{ url_for('register') }}">Sign up here</a></p>
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="current-password">
-    </div>
-    <button type="submit" class="btn btn-primary">Log In</button>
-</form>
 
 
-
-{% endblock content %}
+    <form method=POST action="{{url_for('login')}}">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="username"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="current-password"
+                required>
+        </div>
+        <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+</div {% endblock content %}
