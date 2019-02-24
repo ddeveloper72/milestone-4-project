@@ -103,29 +103,126 @@ A nice to have, which is still being considered for the design, will be to let t
 |                                                             |  |
 | What colours, typography and design elements will be used?  |  |
 
-#### Mongo Database Schema
+#### 3. Application Construction
+
+1. Tools used
+   
+   *  Written in VSCode
+   * The noSQL database was created with MongoDB (see database included with repository) and is hosted at [MongoDB Hosting: Database-as-a-Service by mLab](https://mlab.com/home)
+   * css files were created and stored locally within the application as stitic files.
+   * The app as tested using Chrome dev tools & VSCode debugger
+   * HTML and CSS checked with help from the Mark-up Validation Service
+   * Version management and test branches created in git
+   * Web deployment hosted on Heroku
+
+2. Reference Literature
+   
+   * [MongoDB Documentation](https://docs.mongodb.com/)
+   * [Quick-Start Guide to mLab \| mLab Documentation & Support](https://docs.mlab.com/)
+   * [Flask-Login](https://flask-login.readthedocs.io/en/latest/)
+   * [Flask-Session](Flask-Session)
+   * [Message Flashing](http://flask.pocoo.org/docs/1.0/patterns/flashing/)
+   * [Deploying with Git \| Heroku Dev Center](https://devcenter.heroku.com/articles/git)
+   
+3. Code Development
+
+    The project brief was to follow a a pattern of **Test Driven Development**.  A unit tests was written to verify database connectivity to the mLab server. I used user feedback to assist with identifying and debugging the code.
+
+    Not all functions were written in this way and these will be followed up with tests.
+
+4. Deployment Instructions
+
+  1. Instructions for deployment to a hosing site: [Heroku](https://www.heroku.com/)
+    
+  In Heroku - Part 1
+
+  1. Log into Heroku
+  2. Select New and Create new App.
+  3. Create a App name, select the region.
+      - then Create app.
+
+  4. Select Deploy 
+      - Note the deployment instructions
+  
+  In Cloud 9
+
+  1. Log in to Heroku:         
+     - `heroku login`
+  1. Verify the app name is present, created in step 1 above: 
+      - `heroku apps`
+  2. Connect git to new app location on Heroku: 
+      - `heroku git:remote -a ddeveloper72-your-medical set git remote herokutohttps://git.heroku.com/ddeveloper72-your-medical`
+  3. Create the requirements file, defining the modules imported to Heroku:
+      - `sudo pip3freeze --local > requirements.txt`
+  4. Create the proc file: 
+      - `echo web: python run.py > Procfile`
+  5. Add all project files: 
+      - `git add .`
+  6. Create a default message for the first commit to Heroku:
+     - `git commit -am "makeit better- Use Heroku"`
+  7. Push the project to Heroku: 
+     - `git push heroku master`
+     - `heroku buildpacks:clear`
+  8.  Push the project to Heroku 
+      - `git push heroku master` (watch the installation log for errors).
+  9.  Scale the app dynos for Heroku:
+      - `heroku ps:scale web=1`
+  10. Set app.py debug to false before publishing
+         
+         
+```python  
+    if __name__ == '__main__':    
+        if os.environ.get("DEVELOPMENT"):   
+          app.run(host=os.getenv('IP'),
+                port=os.getenv('PORT'),            
+                debug=True)
+        else:
+            app.run(host=os.getenv('IP'),
+                port=os.getenv('PORT'),            
+                debug=False)
+            
+``` 
+
+  11.   Execute 
+        - `it push heroku master`
+  12.    Save above changes to existing git profile 
+         - `git push`
+
+In Heroku - Part 1
+
+  1. Select Settings
+      - Select `Config Vars`
+      - set `IP` to `0.0.0.0`
+      - set `PORT` to `5000`
+      - set `SECRET_KEY` to `Some_Secret`
+  2. Select More, beside Open app:
+      - Click `Restart all dynos`.
+  3. Click Open app
+      - Select new tab, [Milestone 4 Code Institute Project](https://ddeveloper72-your-medical.herokuapp.com/get_appointment)
+
+#### 4. Mongo Database Schema
 
 1. Appointment
 
 ```javascript
 {
-    "site": [
-    "siteId"
-  ],
-  "department": [
-    "deptId"
-  ],
-  "user": [
-    "userId"
-  ],
-  "is_urgent": "off",
-  "task_description": "",
-  "task_name": [
-    "servId"
-  ],
-  "sched_date": "",
-  "sched_time": "",
-  "status": "on"
+    "_id": {
+        "$oid": "5c7033e7657a2e2e1c63550e"
+    },
+    "site_name": "Naas General Hospital",
+    "dept_name": "Podiatry",
+    "service": "Wound care management",
+    "task_name": "John",
+    "task_description": "Testing UTC date time",
+    "date_time": "23-02-2019 20:30",
+    "action": "",
+    "created": {
+        "$date": "2019-02-22T20:33:15.358Z"
+    },
+    "is_archived": null,
+    "is_urgent": null,
+    "user_id": "5c70352c657a2e2e1c63550f",
+    "user_name": "John"
 }
 
 ```
@@ -136,22 +233,40 @@ A nice to have, which is still being considered for the design, will be to let t
 
 {
     "_id": {
-        "$oid": ""
+        "$oid": "5bc725e9ddf88f8498a7da2b"
     },
-    "dept_name": "",
-    "dept_info": "",
-    "img_url": "",
+    "dept_name": "Physiotherapy",
+    "dept_info": "Infomation about this department",
+    "img_url": "http://clipart.coolclips.com/480/vectors/tf05310/CoolClips_vc063115.png",
     "main_contact": [
         {
-            "phone": "",
-            "email": ""
+            "phone": "01-29 209291",
+            "email": "Physiotherapy@hospital.ie"
         }
     ],
-    "service": [""],
+    "service": [
+        "Critical Care ICU HDU CCU",
+        "Surgical & Medical Wards",
+        "Neurology",
+        "Trauma",
+        "Injury/Orthopaedics/Emergency Department Clinics",
+        "Limb Reconstruction/ Amputee Rehabilitation",
+        "Pulmonary Rehabilitation",
+        "Cardiac Rehabilitation",
+        "Paediatrics",
+        "Care of the Elderly",
+        "Oncology & Breast Care Service",
+        "Adult & Paediatric CF Service",
+        "Elective Orthopaedics",
+        "Hydrotherapy",
+        "Ante/Post Natal Care",
+        "Continence Service",
+        "SCBU"
+    ],
     "site": [
         {
-            "location": "",
-            "phone": ""
+            "location": "Naas General Hospital",
+            "phone": "045-29 209000"
         }
     ]
 }
@@ -164,22 +279,25 @@ A nice to have, which is still being considered for the design, will be to let t
 
 {
     "_id": {
-        "$oid": ""
+        "$oid": "5c393581657a2e0bd8590744"
     },
-    "username": "",
-    "password": "",
-    "dept_name": "",
-    "likes": [dept_id],
+    "username": "John",
+    "password": "pbkdf2:sha256:50000$VenBfkl5$78062b7e315ee0ddcb8d15be6e9f26250222435b47ae65d93440ff19b264e061",
+    "dept_name": "Peri-operative",
+    "likes": [
+        "5bc725e9ddf88f8498a7da2b",
+        "5bc72619ddf88f8498a7da2c"
+    ],
     "created": {
-        "$date": ""
+        "$date": "2019-01-12T00:32:01.564Z"
     },
     "user_contact": [
         {
-            "phone": "",
-            "email": ""
+            "phone": "0123456",
+            "email": "John.Somebody@gmail.com"
         }
     ],
-    "site_name": ""
+    "site_name": "Naas General Hospital"
 }
 
 ```
@@ -189,28 +307,123 @@ A nice to have, which is still being considered for the design, will be to let t
 ```javascript
 
 {
-    "site": "Naas General Hospital"
+    "_id": {
+        "$oid": "5bb7130fe7179a6602f55042"
+    },
+    "site_name": "Naas General Hospital",
+    "site_info": "Naas, Co Kildare"
 }
 
 ```
 
-5. Profession
+5. New Department_Template
 
 ```javascript
 
 {
-    "profession": "Doctor"
+    "_id": {
+        "$oid": "5be3858d02ea182abcb20f2b"
+    },
+    "dept_name": "Physiotherapy",
+    "dept_info": "Infomation about this department",
+    "img_url": [
+        "http://clipart.coolclips.com/480/vectors/tf05310/CoolClips_vc063115.png"
+    ],
+    "service": [
+        "Critical Care ICU HDU CCU",
+        "Surgical & Medical Wards",
+        "Neurology",
+        "Trauma",
+        "Injury/Orthopaedics/Emergency Department Clinics",
+        "Limb Reconstruction/ Amputee Rehabilitation",
+        "Pulmonary Rehabilitation",
+        "Cardiac Rehabilitation",
+        "Paediatrics",
+        "Care of the Elderly",
+        "Oncology & Breast Care Service",
+        "Adult & Paediatric CF Service",
+        "Elective Orthopaedics",
+        "Hydrotherapy",
+        "Ante/Post Natal Care",
+        "Continence Service",
+        "SCBU"
+    ]
 }
 
 ```
 
-6. Service Information
+6. New Site_Template
+
 
 ```javascript
 
 {
-    "serv": "Critical Care ICU HDU CCU",
-    "description": "Service description"
+    "_id": {
+        "$oid": "5be621d8fb6fc072d4670591"
+    },
+    "site": [
+        {
+            "location": "Naas General Hospital",
+            "phone": "045-29 209291"
+        }
+    ]
 }
 
 ```
+
+7 Image_Template
+
+
+```javascript
+{
+    "_id": {
+        "$oid": "5be7f592d525102080b639fa"
+    },
+    "base_img": "http://clipart.coolclips.com/480/vectors/tf05309/CoolClips_vc062037.png"
+}
+
+
+```
+
+#### 5. Development & Testing
+
+  * When I first started developing this app, used Materialize CSS.  I really like the accordion styles, but unfortunately I rand into issues with the Materialize JQuery being incompatible with how I was injecting my services lists into the html.  The Materialize accordion wasn't permitting me to render my lists in the correct place.  So i has to switch to using pure bootstrap 4,  and then learned to implement a similar accordion style by means of a jinja for loop, that would increment the numerical element of the id tags, so as to allow me to crate the accordion elements. 
+  
+  ```html
+  {% for app in appointment %}
+   <div class="card-header accordian-card" id="heading{{ loop.index }}" data-toggle="collapse"
+                        data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}"
+                        data-toggle="tooltip">
+  {% endfor %}
+  ```
+  
+                      
+  * During development, media responsiveness of the app was tested using Chrome dev tools to simulate different small and large screen devices.  
+  * I later shared my application with family and friends on WhatsApp so that they could follow the Heroku link to the dashboard application on their mobile devices.  In this way  I found that I had to resize font sizes for the get_appointment and departments pages.  
+  * I found response issues when viewing the game when switching between portrait and landscape modes in my development environment.  I was able to correct these by adding in media queries to my sass file.
+  * When testing the game in multiplayer mode-  I created several player logins by running different browsers simultaneously.  The browsers and hardware that I used were:
+      
+    1.  Chrome
+    2.  Firefox
+    3.  Opra Browser
+    4.  Internet Explorer
+    5.  Edge
+    6.  Samsung Galaxy S5
+    7.  Samsung Galaxy S8
+   
+  ### Debugging Strategy
+  
+  I thought that the best way to test this game was to run a beta test by putting the game on Heroku and then letting everyone in my college try it.  While doing so, I asked for feedback on the game. This is the feedback I got:
+
+  1. When logging in, the user name and password fields hadn't been made required.
+  2. The appointments accordion would look and work better if the whole accordion was the button.
+  3. The delete cancel and save buttons used to add, cancel or delete user input to the application, would be better if relocated to the right hand side of the cards.
+  4. When a user selects a date/time for an appointment, the modal doesn't close automatically, till one selects the app outside of the date/time modal.
+
+#### 6. Credits
+
+- There are loads of people that I want to give credit to.  These include, first and foremost my family for their support!
+
+- My friends within the Code Institute who go by the Slack handles @abonello_lead @JoWings, @Eventret, @Miro, @saraloh, @JohnL3, @Sonya my Mentor, Nishant and tutors @niel_ci and many others.  You guys have helped me to find my way and personally shared resources like UXD design templates-to help keep my thoughts on task and on track and help with my C9 and VSCode coding environments.  Thank you ladies and gentlemen!
+    
+<h6><span class="text-muted">Milestone 4 project for the Code Institute <br />by Duncan Falconer, 2018</span></h6>
