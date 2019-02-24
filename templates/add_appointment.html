@@ -13,6 +13,9 @@
                 <!-- Select the name of the facility from the list of available facility names -->
                 <div class="card col-sm-12">
                   <div class="form-group">
+                      <div class="row">
+                          <b>Facility Name:</b>                                            
+                      </div>
                       <i class="far fa-building prefix"></i>
                       <label for="site_name">Facility</label>
                       <select id="facility" name="site_name" class="form-control">
@@ -72,7 +75,7 @@
                       <label for="emp_name">Created By</label>
                       <input value="{{ session.user }}" name="emp_name" id="emp_name" class="form-control" disabled required>
                     </div>
-                    
+
                   <!-- Date/Time Picker -->
 
                       <div class="form-group">
