@@ -6,9 +6,6 @@
 
 ### by Duncan Falconer for the Code Institute, 2018
 
-1. The project brief can be found by clicking [here](https://github.com/ddeveloper72/milestone-4-project/blob/master/readme/brief.md).
-  
-2. The Guidelines for the project can be found by clicking [here](https://github.com/ddeveloper72/milestone-4-project/blob/master/readme/guidelines.md).
 
 ## 1. Project Goals
 
