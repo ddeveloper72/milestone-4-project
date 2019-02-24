@@ -85,3 +85,12 @@ background:#FFF3CD;
 .accordian-card{
     padding: 25px 15px;
 }
+
+.acc-list h5 {
+    text-decoration: none;
+    color: #fff;
+}
+.acc-list:hover {
+    text-decoration: none !important;
+    color: #fff;
+}

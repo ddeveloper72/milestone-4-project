@@ -7,32 +7,36 @@
         <div class="col-sm-12 col-md 8">
             {% for dept in departments %}
             <ul class="no-bullet">
-                <li>
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                                <i class="fas fa-angle-double-right"></i>
-                                <button class="btn" type="button" aria-expanded="false" data-toggle="tooltip"
-                                    data-placement="right" title="Select to expand">
-                                    <a href="{{url_for('department', dept_id = dept._id, user_id = user_id)}}">
-                                        <strong>{{ dept.dept_name }} - {{ dept.site[0].location }}</strong>
-                                    </a>
-                                </button>
-                            </h5>
+                <a href="{{url_for('department', dept_id = dept._id, user_id = user_id)}}" class="acc-list">
+                   
+                    <li>
+                        <div class="card acc-list">
+                            <div class="card-header">
+                                <h5 class="mb-0" aria-expanded="false" data-toggle="tooltip" data-placement="right" title="Select {{ dept.dept_name }}">
+                                    <i class="fas fa-angle-double-right"></i> {{ dept.dept_name }} - {{ dept.site[0].location }}
+                                </h5>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                </a>
             </ul>
             {% endfor %}
         </div>
 
         <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
             <div class="card">
-                <h2 class="card-header">{{ page_title }} 
-                        <i class=" fas fa-clinic-medical
+                <h2 class="card-header">{{ page_title }}
+                    <i class=" fas fa-clinic-medical
                     fa-inverse"></i>
                 </h2>
                 <div class="card-body">
+                    <p>To add and apointment, start at the top by selecting where you work.</p>
+                    <p>Then select the department from the list, that the appointment is with.</p>
+                    <p>Once you have selected the department, you can now choose the service the appointent needed for.</p>
+                    <p>Please make a name for the appointment, as well as provied some details of what the appointment
+                        is going to be about.</p>
+                    <p>Choose a date and time for the appointment and please indicate if this is an ugrent visit for
+                        not from the switch below.</p>
                 </div>
             </div>
         </div>
