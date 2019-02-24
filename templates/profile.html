@@ -128,7 +128,7 @@
                         <i class="fas fa-mobile-alt"></i>
                         <label for="phone">Contact: </label>
                         <input id="phone" name="phone" type="tel" value="{{ login_user.user_contact[0:][0].phone }}"
-                            placeholder="phone number" class="form-control validate" value="" required /><br />
+                            placeholder="phone number" class="form-control" value="" required /><br />
                     </div>
                 </div>
                 <div class="row">
@@ -136,7 +136,7 @@
                         <i class="far fa-envelope"></i>
                         <label for="email">E-mail: </label>
                         <input id="email" name="email" type="email" value="{{ login_user.user_contact[0:][0].email }}"
-                            placeholder="email address" class="form-control validate" value="" required /><br />
+                            placeholder="email address" class="form-control" value="" required /><br />
                     </div>
                 </div>
                 <div class="row">
@@ -144,7 +144,7 @@
                         <b>Select Facility then Department:</b><br />
                         <i class="far fa-building prefix"></i>
                         <label for="location">Facility: </label>
-                        <select id="facility" name="site_name" class="form-control validate">
+                        <select id="facility" name="site_name" class="form-control">
                             <option value="" disabled selected>Select Your Facility</option>
                             {% for site in facility %}
                             {% if site.site_name == login_user.site_name %}
@@ -162,7 +162,7 @@
                     <div class="input-field col s6">
                         <i class="far fa-address-book prefix"></i>
                         <label for="dept_name">Department: </label>
-                        <select name="dept_name" class="form-control validate">
+                        <select name="dept_name" class="form-control">
                             <option value="" disabled selected>Choose a department</option>
                             {% for dept in departments %}
                             {% if dept.dept_name == login_user.dept_name %}

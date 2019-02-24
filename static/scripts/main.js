@@ -98,7 +98,7 @@ $('#list_service input:checked').each(function() {
 
 /* Datetime picker config script. Time increments in 15min intervals                             */
 $(function () {
-    $('#datetimepicker1').datetimepicker({
+    $('#datetimepicker').datetimepicker({
         icons: {
             time: 'far fa-clock',
             date: 'far fa-calendar-alt',
