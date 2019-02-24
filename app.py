@@ -58,21 +58,6 @@ def appointment():
     return redirect(url_for('get_appointment'))
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Log out, Login and registration views                                                                    #
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Login required
-""" def loginRequired(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash('To access this, please log in first', 'alert-warning')
-            return redirect(url_for('login'))
-    
-    return wrap """
-
 # Base build function
 # Logout current user
 @app.route('/logout')
@@ -80,14 +65,6 @@ def logout():
     session.clear()
     flash('You are now logged out', 'alert-success') 
     return redirect(url_for('get_appointment'))
-
-
-# Base build function
-# Simple user authentication 
-""" @app.route('/login', methods=['GET','POST'])
-def login():
-    session['next'] = request.args.get('next')
-    return render_template('login.html') """
 
 # Base build function
 # Securely Redirect Back from Flask Snippets to ensure that all redirects 
@@ -630,6 +607,14 @@ def delete_department(dept_id, user_id):
                         user_id=login_user['_id']))
 
     return render_template('login.html', page_title='Log-in')
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Page not found 404 Views                                                                                 #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Development/Production environment test for debug                                                        #
