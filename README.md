@@ -408,17 +408,25 @@ In Heroku - Part 1
     3.  Opra Browser
     4.  Internet Explorer
     5.  Edge
-    6.  Samsung Galaxy S5
-    7.  Samsung Galaxy S8
+    6.  Chrome mobile
    
   ### Debugging Strategy
   
   I thought that the best way to test this game was to run a beta test by putting the game on Heroku and then letting everyone in my college try it.  While doing so, I asked for feedback on the game. This is the feedback I got:
 
+### _The issues found_
+
   1. When logging in, the user name and password fields hadn't been made required.
   2. The appointments accordion would look and work better if the whole accordion was the button.
   3. The delete cancel and save buttons used to add, cancel or delete user input to the application, would be better if relocated to the right hand side of the cards.
   4. When a user selects a date/time for an appointment, the modal doesn't close automatically, till one selects the app outside of the date/time modal.
+
+### _The fixes implemented_
+
+1. I made all text input fields required for the user registration and login forms as well as double checked all of the other forms used for collecting data for the application.
+2. I moved the button controls into the accordion div, so now the accordion behaves like a button.
+3. I changed the bootstrap grid styles for the application cards and in so doing, I also relocated the position of the buttons.
+4. I have gone back to look at the stock code for the [Tempus Dominus](https://tempusdominus.github.io/bootstrap-4/) date time picker that i selected for this project and noted that this is the default behaviour for the button.  I realized then, that it is required.  If one were to select an incorrect date time, it would then be input into the date time field.  In this way, if a date time is selected, the user confirms this by then selecting outside the modal or by pressing enter on the keyboard.
 
 #### 6. Credits
 
