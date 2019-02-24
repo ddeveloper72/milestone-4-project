@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+        <h2>{{ page_title }}
+                <i class="fas fa-user-md fa-inverse"></i>
+            </h2>
+            <div>
+                <p>To Register, <a href="{{ url_for('register') }}">Sign up here</a></p>
+            </div>
+  
+    <a href="{{ url_for('index') }}"><img class="cover-image" src="{{ url_for('static', filename='images/404error.jpeg')}}" alt="404 page not found"></a>
+    <p class="lost">What you were looking for is just not there...</p>
+    </div>
+</div>
+
+{% endblock content %}
