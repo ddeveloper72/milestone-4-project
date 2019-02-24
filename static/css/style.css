@@ -12,6 +12,10 @@ body, html {
     padding: 0 0.5em;
 }
 
+.btn-fixed {
+    background-color: #3e4a56 !important;
+}
+
 .task_header {
     margin-top: 5px;
     padding-left: 25px;
