@@ -7,7 +7,7 @@
         <div class="col-sm-12 col-md 8">
             <div class="box">
                 <div class="card">
-                    <div class="card-header col s12">
+                    <div class="card-header">
                         <!-- Select the image url that relates to the department name -->
                         <form action="{{url_for('insert_department', user_id=user_id)}}" method="POST" class="col s12">
                             <div class="box">
@@ -17,14 +17,14 @@
                                 </div>
                             </div>
 
-                            <div class="col s12" id="headingOne">
+                           
 
 
                                 <!-- Select the name of the facility from the list of available facility names -->
 
-                                <div class="card col s12">
+                                <div class="card col-sm-12">
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col-sm-12">
                                             <b>Select Facility then Department:</b><br />
                                             <i class="far fa-building prefix"></i>
                                             <label for="site_name">Facility: </label>
@@ -42,7 +42,7 @@
                                     <!-- Select the name of the department we want from the list of available department names -->
 
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col-sm-12">
                                             <i class="far fa-address-book prefix"></i>
                                             <label for="dept_name">Department: </label>
                                             <select id="add_department" name="dept_name" class="form-control validate">
@@ -61,7 +61,7 @@
                                     <!-- Check boxes to let us select the name of the services we want available in our department -->
 
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col-sm-12">
                                             <i class="fas fa-sitemap prefix"></i>
                                             <label>Select the Service's for your department</label>
                                             <div class="form-check">
@@ -74,9 +74,9 @@
                                 </div><br />
 
 
-                                <div id="add_dept" class="card col s12">
+                                <div class="card col-sm-12">
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col-sm-12">
                                             <i class="fas fa-info-circle"></i>
                                             <b>About this department</b><br />
                                             <input id="dept_info" name="dept_info" type="text" placeholder="About the services here"
@@ -86,7 +86,7 @@
 
 
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col-sm-12">
                                             <b>Main Contact:</b><br />
                                             <i class="fas fa-mobile-alt"></i>
                                             <label for="phone">Department: </label>
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col-sm-12">
                                             <i class="far fa-envelope"></i>
                                             <label for="email">E-mail: </label>
                                             <input id="email" name="email" type="email" placeholder="email address"
@@ -103,23 +103,24 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col-sm-12">
                                             <i class="fas fa-phone"></i>
                                             <label for="phone">Hospital: </label>
                                             <input id="phone" name="phone1" type="tel" placeholder="phone number" class="form-control validate"
                                                 value="" required /><br />
                                         </div>
                                     </div>
-                                </div>
+                                </div><br />
+
                                 <div class="row">
-                                    <h5 class="col-md-4">
+                                    <h5 class="col-md-12 text-right">
                                         <button class="btn btn-success btn-md" type="submit" name="action">Save
                                             <i class="fas fa-folder-plus"></i>
                                         </button>
                                         <a href="{{url_for('get_departments')}}" class="btn btn-dark btn-md mx-3">Cancel</a>
                                     </h5>
                                 </div>
-                            </div>
+                            
                         </form>
                     </div>
                 </div>
