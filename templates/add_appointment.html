@@ -11,101 +11,101 @@
               <form action="{{url_for('insert_appointment')}}" method="POST" class="col s12">
 
                 <!-- Select the name of the facility from the list of available facility names -->
-              <div class="card col-sm-12">
-                <div class="row">
-                  <div class="input-field col-sm-12">
-                    <i class="far fa-building prefix"></i>
-                    <label for="site_name">Facility</label>
-                    <select id="facility" name="site_name" class="form-control validate">
-                      <option value="" disabled selected>Select Your Facility</option>
-                      {% for booking in facility %}
-                      <option value="{{ booking.site_name }}">{{ booking.site_name }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div><br />
+                <div class="card col-sm-12">
+                  <div class="row">
+                    <div class="input-field col-sm-12">
+                      <i class="far fa-building prefix"></i>
+                      <label for="site_name">Facility</label>
+                      <select id="facility" name="site_name" class="form-control validate">
+                        <option value="" disabled selected>Select Your Facility</option>
+                        {% for booking in facility %}
+                        <option value="{{ booking.site_name }}">{{ booking.site_name }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div><br />
 
-                <!-- Select the name of the department from the name of available departments -->
+                  <!-- Select the name of the department from the name of available departments -->
 
-                <div class="row">
-                  <div class="input-field col-sm-12">
-                    <i class="far fa-address-book prefix"></i>
-                    <label for="dept_name">Department</label>
-                    <select id="departments" name="dept_name" class="form-control validate">
-                      <option value="" class="dept" disabled selected>Choose a department</option>
-                      {% for dept in departments %}
-                      <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div><br />
-                
+                  <div class="row">
+                    <div class="input-field col-sm-12">
+                      <i class="far fa-address-book prefix"></i>
+                      <label for="dept_name">Department</label>
+                      <select id="departments" name="dept_name" class="form-control validate">
+                        <option value="" class="dept" disabled selected>Choose a department</option>
+                        {% for dept in departments %}
+                        <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div><br />
 
-                <!-- Select the name of the service from the list of available services -->
 
-                <div class="row">
-                  <div class="input-field col-sm-12">
-                    <i class="fas fa-cogs prefix"></i>
-                    <label for="service">Service</label>
-                    <select id="service" name="service" class="form-control validate">
-                      <option id="service" value="" disabled selected>Select a department from list above</option>
-                    </select>
-                  </div>
-                </div><br />
+                  <!-- Select the name of the service from the list of available services -->
 
-                <!-- Add task name -->
+                  <div class="row">
+                    <div class="input-field col-sm-12">
+                      <i class="fas fa-cogs prefix"></i>
+                      <label for="service">Service</label>
+                      <select id="service" name="service" class="form-control validate">
+                        <option id="service" value="" disabled selected>Select a department from list above</option>
+                      </select>
+                    </div>
+                  </div><br />
 
-                <div class="row">
-                  <div class="input-field col-sm-12">
-                    <i class="far fa-address-card"></i>
-                    <label for="task_name">Appointment Name</label>
-                    <input id="task_name" name="task_name" type="text" placeholder="Patient's name" class="form-control validate"
-                      data-toggle="tooltip" data-placement="top" title="Who is this for?" required>
-                  </div>
-                </div><br />
+                  <!-- Add task name -->
 
-                <!-- Add task description -->
+                  <div class="row">
+                    <div class="input-field col-sm-12">
+                      <i class="far fa-address-card"></i>
+                      <label for="task_name">Appointment Name</label>
+                      <input id="task_name" name="task_name" type="text" placeholder="Patient's name" class="form-control validate"
+                        data-toggle="tooltip" data-placement="top" title="Who is this for?" required>
+                    </div>
+                  </div><br />
 
-                <div class="row">
-                  <div class="input-field col-sm-12">
-                    <i class="fas fa-pencil-alt"></i>
-                    <label for="task_description">Task Description</label>
-                    <textarea name="task_description" id="task_description" type="text" placeholder="Add appointment description here"
-                      class="form-control validate" data-toggle="tooltip" data-placement="top" title="Give a brief description please"
-                      required></textarea>
-                  </div>
-                </div><br />
+                  <!-- Add task description -->
 
-                <!-- Add employee name -->
+                  <div class="row">
+                    <div class="input-field col-sm-12">
+                      <i class="fas fa-pencil-alt"></i>
+                      <label for="task_description">Task Description</label>
+                      <textarea name="task_description" id="task_description" type="text" placeholder="Add appointment description here"
+                        class="form-control validate" data-toggle="tooltip" data-placement="top" title="Give a brief description please"
+                        required></textarea>
+                    </div>
+                  </div><br />
 
-                <div class="row">
-                  <div class="input-field col-sm-12">
-                    <i class="far fa-user-circle"></i>
-                    <label for="emp_name">Created By</label>
-                    <input value="{{ session.user }}" name="emp_name" id="emp_name" class="form-control validate"
-                      disabled required>
-                  </div>
-                </div><br />
+                  <!-- Add employee name -->
 
-                <!-- Date/Time Picker -->
+                  <div class="row">
+                    <div class="input-field col-sm-12">
+                      <i class="far fa-user-circle"></i>
+                      <label for="emp_name">Created By</label>
+                      <input value="{{ session.user }}" name="emp_name" id="emp_name" class="form-control validate"
+                        disabled required>
+                    </div>
+                  </div><br />
 
-                <div class="row">
-                  <div class="col-sm-6">
-                    <i class="far fa-clock"></i>
-                    <label for="date_time">Appointment Date/Time</label>
-                    <div class="form-group">
-                      <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                        <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input"
-                          value="" data-target="#datetimepicker1" placeholder="dd-mm-yyyy hh:mm" required />
-                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                  <!-- Date/Time Picker -->
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <i class="far fa-clock"></i>
+                      <label for="date_time">Appointment Date/Time</label>
+                      <div class="form-group">
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                          <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input"
+                            value="" data-target="#datetimepicker1" placeholder="dd-mm-yyyy hh:mm" required />
+                          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </div><br />
-                
+
                 <!-- Urgency Selector -->
 
                 <div class="row">
@@ -125,16 +125,16 @@
             </div>
           </div>
         </div>
-        </div>
-        </div>
-        
-     
+      </div>
+    </div>
 
     <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
-      <h2>{{ page_title }} <span class="fa-stack">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="far fa-calendar-check fa-stack-1x fa-inverse"></i>
-        </span></h2>
+      <div class="card mt-1">
+        <h2 class="card-header">{{ page_title }} 
+          <i class=" far fa-calendar-check fa-inverse"></i></h2>
+        <div class="card-body">
+        </div>
+      </div>
     </div>
   </div>
 </div>
