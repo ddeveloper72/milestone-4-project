@@ -11,16 +11,20 @@
                         <div class="img">
                             <img class="card-img-top" src="{{ department.img_url }}" alt="{{ department.dept_name }}">
                         </div>
-                        <form action="{{ url_for('add_favourite', dept_id=department._id, user_id=user_id) }}" method="POST">
-                            <button value="{{ department._id }}" type="submit" name="action" class="btn btn-outline-success btn-md"
-                                aria="true" data-toggle="tooltip" data-placement="right" title="Add to favourites">
-                                <span class="fa-urgent"><i class="fas fa-heart"></i></span><strong> {{
-                                    department.dept_name }}</strong></button>
-                        </form><br />
-                        <h5>{{ department.dept_info }}</h5>
+                        <div class="row">
+                            <form action="{{ url_for('add_favourite', dept_id=department._id, user_id=user_id) }}" method="POST">
+                                <button value="{{ department._id }}" type="submit" name="action" class="btn btn-outline-success btn-md"
+                                    aria="true" data-toggle="tooltip" data-placement="right" title="Add to favourites">
+                                    <span class="fa-urgent"><i class="fas fa-heart"></i></span><strong> {{
+                                        department.dept_name }}</strong></button>
+                            </form>
+                        </div>
+                        <div class="row mt-1">
+                            <h5>{{ department.dept_info }}</h5>
+                        </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mt-2">
                         <ul>
                             {% for item in department.service[0:] %}
                             <li>
@@ -30,16 +34,29 @@
                         </ul>
                     </div>
 
-                    <div class="row">
+                    <div class="box">
+                        <div class="row">
                         <div class="col-sm-12 col-md-6">
-                            <b>Main Contact:</b> <br />
-                            Phone: {{ department.main_contact[0:][0].phone }}<br />
-                            E-mail: <a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a><br /><br />
+                            <div class="row">
+                                <b>Main Contact:</b>
+                            </div>
+                            <div class="row">
+                                Phone: {{ department.main_contact[0:][0].phone }}
+                            </div>
+                            <div class="row">
+                                E-mail: <a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
-                            <b>Where to find us:</b><br />
-                            Location: {{ department.site[0:][0].location }}<br />
-                            Phone: {{ department.site[0:][0].phone }}<br /><br />
+                            <div class="row">
+                                    <b>Where to find us:</b>
+                            </div>
+                            <div class="row">
+                                Location: {{ department.site[0:][0].location }}
+                            </div>
+                            <div class="row">
+                                Phone: {{ department.site[0:][0].phone }}
+                            </div>
                         </div>
                     </div>
 
@@ -49,6 +66,7 @@
                             <a href="{{ url_for('get_departments', user_id=user_id) }}" class="btn btn-dark btn-md mx-3 btn-fixed">Cancel</a>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -60,8 +78,8 @@
                     fa-clinic-medical fa-inverse"></i>
                 </h2>
                 <div class="card-body">
-                    <p>Infomation about the dpartment</p>
-                    <p>Select edit to change the contacty infoamtion about the department</p>
+                    <p>Information about the department</p>
+                    <p>Select edit to change the contact information about the department</p>
                 </div>
             </div>
         </div>
