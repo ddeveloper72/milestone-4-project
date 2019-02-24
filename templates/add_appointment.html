@@ -11,7 +11,7 @@
               <form action="{{url_for('insert_appointment')}}" method="POST" class="col-sm-12">
 
                 <!-- Select the name of the facility from the list of available facility names -->
-                <div class="card">
+                <div class="card col-sm-12">
                   <div class="form-group">
                       <i class="far fa-building prefix"></i>
                       <label for="site_name">Facility</label>
@@ -21,8 +21,7 @@
                         <option value="{{ booking.site_name }}">{{ booking.site_name }}</option>
                         {% endfor %}
                       </select>
-                    </div>
-                  
+                    </div>                  
 
                   <!-- Select the name of the department from the name of available departments -->
 
@@ -36,7 +35,6 @@
                         {% endfor %}
                       </select>
                     </div>
-
 
                   <!-- Select the name of the service from the list of available services -->
 
@@ -74,6 +72,7 @@
                       <label for="emp_name">Created By</label>
                       <input value="{{ session.user }}" name="emp_name" id="emp_name" class="form-control" disabled required>
                     </div>
+                    
                   <!-- Date/Time Picker -->
 
                       <div class="form-group">
