@@ -7,7 +7,8 @@
         "markdown",
         "latex",
         "plaintext",
-        "python"
+        "python",
+        "html"
     ],
     "files.associations": {
         "*.html": "html"
