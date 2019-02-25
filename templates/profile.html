@@ -5,190 +5,143 @@
 
 
 {% block content %}
-<div class="card">
-    <div class="box">
-        <div class="card-header">
-            <form action="{{url_for('update_profile', user_id=user_id)}}" method="POST" class="col s12">
-
-                <p>{{ login_user.username }}'s Profile</p>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <span class="fa-urgent"><i class="fas fa-heart"></i></span>
-                        <label>Favourite Departments</label>
-                        {% if favourites is defined %}
-                        <div class="form-check">
-                            {% for x in favourites %}
-                            <div class="card col-sm-s12">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="img">
-                                            <a href="{{url_for('department', dept_id = x._id, user_id = user_id)}}">
-                                                <img class="card-img-top" src="{{ x.img_url }}" alt="{{ x.dept_name }}"></a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-8">
-
-                                        <ul id="favourites" name="favourites" style="list-style-type:none">
-                                            <div class="row">
-                                                <li class="box">
-                                                    <div class="row">
-                                                        <input class="form-check-input" id="list_service" name="favourites"
-                                                            type="checkbox" value="{{ x._id }}" checked />
-
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="s12 col-auto">
-                                                            <i class="far fa-address-book prefix"></i>
-                                                            <label for="dept_name">Department: <span class="label">{{
-                                                                    x.dept_name }}</span></label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row s12">
-                                                        <div class="col-6 col-auto">
-                                                            <i class="far fa-building prefix"></i>
-                                                            <label for="location">Facility: </label>
-                                                            <div class="label">{{ x.site[0].location }}</div>
-                                                        </div>
-
-
-                                                        <div class="col-auto">
-                                                            <i class="fas fa-mobile-alt"></i>
-                                                            <label for="phone">Contact: </label>
-                                                            <div class="label">{{ x.site[0].phone }}</div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </div>
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        {% else %}
-
-                        <div class="card col-sm-s12">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="img" id="dept_img" name="dept_img">
-                                            <a href="{{ url_for('get_departments', user_id=user_id)}}">
-                                        <img class="card-img-top" name="dept_img" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
-                                            id="dept_img"></a>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-8">
-
-                                    <ul id="favourites" name="favourites" style="list-style-type:none">
-                                        <div class="row">
-                                            <li class="box">
-                                                <div class="row">
-                                                    <div class="s12 col-auto">
-                                                        <i class="far fa-address-book prefix"></i>
-                                                        <label for="dept_name">Department: <span class="label">Favourite
-                                                                Department</span></label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row s12">
-                                                    <div class="col-6 col-auto">
-                                                        <i class="far fa-building prefix"></i>
-                                                        <label for="location">Facility: </label>
-                                                        <span class="label"></span>Site Name</span>
-                                                    </div>
-
-
-                                                    <div class="col-auto">
-                                                        <i class="fas fa-mobile-alt"></i>
-                                                        <label for="phone">Contact: </label>
-                                                        <span class="label">Main Contact number</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </div>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-
-
-
-                    </div>
-                </div><br />
-                <p>Date this profile was crated: {{ login_user.created }}</p>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <b>My Contact Details:</b><br />
-                        <i class="fas fa-mobile-alt"></i>
-                        <label for="phone">Contact: </label>
-                        <input id="phone" name="phone" type="tel" value="{{ login_user.user_contact[0:][0].phone }}"
-                            placeholder="phone number" class="form-control" value="" required /><br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="far fa-envelope"></i>
-                        <label for="email">E-mail: </label>
-                        <input id="email" name="email" type="email" value="{{ login_user.user_contact[0:][0].email }}"
-                            placeholder="email address" class="form-control" value="" required /><br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <b>Select Facility then Department:</b><br />
-                        <i class="far fa-building prefix"></i>
-                        <label for="location">Facility: </label>
-                        <select id="facility" name="site_name" class="form-control">
-                            <option value="" disabled selected>Select Your Facility</option>
-                            {% for site in facility %}
-                            {% if site.site_name == login_user.site_name %}
-                            <option class="form-control" name="site_name" id="{{ site.site_name }}" value="{{ site.site_name }}"
-                                selected>{{ site.site_name }}</option>
-                            {% else %}
-                            <option class="form-control" name="site_name" id="{{ site.site_name }}" value="{{ site.site_name }}">{{
-                                site.site_name }}</option>
-                            {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div><br />
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="far fa-address-book prefix"></i>
-                        <label for="dept_name">Department: </label>
-                        <select name="dept_name" class="form-control">
-                            <option value="" disabled selected>Choose a department</option>
-                            {% for dept in departments %}
-                            {% if dept.dept_name == login_user.dept_name %}
-                            <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}"
-                                selected>{{
-                                dept.dept_name }}</option>
-                            {% else %}
-                            <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{
-                                dept.dept_name }}</option>
-                            {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div><br />
-                <div class="row">
-                    <h5 class="col-md-4">
-                        <button class="btn btn-dark btn-md" type="submit" name="action">Update Profile
-                            <span class="fa-warning"><i class="fas fa-folder-plus"></i></span>
-                        </button>
-                        <a href="{{url_for('get_appointment')}}" class="btn btn-dark btn-md">Cancel</a>
-                    </h5>
-                </div>
+<div class="card profile">
+        <div class="card-body">
+<div class="row">
+        <div class="col-sm-12">
+                <p><i class="fas fa-heart fa-urgent"></i> </span>Favourite Departments</p>
         </div>
-        </form>
     </div>
-</div>
-</div>
-</div>
+    <div class="row">
+                            <form action="{{url_for('update_profile', user_id=user_id)}}" method="POST">
+                                    {% if favourites is defined %}
+                                    {% for x in favourites %}
+                            <div class="row mb-5">
+                                <div class="col-sm-12 col-md-4">
+                                        <a href="{{url_for('department', dept_id = x._id, user_id = user_id)}}">
+                                                <img class="img-fluid img-circle" src="{{ x.img_url }}" alt="{{ x.dept_name }}">
+                                            </a>
+                                </div>
+                                <div class="col-sm-12 col-md-8">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" id="list_service" name="favourites"
+                                        type="checkbox" value="{{ x._id }}" checked />
+                                        <label for="list_service" class="custom-control-label"></label>
+                                        <ul class="list-group">
+                                    </div>
+                                                <li class="list-group-item">   <i class="far fa-address-book prefix"></i> Department: {{ x.dept_name }}</li>
+                                                <li class="list-group-item"><i class="far fa-user-circle"></i> Created by: {{ session.user }}</li>
+                                                <li class="list-group-item"><i class="far fa-building prefix"></i> Facility: {{ x.site[0].location }}</li>
+                                                <li class="list-group-item">   <i class="fas fa-mobile-alt"></i> Contact: {{ x.site[0].phone }}</li>
+                                              </ul>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                        <a href="{{url_for('department', dept_id = x._id, user_id = user_id)}}">
+                                                <img class="img-fluid rounded-circle" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}" alt="Choose your department">
+                                            </a>
+                                </div>
+                                <div class="col-sm-12 col-md-8">
+                                        <ul class="list-group">
+                                                <li class="list-group-item">   <i class="far fa-address-book prefix"></i> Department: Favourite Department</li>
+                                                <li class="list-group-item"><i class="far fa-user-circle"></i> Created by: { session.user }}</li>
+                                                <li class="list-group-item"><i class="far fa-building prefix"></i> >Facility: Site Name</li>
+                                                <li class="list-group-item">   <i class="fas fa-mobile-alt"></i> Contact: Main Contact number</li>
+                                              </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                           
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <b>My Contact Details:</b>
+                                            </div>
+                                            <i class="fas fa-mobile-alt"></i>
+                                                <label for="phone">Contact: </label>
+                                                <input id="phone" name="phone" type="tel" value="{{ login_user.user_contact[0:][0].phone }}"
+                                                placeholder="phone number" class="form-control" value="" required />
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                            <div class="form-group">
+                                                    <i class="far fa-envelope"></i>
+                                                    <label for="email">E-mail: </label>
+                                                    <input id="email" name="email" type="email" value="{{ login_user.user_contact[0:][0].email }}"
+                                                        placeholder="email address" class="form-control" value="" required />
+                                                </div>
+                                    </div>
+                               
+                              
+                                <div class="col-sm-12">
+                                        <div class="form-group">
+                                                <div class="row">
+                                                    <b>Select Facility then Department:</b>
+                                                </div>
+                                                <i class="far fa-building prefix"></i>
+                                                <label for="location">Facility: </label>
+                                                <select id="facility" name="site_name" class="form-control">
+                                                    <option value="" disabled selected>Select Your Facility</option>
+                                                    {% for site in facility %}
+                                                    {% if site.site_name == login_user.site_name %}
+                                                    <option class="form-control" name="site_name" id="{{ site.site_name }}" value="{{ site.site_name }}"
+                                                        selected>{{ site.site_name }}</option>
+                                                    {% else %}
+                                                    <option class="form-control" name="site_name" id="{{ site.site_name }}" value="{{ site.site_name }}">{{
+                                                        site.site_name }}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                </div>
+                                <div class="col-sm-12">
+                                        <div class="form-group">
+                                                <i class="far fa-address-book prefix"></i>
+                                                <label for="dept_name">Department: </label>
+                                                <select name="dept_name" class="form-control">
+                                                    <option value="" disabled selected>Choose a department</option>
+                                                    {% for dept in departments %}
+                                                    {% if dept.dept_name == login_user.dept_name %}
+                                                    <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}"
+                                                        selected>{{
+                                                        dept.dept_name }}</option>
+                                                    {% else %}
+                                                    <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{
+                                                        dept.dept_name }}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                </div>
+                                
+                               
+                                   
+                        </div>
+                        <div class="row mt-3">
+                                <div class="col-sm-12 text-right">
+                                    <a href="{{url_for('get_appointment')}}" class="btn btn-dark btn-md mx-3">Cancel</a>
+                                    <button class="btn btn-success btn-md" type="submit" name="action">Save
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                        
+         <div class="row">
+
+                <p>Date this profile was crated: {{ login_user.created }}</p>
+            </div>
+                    </div>
+                  </div>
+
+
+   
+  
+          
 {% endblock content %}
