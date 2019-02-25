@@ -105,13 +105,13 @@ input:disabled {
     color: #fff;
   }
 
-  .profile .list-group-item, .profile b {
+  .content-style .list-group-item, .content-style b {
     font-size: 1.25rem;
   }
-  .profile label {
+  .content-style label {
       font-size: 1.25rem !important;
   }
-  .profile p {
+  .content-style p {
       font-size: 1rem;
   }
     .img-small {
