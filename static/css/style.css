@@ -114,3 +114,9 @@ input:disabled {
   .profile p {
       font-size: 1rem;
   }
+    .img-small {
+        width: 120px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+    }
