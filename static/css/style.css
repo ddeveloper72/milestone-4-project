@@ -106,17 +106,11 @@ input:disabled {
   }
 
   .content-style .list-group-item, .content-style b {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
   .content-style label {
-      font-size: 1.25rem !important;
+      font-size: 1rem !important;
   }
   .content-style p {
       font-size: 1rem;
   }
-    .img-small {
-        width: 120px;
-        height: auto;
-        margin: 0 auto;
-        display: block;
-    }
