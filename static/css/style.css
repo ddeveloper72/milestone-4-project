@@ -104,3 +104,13 @@ background:#FFF3CD;
 input:disabled {
     color: #fff;
   }
+
+  .profile .list-group-item, .profile b {
+    font-size: 1.25rem;
+  }
+  .profile label {
+      font-size: 1.25rem !important;
+  }
+  .profile p {
+      font-size: 1rem;
+  }
