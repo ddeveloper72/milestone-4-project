@@ -81,16 +81,26 @@
                         </div>
                         <i class="fas fa-mobile-alt"></i>
                         <label for="phone">Contact: </label>
+                        {% if login_user.user_contact is defined %}
                         <input id="phone" name="phone" type="tel" value="{{ login_user.user_contact[0:][0].phone }}"
-                            placeholder="phone number" class="form-control" value="" required />
+                            placeholder="phone number" class="form-control" required />
+                            {% else %}
+                            <input id="phone" name="phone" type="tel" value=""
+                            placeholder="phone number" class="form-control" required />
+                            {% endif %}
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
                         <i class="far fa-envelope"></i>
                         <label for="email">E-mail: </label>
+                        {% if login_user.user_contact is defined %}
                         <input id="email" name="email" type="email" value="{{ login_user.user_contact[0:][0].email }}"
                             placeholder="email address" class="form-control" value="" required />
+                            {% else %}
+                            <input id="email" name="email" type="email" value=""
+                            placeholder="email address" class="form-control" required />
+                            {% endif %}
                     </div>
                 </div>
 
