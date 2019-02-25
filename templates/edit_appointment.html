@@ -7,16 +7,13 @@
     <div class="col-sm-12 col-md-8">
       <div class="box">
         <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <form class="col s12" action="{{url_for('update_appointment', app_id=appointment._id, user_id = user_id)}}"
+          <div class="card-body">
+              <form action="{{url_for('update_appointment', app_id=appointment._id, user_id = user_id)}}"
                 method="POST">
-                <div class="card-header col s12" id="headingOne">
 
                   <!-- Confirm the name of the department from the name of available departments -->
 
-                  <div class="row">
-                    <div class="input-field col s12">
+                    <div class="form-group">
                       <i class="far fa-address-book prefix"></i>
                       <label for="dept_name">Department Name :</label>
                       <select id="departments" name="dept_name" class="form-control">
@@ -30,61 +27,46 @@
                         {% endfor %}
                       </select>
                     </div>
-                  </div><br />
 
                   <!-- Confirm the name of the service from the list of available services -->
 
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="fas fa-cogs prefix"></i>
-                      <label for="service">Service</label>
+                    <div class="form-group">
+                      <i class="fas fa-cogs prefix"></i> Service
                       <select id="service" name="service" class="form-control">
                         <option id="service" value="{{ appointment.service }}" selected>{{ appointment.service }}</option>
                       </select>
                     </div>
-                  </div><br />
 
                   <!-- Edit task name -->
 
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="far fa-address-card"></i>
-                      <label for="icon_prefix">Appointment Name</label>
+                    <div class="form-group">
+                      <i class="far fa-address-card"></i> Appointment Name
                       <input id="task_name" name="task_name" type="text" class="form-control" placeholder="Patient's name"
                         value="{{ appointment.task_name }}">
                     </div>
-                  </div><br />
 
                   <!-- Edit task description name -->
 
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="fas fa-pencil-alt"></i>
-                      <label for="task_description">Appointment Description</label>
+                    <div class="form-group">
+                      <i class="fas fa-pencil-alt"></i> Appointment Description
                       <textarea name="task_description" id="task_description" class="form-control" type="text"
                         placeholder="Add appointment description here" data-toggle="tooltip" data-placement="top" title="Give a brief description please"
                         required>{{ appointment.task_description }}</textarea>
                     </div>
-                  </div><br />
 
                   <!-- Edit employee name -->
 
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="far fa-user-circle"></i>
-                      <label for="user_name">Created By</label>
+                    <div class="form-group">
+                      <i class="far fa-user-circle"></i> Created By
                       <input name="user_name" id="uder_name" class="form-control" placeholder="Add your name here"
                         value="{{ session.user }}" data-toggle="tooltip" data-placement="top" title="Your name is automatically added here"
                         disabled required />
                     </div>
-                  </div><br />
 
                   <!-- Edit Date/Time Picker -->
 
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <i class="far fa-clock"></i>
-                      <label for="date_time">Appointment Date/Time</label>
+                    <div class="col-sm-12 col-md-6">
+                      <i class="far fa-clock"></i> Appointment Date/Time
                       <div class="form-group">
                         <div class="input-group date" id="datetimepicker" data-target-input="nearest">
                           <input name="date_time" id="date_time" type="text" class="form-control datetimepicker-input"
@@ -96,7 +78,9 @@
                         </div>
                       </div>
                     </div>
-                  </div><br />
+                    <div class="col-sm-12 col-md-6">
+                      <!-- Offsetting to the left -->
+                    </div>
 
                   <!-- Edit Task Urgency Selector -->
 
@@ -132,9 +116,7 @@
 
                   <!-- Task Archived Selector -->
 
-                </div>
               </form>
-            </div>
           </div>
         </div>
       </div>
