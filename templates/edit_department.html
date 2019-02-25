@@ -14,32 +14,38 @@
                                             <div class="row">
                                                     <b>Department Information:</b>
                                             </div>
-                                            <label for="dept_name">Department Name:</label>
+                                            <label for="dept_name"><i class="far fa-address-book prefix"></i> Department Name:</label>
                                             <input id="dept_name" name="dept_name" type="text" class="form-control"
                                                 value="{{department.dept_name}}" /><br />
                                         </div>
                                             <div class="form-group">
-                                                <label for="dept_info">Department Information:</label>
+                                                <label for="dept_info"> <i class="fas fa-info-circle"></i> Department Information:</label>
                                                 <input id="dept_info" name="dept_info" type="text" class="form-control"
                                                     value="{{department.dept_info}}" /><br />
                                             </div>
                                         <div class="form-group">
-                                            <label for="phone">Phone: </label>
+                                            <label for="phone"><i class="fas fa-mobile-alt"></i> Phone: </label>
                                             <input id="phone" name="phone1" type="tel" class="form-control"
                                                 value="{{department.main_contact[0:][0].phone}}" required /><br />
                                         </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                    <b>Where to find us:</b>
+                                            </div>
+                                            <div class="row">
+                                                <p>{{department.site[0:][0].location}}</p>
+                                            </div>                                           
+                                        </div>
+
+
                                         <div class="form-group">
-                                            <label for="email">E-mail: </label>
+                                            <label for="email"><i class="far fa-envelope"></i> E-mail: </label>
                                             <input id="email" name="email" type="email" class="form-control"
                                                 aria-describedby="emailHelp" value="{{department.main_contact[0:][0].email}}"
                                                 required /><br />
                                         </div>
-                                        <div class="col-sm-12">
-                                                <p><b>Where to find us:</b> {{department.site[0:][0].location}}</p>
-                                           
-                                        </div>
                                         <div class="form-group">
-                                            <label for="phone2">Phone</label>
+                                            <label for="phone2"><i class="fas fa-mobile-alt"></i> Phone</label>
                                             <input name="phone2" type="tel" class="form-control" value="{{department.site[0:][0].phone}}"
                                                 required /><br />
                                         </div>
