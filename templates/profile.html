@@ -26,7 +26,7 @@
 
                 <div class="row mb-5">
 
-                    <div class="col-4 col-md-4">
+                    <div class="col-sm-4 col-md-4">
                         <a href="{{url_for('department', dept_id = x._id, user_id = user_id)}}">
                             <img class="card-img-top" src="{{ x.img_url }}" alt="{{ x.dept_name }}">
                         </a>
@@ -39,12 +39,26 @@
                             <label for="list_service" class="custom-control-label"></label>
                             <ul class="list-group">
                         </div>
-                        <li class="list-group-item"><i class="far fa-address-book prefix"></i> Department: {{
-                            x.dept_name }}</li>
-                        <li class="list-group-item"><i class="far fa-user-circle"></i> Created by: {{ session.user }}</li>
-                        <li class="list-group-item"><i class="far fa-building prefix"></i> Facility: {{
-                            x.site[0].location }}</li>
-                        <li class="list-group-item"><i class="fas fa-mobile-alt"></i> Contact: {{ x.site[0].phone }}</li>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <li class="list-group-item"><i class="far fa-address-book prefix"></i> Department: {{x.dept_name }}</li>
+
+                            </div>
+                            <div class="col-auto">
+                                <li class="list-group-item"><i class="far fa-user-circle"></i> Created by: {{ session.user }}</li>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <li class="list-group-item"><i class="far fa-building prefix"></i> Facility: {{x.site[0].location }}</li>
+                            </div>
+
+                            <div class="col-auto">
+                                <li class="list-group-item"><i class="fas fa-mobile-alt"></i> Contact: {{ x.site[0].phone }}</li>
+                            </div>
+
+                        </div>
                         </ul>
                     </div>
                 </div>
@@ -53,19 +67,36 @@
                 {% else %}
 
                 <div class="row mb-5">
-                    <div class="col-4 col-md-4">
+                    <div class="col-sm-4 col-md-4">
                         <a href="{{ url_for('get_departments', user_id=user_id)}}">
                             <img class="card-img-top" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
                                 alt="Choose your department">
                         </a>
                     </div>
-                    <div class="col-auto col-md-8"">
+                    <div class="col-auto col-md-8">
                                         <ul class=" list-group">
-                        <li class="list-group-item"><i class="far fa-address-book prefix"></i> Department: Favourite
-                            Department</li>
-                        <li class="list-group-item"><i class="far fa-user-circle"></i> Created by: {{ session.user }}</li>
-                        <li class="list-group-item"><i class="far fa-building prefix"></i> Facility: Site Name</li>
-                        <li class="list-group-item"><i class="fas fa-mobile-alt"></i> Contact: Main Contact number</li>
+                        <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                            <li class="list-group-item"><i class="far fa-address-book prefix"></i> Department: Favourite
+                                Department</li>
+                            </div>
+
+                                <div class="col-auto">
+                            <li class="list-group-item"><i class="far fa-user-circle"></i> Created by: {{ session.user }}</li>
+                        </div> 
+                            
+                        </div>    
+                        <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                            <li class="list-group-item"><i class="far fa-building prefix"></i> Facility: Site Name</li>
+                        </div>  
+
+                        
+                                <div class="col-auto">
+                            <li class="list-group-item"><i class="fas fa-mobile-alt"></i> Contact: Main Contact number</li>
+                        </div> 
+
+                        </div>         
                         </ul>
                     </div>
                 </div>
