@@ -15,8 +15,8 @@
                             <form action="{{ url_for('add_favourite', dept_id=department._id, user_id=user_id) }}" method="POST">
                                 <button value="{{ department._id }}" type="submit" name="action" class="btn btn-outline-success btn-md"
                                     aria="true" data-toggle="tooltip" data-placement="right" title="Add to favourites">
-                                    <span class="fa-urgent"><i class="fas fa-heart"></i></span><strong> {{
-                                        department.dept_name }}</strong></button>
+                                    <span class="fa-urgent"><i class="fas fa-heart"></i></span><b> {{
+                                        department.dept_name }}</b></button>
                             </form>
                         </div>
                         <div class="row mt-1">

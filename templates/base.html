@@ -47,7 +47,7 @@
       </nav>
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if error %}
-          <p class="error"><strong>Error:</strong> {{ error }}
+          <p class="error"><b>Error:</b> {{ error }}
         {% endif %}
           {% if messages %}
             {% for category, message in messages %}
