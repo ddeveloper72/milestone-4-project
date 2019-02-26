@@ -283,11 +283,11 @@ def add_favourite(dept_id, user_id):
 
 @app.route('/get_appointment', defaults={'user_id': None})
 @app.route('/get_appointment/<user_id>')
-""" 
-Search for scheduled appointments - no filters.
-"""
-
 def get_appointment(user_id):
+    """ 
+    Search for scheduled appointments - no filters.
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']})
         appointment = Search(appointments_collection).find_all()
@@ -620,7 +620,7 @@ def insert_department(user_id):
     Insert new department into collection
     """
 
-     if 'user' in session: 
+    if 'user' in session: 
         login_user = users_collection.find_one({"username": session['user']})   
         department = departments_collection
         
