@@ -151,8 +151,10 @@ def register():
                 return redirect(url_for('get_appointment', 
                                         user_id=login_user['_id']))
 
+            flash('That username already exists!', 'alert-warning')
+
         except DuplicateKeyError:
-            flash(u'That username already exists!', 'alert-warning') 
+            flash('That username already exists!', 'alert-warning')
 
     return render_template('registration.html', 
                             page_title='Register', 
