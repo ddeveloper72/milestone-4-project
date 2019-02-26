@@ -18,7 +18,7 @@ The project needs to be able to demonstrate the use of CRUD functions:
     3. Update something
     4. Delete a something
 
-The application is designed to be hosted on Heroku and will facilitate multiple end users simultaneously to manage their work related information on the site.  Users will be able to use the site by registering their names and then building their profile within the application.
+The application is designed to be hosted on Heroku and will facilitate multiple end users simultaneously to manage their work related information on the site.  Users will be able to use the site by registering their names and then building their profile within the application.  The mongoDB database constructed for this application is hosted on [mLab](https://mlab.com/)
 
 The user's profile will let them select the medical facility at which they work.  They will then be able to select the department in which they work. They will then be able to see information about their department and edit the services offered by that department or add a new service in that department.
 
@@ -37,12 +37,12 @@ A nice to have, which is still being considered for the design, will be to let t
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
 | What are you aiming to achieve?                             | To be able to save medical facility department & service information  |  |
 |                                                             | To be able to find and use services within a medical facility.  |  |
+|                                                             | To be able to favourite a department.  |  |
 | For whom?                                                   | To be able to see a list of favourite departments.  |  |
 | TARGET AUDIENCE                                             | To be able to add new departments or services to the medical facility  |  |
 |                                                             | To be able to change existing department or services  |  |
 |                                                             | To be able to remove a service from a department.  |  |
 |                                                             | To be able to book and edit a booking for a consultation.  |  |
-|                                                             | To be able to rate a service on completion of a consultation out of 5 stars.  |  |
 |                                                             | To be able to add and change contact information for a service.  |  |
 |                                                             | To be able to set an urgency to a booking for a consultation.  |  |
 
@@ -73,9 +73,9 @@ A nice to have, which is still being considered for the design, will be to let t
 | How is the information structured?                          | Where am I? / How did I get here? / What can I do here? / Where can I go?    | Organizational / Navigational schemas (tree / nested list / hub and spoke / dashboard) |
 |                                                             | A list of departments offered by a facility will be displayed, with a login button | Tree Structure |
 | How is it logically grouped?                                | A user will be prompted for their name to log in.  If one does not exist, they will be prompted to setup a new profile in a department of their choice, or create a new department.  Their profile name will need to be different from all the other profiles. | Start/home page |
-|                                                             | The user will be able to customize the services that they offer from their department. | Login facility/Create a new account |
-|                                                             | The user will be able to see a list of services offered by other departments and favourite the services offered by those departments. | Profile page for configuring department and services. |
-|                                                             | The user will be able to schedule appointments for consultations in other departments, mark them important and amend/delete their appointment.  Should an appointment already exist for that time-slot for that service, the user will be prompted to pick a different time/date from a list of available slots in that week. | Add/remove departments and the information about them. |
+|                                                             | The user will be able to customize the services that they offer from their department, when setting up a new department. | Login facility/Create a new account |
+|                                                             | The user will be able to see a list of services offered by other departments and favourite the  departments. | Profile page for configuring department and services. |
+|                                                             | The user will be able to schedule appointments for consultations in other departments, mark them important and amend/delete their appointment.  | Add/remove departments and the information about them. |
 |                                                             | Toggle icons, will let the user select or deselect departments to keep as their favourites. | Add/remove services and the information about them. |
 
 
@@ -84,10 +84,10 @@ A nice to have, which is still being considered for the design, will be to let t
 | Focus                                                       | Interface Design                                       | Navigational Design  | Information Design  |
 |-------------------------------------------------------------|--------------------------------------------------------|----------------------|---------------------|
 | How will the information be represented?                    | See wireframes                                         |                      |                     |
-| How will the user navigate to the information and features? | See mock-ups designs | All Services |  |
+| How will the user navigate to the information and features? | See wireframes | All Services |  |
 |                                                             |  | Manage Profile (Create & edit) |  |
 |                                                             |  | Browse departments & services |  |
-|                                                             |  | Create & edit own bookings |  |
+|                                                             |  | Create & edit appointments |  |
 |                                                             |  | Favourite departments & services (Add & remove |  |
 |                                                             |  | Login & logout |  |
 
@@ -106,7 +106,7 @@ A nice to have, which is still being considered for the design, will be to let t
    
    *  Written in VSCode
    * The noSQL database was created with MongoDB (see database included with repository) and is hosted at [MongoDB Hosting: Database-as-a-Service by mLab](https://mlab.com/home)
-   * css files were created and stored locally within the application as stitic files.
+   * css files were created and stored locally within the application as static files.
    * The app as tested using Chrome dev tools & VSCode debugger
    * HTML and CSS checked with help from the Mark-up Validation Service
    * Version management and test branches created in git
@@ -115,17 +115,20 @@ A nice to have, which is still being considered for the design, will be to let t
 2. Reference Literature
    
    * [MongoDB Documentation](https://docs.mongodb.com/)
+   * [Quick-Start Guide to mLab](https://docs.mlab.com/)
    * [Quick-Start Guide to mLab \| mLab Documentation & Support](https://docs.mlab.com/)
    * [Flask-Login](https://flask-login.readthedocs.io/en/latest/)
    * [Flask-Session](Flask-Session)
    * [Message Flashing](http://flask.pocoo.org/docs/1.0/patterns/flashing/)
-   * [Deploying with Git \| Heroku Dev Center](https://devcenter.heroku.com/articles/git)
+   * [Deploying with Git \| Heroku Dev Centre](https://devcenter.heroku.com/articles/git)
    
 3. Code Development
 
-    The project brief was to follow a a pattern of **Test Driven Development**.  A unit tests was written to verify database connectivity to the mLab server. I used user feedback to assist with identifying and debugging the code.
+    The project brief was to follow a a pattern of **Test Driven Development**.  Testing was carried out writing functions and then verify the data returned from the function.  In this case, print statemetns were created to print cursor from a data collection and then print specific obects or key value pairs.
 
-    Not all functions were written in this way and these will be followed up with tests.
+    Where CRUD opeations were beibng carreid out, the data was verified by watching the updates being caried out to the data collection hosted on mLab.
+
+    Server codes were used to monitor POST GET transations from the forms.
 
 4. Deployment Instructions
 
@@ -427,6 +430,8 @@ In Heroku - Part 1
 
 #### 6. Credits
 
+- The images used in this project have been sourced from [Coolclips](http://www.coolclips.com/) with thanks
+  
 - There are loads of people that I want to give credit to.  These include, first and foremost my family for their support!
 
 - My friends within the Code Institute who go by the Slack handles @abonello_lead @JoWings, @Eventret, @Miro, @saraloh, @JohnL3, @Sonya my Mentor, Nishant and tutors @niel_ci and many others.  You guys have helped me to find my way and personally shared resources like UXD design templates-to help keep my thoughts on task and on track and help with my C9 and VSCode coding environments.  Thank you ladies and gentlemen!
