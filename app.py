@@ -429,7 +429,7 @@ def update_appointment(app_id, user_id):
         'task_description': request.form.get('task_description'),
         'task_name': request.form.get('task_name'),
         'date_time': request.form.get('date_time'),
-        'user_name':  session['user'],
+        'user_name':  request.form.get('user_name'),
         'is_urgent': request.form.get('is_urgent'),
         'is_archived': request.form.get('is_archived')
     }
