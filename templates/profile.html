@@ -7,37 +7,39 @@
 {% block content %}
 
 <div class="card content-style">
-    <div class="card-body">
+    <div class="box">
+    
 
 
         <form action="{{url_for('update_profile', user_id=user_id)}}" method="POST">
             <div class="row">
                 <div class="col-sm-12">
-
-                    <p class="content-style"><i class="fas fa-heart fa-urgent"></i> </span>Favourite Departments</p>
+                    <h5><span class="fa-urgent"><i class="fas fa-heart"></i></span> Favourite Departments</h5>
                 </div>
             </div>
-            <div class="row">
-                {% if favourites is defined %}
-                {% for x in favourites %}
+            <div class="row mb-5">
 
+            {% if favourites is defined %}
 
+                {% for x in favourites %}                
+                                          
+                    <div class="col-sm-12 col-md-4">
+                        <div class="box">                            
+                                <a href="{{url_for('department', dept_id = x._id, user_id = user_id)}}">
+                                    <img class="card-img-top img" src="{{ x.img_url }}" alt="{{ x.dept_name }}">
+                                </a>       
+                            </div>                            
+                    </div>  
+                    
+                    <div class="col-sm-8 col-md-8">
+                        <div class="row">
+                                <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input"  id="list_service{{ loop.index }}" name="favourites"
+                                                            type="checkbox" value="{{ x._id }}" checked />
+                                <label class="custom-control-label" for="list_service{{ loop.index }}">Deselect to remove favourite</label>
 
-
-                <div class="row mb-5">
-
-                    <div class="col-sm-4 col-md-4">
-                        <a href="{{url_for('department', dept_id = x._id, user_id = user_id)}}">
-                            <img class="card-img-top" src="{{ x.img_url }}" alt="{{ x.dept_name }}">
-                        </a>
-                    </div>
-
-                    <div class="col-auto col-md-8">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" id="list_service" name="favourites" type="checkbox"
-                                value="{{ x._id }}" checked />
-                            <label for="list_service" class="custom-control-label"></label>
-                            <ul class="list-group">
+                                </div>
+                                <ul class="list-group">
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
@@ -61,20 +63,24 @@
                         </div>
                         </ul>
                     </div>
-                </div>
+                
+                
 
                 {% endfor %}
+
                 {% else %}
 
                 <div class="row mb-5">
                     <div class="col-sm-4 col-md-4">
+                            <div class="box"> 
                         <a href="{{ url_for('get_departments', user_id=user_id)}}">
                             <img class="card-img-top" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
                                 alt="Choose your department">
                         </a>
                     </div>
+                    </div>
                     <div class="col-auto col-md-8">
-                                        <ul class=" list-group">
+                        <ul class=" list-group">
                         <div class="row">
                                 <div class="col-sm-12 col-md-6">
                             <li class="list-group-item"><i class="far fa-address-book prefix"></i> Department: Favourite
@@ -100,7 +106,6 @@
                         </ul>
                     </div>
                 </div>
-
 
                 {% endif %}
             </div>
@@ -193,5 +198,7 @@
         </form>
     </div>
 </div>
+
+
 
 {% endblock content %}

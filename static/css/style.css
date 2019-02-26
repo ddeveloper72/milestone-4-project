@@ -50,11 +50,12 @@ nav .brand-logo {
     border-radius:50%;
     overflow:hidden;
 }
+
 .card .box .img img {
     width:100%;
     height:100%;
+ 
 }
-
 /* List styles */
 .no-bullet {
     list-style-type: none;
