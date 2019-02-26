@@ -44,10 +44,13 @@ site_template_collection = mongo.db.site_templates
 image_template_collection = mongo.db.image_templates
 
 
-# Base build function
-# Home page is appointment.html
+
 @app.route('/')
 def appointment():
+    """
+    Home page is appointment.html
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({'username' : session['user']})
         flash('You are logged in as ' + session['user'], 'alert-success') 
@@ -58,28 +61,39 @@ def appointment():
     return redirect(url_for('get_appointment'))
 
 
-# Base build function
-# Logout current user
+
+
 @app.route('/logout')
-def logout():    
+def logout(): 
+    """
+    Log the user out
+    """
+
     session.clear()
     flash('You are now logged out', 'alert-success') 
     return redirect(url_for('get_appointment'))
 
-# Base build function
-# Securely Redirect Back from Flask Snippets to ensure that all redirects 
-# lead back to the same server- our own server.
+
+
 def is_safe_url(target):
+    """ 
+    Securely Redirect Back from Flask Snippets to ensure that all redirects 
+    lead back to the same server- our own server.
+    """
+
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and \
            ref_url.netloc == test_url.netloc
 
 
-# Base build function
-# Simple user authentication 
+
+
 @app.route('/login', methods=['GET','POST'])
 def login():
+    """
+    Simple user authentication 
+    """
     error = None
     users = users_collection
 
@@ -119,11 +133,14 @@ def login():
     
    
 
-# Base build function
-# Simple user registration.
-@app.route('/register', methods=['POST', 'GET'])
 
+
+@app.route('/register', methods=['POST', 'GET'])
 def register():
+    """ 
+    Simple user registration.
+    """
+
     error = None
     if request.method == 'POST':
         users = users_collection
@@ -164,10 +181,14 @@ def register():
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # User Profile Views                                                                                       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Base build function
-# Show profile page, check for likes by the user and display them.
+
+
 @app.route ('/profile/<user_id>', methods=['POST', 'GET'])
 def profile(user_id):
+    """ 
+    Show profile page, check for likes by the user and display them.
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({'username': session['user']})
         departments = Search(departments_collection).find_all()
@@ -175,7 +196,7 @@ def profile(user_id):
 
         try:
             id_deptlikes = users_collection.find({'username': session['user']})
-            print(id_deptlikes)
+            
             list_deptlikes = []
             likes =  [i['likes'] for i in id_deptlikes]
 
@@ -204,11 +225,14 @@ def profile(user_id):
                             facility = facility,
                             departments = departments)
 
-# Base build function
-# Update profile db
+
+
 @app.route ('/update_profile/<user_id>', methods=['POST'])
 def update_profile(user_id):
-    # login_user = users_collection.find_one({"username": session['user']})
+    """ 
+    Update profile db
+    """
+    
     users_collection.update_many({'_id': ObjectId(user_id)},
     {'$set': {
             'likes': request.form.getlist('favourites'),
@@ -225,10 +249,14 @@ def update_profile(user_id):
     flash('Your profile has been updated', 'alert-success')
     return redirect(request.referrer)
 
-# Base build function
-# Create a favourite/like and add to the user profile db
+
+
 @app.route('/add_favourite/<dept_id>/<user_id>', methods=['POST','GET'])
 def add_favourite(dept_id, user_id):
+    """ 
+    Create a favourite/like and add to the user profile db
+    """
+
     try:
         login_user = users_collection.find_one({'_id': ObjectId(user_id)})
     except:
@@ -252,11 +280,13 @@ def add_favourite(dept_id, user_id):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Appointments views                                                                                       #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Base build function
-# Search for scheduled appointments - no filters.
-# , defaults={'user_id': None}
+
 @app.route('/get_appointment', defaults={'user_id': None})
 @app.route('/get_appointment/<user_id>')
+""" 
+Search for scheduled appointments - no filters.
+"""
+
 def get_appointment(user_id):
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']})
@@ -302,31 +332,33 @@ def add_appointment(user_id):
 @app.route('/service',  methods=['POST', 'GET'])
 def service():
     departments = departments_collection.find()
-    print(departments)
-
-    # data comes from cur_value in $('#department').change(function()
-    data = request.form['dept_name']
-    print(data)
     
+    """ 
+    data comes from cur_value in $('#department').change(function()
+    """
+
+    data = request.form['dept_name']
+        
     for dept in departments:
         if dept['dept_name'] == data:
             service = dept['service']
                        
-    print(service) 
-
-    #return data to                 
+                  
     if service:
         return jsonify({'data': service})
-    print(service) 
+    
 
     return jsonify({'error' : 'an error occurred'})
     
 
-# Base build function
-# Adds a new appointment
+
 @app.route('/insert_appointment', methods=['POST', 'GET'], defaults={'user_id': None})
 @app.route('/insert_appointment/<user_id>')
 def insert_appointment(user_id):
+    """ 
+    Adds a new appointment
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']})
         appointment = appointments_collection
@@ -337,11 +369,14 @@ def insert_appointment(user_id):
 
     return render_template('login.html', page_title='Log-in')
 
-# Base build function
-# Lets us edit the data for an existing appointment
+
 @app.route('/edit_appointment', defaults={'user_id': None})
 @app.route('/edit_appointment/<app_id>/<user_id>')
 def edit_appointment(app_id, user_id):
+    """ 
+    Lets us edit the data for an existing appointment
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']})   
         _appointment = appointments_collection.find_one({'_id': ObjectId(app_id)})
@@ -358,30 +393,32 @@ def edit_appointment(app_id, user_id):
 
 @app.route('/service_update',  methods=['POST', 'GET'])
 def service_update():
-    services = departments_collection.find()
-    print(services)
+    services = departments_collection.find()    
 
-    # data comes from cur_value in $('#department').change(function()
+    """ 
+    data comes from cur_value in $('#department').change(function()
+    """
+
     data = request.form['dept_name']
-    print(data)
-    
+        
     for dept in services:
         if dept['dept_name'] == data:
             service = dept['service']
-            print(service) 
-    #return data to                 
+             
+                   
     if service:
         return jsonify({'data': service})
-    print(service) 
+    
 
     return jsonify({'error' : 'an error occurred'})
 
 
-# Base build function
-# Lets us edit the data for an existing appointment
+
 @app.route('/update_appointment/<app_id>/<user_id>', methods=['POST'])
 def update_appointment(app_id, user_id):
-
+    """ 
+    Lets us edit the data for an existing appointment
+    """
     appointments = appointments_collection
     appointments.update_many({'_id': ObjectId(app_id)},
     {'$set': {
@@ -400,10 +437,13 @@ def update_appointment(app_id, user_id):
     })
     return redirect(url_for('get_appointment'))
 
-# Base build function
-# Lets us edit the data for an existing appointment
+
 @app.route('/delete_appointment/<app_id>/<user_id>')
 def delete_appointment(app_id, user_id):
+    """ 
+    Lets us edit the data for an existing appointment
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']})      
         appointments_collection.remove({'_id': ObjectId(app_id)})
@@ -416,11 +456,13 @@ def delete_appointment(app_id, user_id):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Departments views                                                                                        #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Base build function
-# Lets us return the names of all the departments
+
 @app.route('/get_departments', defaults={'user_id': None})
 @app.route('/get_departments/<user_id>')
 def get_departments(user_id):
+    """ 
+    Lets us return the names of all the departments
+    """
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']}) 
         departments = Search(departments_collection).find_all()
@@ -434,10 +476,13 @@ def get_departments(user_id):
 
 
 
-# Base build function
-# Lets us edit the name of a specific department
+
 @app.route('/department/<dept_id>/<user_id>')
 def department(dept_id, user_id):
+    """ 
+    Lets us edit the name of a specific department
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']}) 
         return render_template('department.html',  
@@ -449,10 +494,13 @@ def department(dept_id, user_id):
 
     return render_template('login.html', page_title='Log-in')
 
-# Base build function
-# Lets us edit the name of a specific department
+
 @app.route('/edit_department/<dept_id>/<user_id>')
 def edit_department(dept_id, user_id):
+    """ 
+    Lets us edit the name of a specific department
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']}) 
         return render_template('edit_department.html',  
@@ -464,10 +512,13 @@ def edit_department(dept_id, user_id):
 
     return render_template('login.html', page_title='Log-in')
 
-# Base build function
-# The name of a specific department is written back to the document
+
 @app.route('/update_department/<dept_id>/<user_id>', methods=['POST'])
 def update_department(dept_id, user_id):
+    """ 
+    The name of a specific department is written back to the document
+    """
+
     departments_collection.update_many({'_id': ObjectId(dept_id)},
         {'$set': {
             'user_id': user_id,
@@ -481,11 +532,14 @@ def update_department(dept_id, user_id):
     return redirect(url_for('get_departments'))
 
 
-# Base build function
-# The sites and departments are rendered to html
+
 @app.route('/add_department',  methods=['POST', 'GET'], defaults={'user_id': None})
 @app.route('/add_department/<user_id>')
 def add_department(user_id):
+    """ 
+    The sites and departments are rendered to html
+    """
+
     if 'user' in session: 
         login_user = users_collection.find_one({"username": session['user']})  
         items = dept_template_collection.find()    
@@ -500,65 +554,76 @@ def add_department(user_id):
     return render_template('login.html', page_title='Log-in')
    
 
-# Base build function
-# The services are matched to the department selected
+
 @app.route('/dept_update',  methods=['POST', 'GET'])
 def dept_update():
+    """ 
+    The services are matched to the department selected
+    """
+    
     services = dept_template_collection.find()    
 
     site = request.form.get('site_name')
-    print(site)
+    
 
-    """ existing_dept = departments_collection.find({'_id': 1, 'dept_name': request.form['dept_name'], 'site': {request.form.get('site_name')} })
-    print(existing_dept) """
+    """ 
+    data comes from cur_value in $('#department').change(function() 
+    """
 
-
-    # data comes from cur_value in $('#department').change(function()
     data = request.form['dept_name']
-    print(data, site)
+    
     for dept in services:
         if dept['dept_name'] == data:
             service = dept['service']
-          # print(service) 
-    #return data to                 
+          
+                   
     if service:
         return jsonify({'data': service})
-    # print(service) 
+    
     return jsonify({'error' : 'an error occurred'})
     
 
-# Base build function
-# The services are matched to the department selected
+
 @app.route('/deptimg_update',  methods=['POST', 'GET'])
 def dept_imgupdate():
+    """ 
+    The services are matched to the department selected
+    """
+
     image = dept_template_collection.find() 
     
 
-    # data comes from cur_value in $('#department').change(function()
+    """ 
+    data comes from cur_value in $('#department').change(function() 
+    """
+
     data = request.form['dept_name']
-    #print(data)
+    
     
     for dept in image:
         if dept['dept_name'] == data:
             image = dept['img_url']
-            print(image) 
-    #return data to                 
+            
+                  
     if service:
         return jsonify({'data': image})
-    print(image) 
+    
 
     return jsonify({'error' : 'an error occurred'})
 
 
 
-# Base build function
-# Insert new department into collection
+
 @app.route('/insert_department/<user_id>', methods=['POST'])
 def insert_department(user_id):
+    """ 
+    Insert new department into collection
+    """
+
      if 'user' in session: 
         login_user = users_collection.find_one({"username": session['user']})   
         department = departments_collection
-        #try:
+        
         department_doc = {
                 'user_id': user_id,
                 'dept_name': request.form.get('dept_name'),
@@ -578,18 +643,20 @@ def insert_department(user_id):
                 }
 
         department.insert_one(department_doc)
-        #except:
-            #print('Error adding department to collection')
+        
 
         return redirect(url_for('get_departments',
                                 username=session['user'], 
                                 user_id=login_user['_id']))
 
 
-# Base build function
-# The name of a specific department is written back to the document
+
 @app.route('/update_service/<serv_id>', methods=['POST'])
 def update_service(serv_id):
+    """ 
+    The name of a specific department is written back to the document
+    """
+
     services_collection.update_one({'_id': ObjectId(serv_id)},
 
         {'$set': {'service.$[].name': request.form.get('service')}})
@@ -597,10 +664,13 @@ def update_service(serv_id):
        
     return redirect(url_for('get_departments'))
     
-# Base build function
-# Lets us delete an existing department
+
 @app.route('/delete_department/<dept_id>/<user_id>')
 def delete_department(dept_id, user_id):
+    """ 
+    Lets us delete an existing department
+    """
+
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']})      
         departments_collection.remove({'_id': ObjectId(dept_id)})
@@ -615,7 +685,9 @@ def delete_department(dept_id, user_id):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
+    """ 
+    note that we set the 404 status explicitly 
+    """
     return render_template('404.html'), 404
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
