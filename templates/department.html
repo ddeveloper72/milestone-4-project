@@ -54,10 +54,10 @@
                                     <b>Main Contact:</b>
                                 </div>
                                 <div class="row">
-                                    Phone: {{ department.main_contact[0:][0].phone }}
+                                    <p><span>Phone:</span> {{ department.main_contact[0:][0].phone }}</p>   
                                 </div>
                                 <div class="row">
-                                    E-mail: <a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a>
+                                   <p><span>E-mail: </span><a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a></p> 
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
@@ -65,10 +65,10 @@
                                     <b>Where to find us: </b>
                                 </div>
                                 <div class="row">
-                                    Location: {{ department.site[0:][0].location }}
+                                    <p><span></span>Location: </span>{{ department.site[0:][0].location }}</p>Location: {{ department.site[0:][0].location }}
                                 </div>
                                 <div class="row">
-                                    Phone: {{ department.site[0:][0].phone }}
+                                    <p><span>Phone: </span>{{ department.site[0:][0].phone }}</p>
                                 </div>
                             </div>
                         </div>

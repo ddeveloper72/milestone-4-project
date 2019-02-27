@@ -627,6 +627,7 @@ def insert_department(user_id):
         
         department_doc = {
                 'dept_owner': session['user'],                 
+                'dept_name': request.form.get('dept_name'),
                 'dept_info': request.form.get('dept_info'),
                 'img_url': request.form.get('img_url'),
                 'main_contact': [
