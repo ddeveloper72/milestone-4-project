@@ -116,3 +116,20 @@ input:disabled {
   .content-style p {
       font-size: 1rem;
   }
+  .bootstrap-datetimepicker-widget table td.today {
+    color: #ff6000;
+  }
+
+  .bootstrap-datetimepicker-widget table thead tr:first-child th {
+    color: #ff6000;
+}
+.bootstrap-datetimepicker-widget .picker-switch td span {
+    color: #ff6000;
+}
+
+.bootstrap-datetimepicker-widget table td span {
+    color: #ff6000;
+}
+.input-group>.form-control, .input-group>.form-control-plaintext, .input-group>.custom-select, .input-group>.custom-file {
+    margin-left: -1rem;
+}
