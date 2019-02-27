@@ -20,7 +20,7 @@
                                     </div>
                                     <i class="far fa-building prefix"></i>
                                     <label for="site_name">Facility: </label>
-                                    <select id="facility" name="site_name" class="form-control">
+                                    <select id="facility" name="site_name" class="form-control" required />
                                         <option value="" disabled selected>Select Your Facility</option>
                                         {% for site_name in facility %}
                                         <option class="form-control" name="site_name" id="{{ site_name.site[0].location }}"
@@ -33,7 +33,7 @@
                                 <div class="form-group">
                                         <i class="far fa-address-book prefix"></i>
                                         <label for="dept_name">Department: </label>
-                                        <select id="add_department" name="dept_name" class="form-control">
+                                        <select id="add_department" name="dept_name" class="form-control" required />
                                             <option value="" disabled selected>Choose a department</option>
                                             {% for dept in data %}
                                             <option class="form-control" name="dept_name" id="{{ dept.dept_name }}"
