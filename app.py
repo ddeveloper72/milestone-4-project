@@ -121,8 +121,8 @@ def login():
                 flash('%s has successfully logged in' % request.form['username'], 'alert-success')
                 return redirect(url_for('get_appointment', user_id=login_user['_id']))
 
-            flash(u'Invalid username/password combination', 'alert-warning')
-            return render_template('login.html', 
+        flash(u'Invalid username/password combination', 'alert-warning')
+        return render_template('login.html', 
                                     page_title='Log-in', 
                                     error=error)  
         
