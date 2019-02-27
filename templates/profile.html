@@ -122,7 +122,7 @@
                             placeholder="phone number" class="form-control" required />
                             {% else %}
                             <input id="phone" name="phone" type="tel" value=""
-                            placeholder="phone number" class="form-control" required />
+                            placeholder="phone number" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
                             {% endif %}
                     </div>
                 </div>
