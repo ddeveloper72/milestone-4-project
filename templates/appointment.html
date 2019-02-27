@@ -28,7 +28,7 @@
                                             <i class="far fa-address-card"></i>
                                             <label for="icon_prefix"> Appointment Name: </label> {{ app.task_name }}
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-sm-12 col-md-6">
                                             <i class="far fa-user-circle"></i>
                                             <label for="icon_prefix"> Created by: </label> {{ app.user_name }}
                                         </div>
@@ -37,7 +37,7 @@
                                             <label for="icon_prefix"> Scheduled: </label> {{ app.date_time }}
                                         </div>
 
-                                        <div class="col-sm-12 col-md-6"">
+                                        <div class="col-sm-12 col-md-6">
 
                                             {% if app.is_urgent %}
                                             <span class="fa-urgent">
@@ -84,9 +84,9 @@
                                 <div class="col-sm-12 text-right mt-4">
                                     <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-secondary btn-md btn-fixed mb-2">Edit
                                         <i class="fas fa-edit"></i></a>
-                                    {% endif %}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -95,6 +95,8 @@
                 </div>
             </div>
         
+        
+     
         </div>
         <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
             <div class="card">
