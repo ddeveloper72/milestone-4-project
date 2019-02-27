@@ -2,107 +2,106 @@
 {% block content %}
 
 <div class="row">
-        <div class="col-sm-12 col-md-8">
-                <div class="card content-style">
-                        <div class="card-body">
+    <div class="col-sm-12 col-md-8">
+        <div class="card content-style">
+            <div class="card-body">
 
-                            <form action="{{url_for('insert_department', user_id=user_id)}}" method="POST">
-                                    <div class="box">
-                                            <div class="img" id="dept_img">
-                                                <img class="img-fluid img-small" alt="Add Department" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
-                                                    id="dept_img"  name="dept_img">
-                                            </div>
-                                        </div>
-                                    <!-- Select the name of the facility from the list of available facility names -->
-                            <div class="form-group">
-                                    <div class="row">
-                                        <b>Facility Name:</b>                                            
-                                    </div>
-                                    <i class="far fa-building prefix"></i>
-                                    <label for="site_name">Facility: </label>
-                                    <select id="facility" name="site_name" class="form-control" required />
-                                        <option value="" disabled selected>Select Your Facility</option>
-                                        {% for site_name in facility %}
-                                        <option class="form-control" name="site_name" id="{{ site_name.site[0].location }}"
-                                            value="{{ site_name.site[0].location }}">{{
-                                            site_name.site[0].location }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>                        
-                
-                                <div class="form-group">
-                                        <i class="far fa-address-book prefix"></i>
-                                        <label for="dept_name">Department: </label>
-                                        <select id="add_department" name="dept_name" class="form-control" required />
-                                            <option value="" disabled selected>Choose a department</option>
-                                            {% for dept in data %}
-                                            <option class="form-control" name="dept_name" id="{{ dept.dept_name }}"
-                                                value="{{ dept.dept_name }}" >{{
-                                                dept.dept_name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>       
-                                    <div class="form-group">
-                                            <i class="fas fa-sitemap prefix"></i>
-                                            <label>Select the Service's for your department</label>
-                                            <div class="form-check">
-                                                <ul id="list_service" name="service" style="list-style-type:none">
-                                                </ul>
-                                            </div>
-                                        </div>     
-                                        
-                                        <div class="form-group">
-                                            <i class="fas fa-info-circle"></i>
-                                            <b>About this department</b>
-                                            <input id="dept_info" name="dept_info" type="text" placeholder="About the services here"
-                                                class="form-control" value="" required />
-                                        </div>                          
-                
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <b>Main Contact:</b>
-                                            </div>
-                                            <i class="fas fa-mobile-alt"></i>
-                                            <label for="phone">Department: </label>
-                                            <input id="phone" name="phone" type="tel" class="form-control"
-                                                value="" placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000" required />
-                                        </div>
-                                   
-                                        <div class="form-group">
-                                            <i class="far fa-envelope"></i>
-                                            <label for="email">E-mail: </label>
-                                            <input id="email" name="email" type="email" class="form-control"
-                                                value="" placeholder="Department email address" required  />
-                                        </div>
-                                
-                                        <div class="form-group">
-                                            <i class="fas fa-phone"></i>
-                                            <label for="phone">Hospital: </label>
-                                            <input id="phone" name="phone1" type="tel" class="form-control"
-                                                value="" placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000" required/>
-                                        </div>
-                                        <div class="row">
-                                                <div class="col-md-12 text-right mt-5">
-                                                    <a href="{{url_for('get_departments')}}" class="btn btn-dark btn-md mx-3">Cancel</a>
-                                                <button class="btn btn-success btn-md" type="submit" name="action">Save
-                                                </button>
-                                        </div>
-                                    </div>
-                                </form>
+                <form action="{{url_for('insert_department', user_id=user_id)}}" method="POST">
+                    <div class="box">
+                        <div class="img" id="dept_img">
+                            <img class="img-fluid img-small" alt="Add Department" src="{{url_for('static', filename='images/CoolClips_vc062037.png')}}"
+                                id="dept_img" name="dept_img">
                         </div>
-                      </div>           
-        </div>
-        <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
-                <div class="card mt-1">
-                    <h2 class="card-header">{{ page_title }}
-                        <i class=" fas fa-clinic-medical
-                        fa-inverse"></i>
-                    </h2>
-                    <div class="card-body">
-                        <p>To crate a new department, select the facility name first and then select the department from the list available</p>
-                        <p>Please provide a brief description of the department and then add in the contact details</p>
                     </div>
-                </div>
+                    <!-- Select the name of the facility from the list of available facility names -->
+                    <div class="form-group">
+                        <div class="row">
+                            <b>Facility Name:</b>
+                        </div>
+                        <i class="far fa-building prefix"></i>
+                        <label for="site_name">Facility: </label>
+                        <select id="facility" name="site_name" class="form-control" required />
+                        <option value="" disabled selected>Select Your Facility</option>
+                        {% for site_name in facility %}
+                        <option class="form-control" name="site_name" id="{{ site_name.site[0].location }}" value="{{ site_name.site[0].location }}">{{
+                            site_name.site[0].location }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <i class="far fa-address-book prefix"></i>
+                        <label for="dept_name">Department: </label>
+                        <select id="add_department" name="dept_name" class="form-control" required />
+                        <option value="" disabled selected>Choose a department</option>
+                        {% for dept in data %}
+                        <option class="form-control" name="dept_name" id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{
+                            dept.dept_name }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-sitemap prefix"></i>
+                        <label>Select the Service's for your department</label>
+                        <div class="form-check">
+                            <ul id="list_service" name="service" style="list-style-type:none">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fas fa-info-circle"></i>
+                        <b>About this department</b>
+                        <input id="dept_info" name="dept_info" type="text" placeholder="About the services here" class="form-control"
+                            value="" required />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <b>Main Contact:</b>
+                        </div>
+                        <i class="fas fa-mobile-alt"></i>
+                        <label for="phone">Department: </label>
+                        <input id="phone" name="phone" type="tel" class="form-control" value="" placeholder="Eg. (012) 000-000"
+                            class="form-control" data-mask="(000) 000-0000" required />
+                    </div>
+
+                    <div class="form-group">
+                        <i class="far fa-envelope"></i>
+                        <label for="email">E-mail: </label>
+                        <input id="email" name="email" type="email" class="form-control" value="" placeholder="Department email address"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fas fa-phone"></i>
+                        <label for="phone">Hospital: </label>
+                        <input id="phone" name="phone1" type="tel" class="form-control" value="" placeholder="Eg. (012) 000-000"
+                            class="form-control" data-mask="(000) 000-0000" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right mt-5">
+                            <a href="{{url_for('get_departments')}}" class="btn btn-dark btn-md mx-3">Cancel</a>
+                            <button class="btn btn-success btn-md" type="submit" name="action">Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
+        </div>
     </div>
+    <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
+        <div class="card mt-1">
+            <h2 class="card-header">{{ page_title }}
+                <i class=" fas fa-clinic-medical
+                        fa-inverse"></i>
+            </h2>
+            <div class="card-body">
+                <p>To crate a new department, select the facility name first and then select the department from the
+                    list available</p>
+                <p>Please provide a brief description of the department and then add in the contact details</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

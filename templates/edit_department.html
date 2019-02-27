@@ -8,62 +8,63 @@
             <div class="box">
                 <div class="card content-style">
                     <div class="card-body">
-                            <form action="{{url_for('update_department', dept_id=department._id, user_id=user_id)}}"
-                                method="POST">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <b>Department Information:</b>
-                                            </div>
-                                            
-                                            <div class="row">
-                                                <h4 class="mt-2 ml-2"><i class="fas fa-user-md"></i> Manager: {{department.dept_owner}}</h4>
-                                            </div>
-                                            <div class="row">
-                                                <h4 class="mt-2 ml-2"><i class="far fa-address-book prefix"></i> {{department.dept_name}}</h4>
-                                            </div>
-                                            
-                                        </div>
-                                            <div class="form-group">
-                                                <label for="dept_info"> <i class="fas fa-info-circle"></i> Department Information:</label>                                                
-                                                <input id="dept_info" name="dept_info" type="text" class="form-control"
-                                                        value="{{department.dept_info}}" required /><br />                                                
-                                            </div>
-                                        <div class="form-group">
-                                            <label for="phone"><i class="fas fa-mobile-alt"></i> Phone: </label>
-                                            <input id="phone" name="phone1" type="tel" value="{{department.main_contact[0:][0].phone}}" 
-                                            placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000" required /><br />
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="row">
-                                                    <b>Where to find us:</b>
-                                            </div>
-                                            <div class="row">
-                                                <p>{{department.site[0:][0].location}}</p>
-                                            </div>                                           
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="email"><i class="far fa-envelope"></i> E-mail: </label>
-                                            <input id="email" name="email" type="email" class="form-control"
-                                                aria-describedby="emailHelp" value="{{department.main_contact[0:][0].email}}"
-                                                placeholder="Department email address" required /><br />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="phone2"><i class="fas fa-mobile-alt"></i> Phone</label>
-                                            <input name="phone2" type="tel" value="{{department.site[0:][0].phone}}"
-                                            placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000" required /><br />
-                                        </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 text-right">
-                                            <a href="{{url_for('delete_department', dept_id = department._id , user_id = user_id)}}"
-                                                class="btn btn-danger btn-md confirm-delete">Delete </a>
-                                                <a href="{{url_for('get_departments', user_id = user_id)}}" class="btn btn-dark btn-fixed btn-md mx-3">Cancel</a>
-                                                <button class="btn btn-success btn-md" type="submit" name="action">Save
-                                                </button>
-                                            </div>
+                        <form action="{{url_for('update_department', dept_id=department._id, user_id=user_id)}}" method="POST">
+                            <div class="form-group">
+                                <div class="card-title">
+                                    <div class="row mt-1">
+                                        <h4 class="mt-2 ml-2"><i class="fas fa-info-circle"></i> Department
+                                            Information: </h4>
                                     </div>
-                            </form>
+                                    <div class="row mt-1">
+                                        <h4 class="mt-2 ml-2"><i class="far fa-user-circle"></i> Manager:
+                                            {{department.dept_owner}}</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="dept_info"><i class="fas fa-info-circle"></i> Department Information:
+                                </label>
+                                <input id="dept_info" name="dept_info" type="text" class="form-control" value="{{department.dept_info}}"
+                                    required /><br />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone"><i class="fas fa-mobile-alt"></i> Phone: </label>
+                                <input id="phone" name="phone1" type="tel" value="{{department.main_contact[0:][0].phone}}"
+                                    placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000"
+                                    required /><br />
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <b>Where to find us:</b>
+                                </div>
+                                <div class="row">
+                                    <p>{{department.site[0:][0].location}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="email"><i class="far fa-envelope"></i> E-mail: </label>
+                                <input id="email" name="email" type="email" class="form-control" aria-describedby="emailHelp"
+                                    value="{{department.main_contact[0:][0].email}}" placeholder="Department email address"
+                                    required /><br />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone2"><i class="fas fa-mobile-alt"></i> Phone </label>
+                                <input name="phone2" type="tel" value="{{department.site[0:][0].phone}}" placeholder="Eg. (012) 000-000"
+                                    class="form-control" data-mask="(000) 000-0000" required /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                    <a href="{{url_for('delete_department', dept_id = department._id , user_id = user_id)}}"
+                                        class="btn btn-danger btn-md confirm-delete">Delete </a>
+                                    <a href="{{url_for('get_departments', user_id = user_id)}}" class="btn btn-dark btn-fixed btn-md mx-3">Cancel</a>
+                                    <button class="btn btn-success btn-md" type="submit" name="action">Save
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

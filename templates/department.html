@@ -12,15 +12,28 @@
                             <img class="card-img-top" src="{{ department.img_url }}" alt="{{ department.dept_name }}">
                         </div>
                         <div class="row">
-                            <form action="{{ url_for('add_favourite', dept_id=department._id, user_id=user_id) }}" method="POST">
+                            <form action="{{ url_for('add_favourite', dept_id=department._id, user_id=user_id) }}"
+                                method="POST">
                                 <button value="{{ department._id }}" type="submit" name="action" class="btn btn-outline-success btn-md"
                                     aria="true" data-toggle="tooltip" data-placement="right" title="Add to favourites">
                                     <span class="fa-urgent"><i class="fas fa-heart"></i></span><b> {{
                                         department.dept_name }}</b></button>
                             </form>
                         </div>
-                        <div class="row mt-1">
-                            <h5>{{ department.dept_info }}</h5>
+                        <div class="card-title">
+                            <div class="row mt-1">
+                                <h4 class="mt-2 ml-2"><i class="far fa-user-circle"></i> Manager:
+                                    {{department.dept_owner}}</h4>
+                            </div>
+                            <div class="row mt-1">
+                                <h4 class="mt-2 ml-2"><i class="fas fa-info-circle"></i> Information: </h4>
+                            </div>
+                            <div class="row">
+                                <div class="card-text mt-2 ml-2">
+                                    <p>{{ department.dept_info }}</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -36,45 +49,46 @@
 
                     <div class="box">
                         <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="row">
-                                <b>Main Contact:</b>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="row">
+                                    <b>Main Contact:</b>
+                                </div>
+                                <div class="row">
+                                    Phone: {{ department.main_contact[0:][0].phone }}
+                                </div>
+                                <div class="row">
+                                    E-mail: <a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a>
+                                </div>
                             </div>
-                            <div class="row">
-                                Phone: {{ department.main_contact[0:][0].phone }}
-                            </div>
-                            <div class="row">
-                                E-mail: <a href="mailto:{{ department.main_contact[0:][0].email }}">{{department.main_contact[0:][0].email}}</a>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="row">
+                                    <b>Where to find us: </b>
+                                </div>
+                                <div class="row">
+                                    Location: {{ department.site[0:][0].location }}
+                                </div>
+                                <div class="row">
+                                    Phone: {{ department.site[0:][0].phone }}
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="row">
-                                    <b>Where to find us:</b>
-                            </div>
-                            <div class="row">
-                                Location: {{ department.site[0:][0].location }}
-                            </div>
-                            <div class="row">
-                                Phone: {{ department.site[0:][0].phone }}
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <a href="{{ url_for('edit_department',  dept_id=department._id, user_id=user_id) }}" class="btn btn-success btn-md">Edit</a>
-                            <a href="{{ url_for('get_departments', user_id=user_id) }}" class="btn btn-dark btn-md mx-3 btn-fixed">Cancel</a>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <a href="{{ url_for('edit_department',  dept_id=department._id, user_id=user_id) }}"
+                                    class="btn btn-success btn-md">Edit</a>
+                                <a href="{{ url_for('get_departments', user_id=user_id) }}" class="btn btn-dark btn-md mx-3 btn-fixed">Cancel</a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
             <div class="card mt-1">
-                <h2 class="card-header">{{ page_title }}                         
-                        <i class=" fas
+                <h2 class="card-header">{{ page_title }}
+                    <i class=" fas
                     fa-clinic-medical fa-inverse"></i>
                 </h2>
                 <div class="card-body">

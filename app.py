@@ -506,7 +506,7 @@ def edit_department(dept_id, user_id):
     if 'user' in session:
         login_user = users_collection.find_one({"username": session['user']}) 
         return render_template('edit_department.html',  
-                                page_title='Edit Department',
+                                page_title='Information',
                                 department = departments_collection.find_one(
                                 {'_id': ObjectId(dept_id)}), 
                                 username=session['user'], 
