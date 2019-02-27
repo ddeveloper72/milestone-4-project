@@ -247,7 +247,8 @@ def update_profile(user_id):
             'dept_name': request.form.get('dept_name'),
             }
     })
-    flash('Your profile has been updated', 'alert-success')
+    flash('Your profile has been updated %s' %
+                  session['user'], 'alert-success')
     return redirect(request.referrer)
 
 
