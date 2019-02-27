@@ -14,7 +14,8 @@
         <form action="{{url_for('update_profile', username=username, user_id=user_id)}}" method="POST">
             <div class="row">
                 <div class="col-sm-12">
-                    <h5><span class="fa-urgent"><i class="fas fa-heart"></i></span> {{ login_user.username }}: Favourite Departments</h5>
+                    <h2 class"text-centre">{{ login_user.username }}'s Profile Page</h2>
+                    <h5><span class="fa-urgent"><i class="fas fa-heart"></i></span> Favourite Departments</h5>
                 </div>
             </div>
             <div class="row mb-5">
@@ -119,10 +120,10 @@
                         <label for="phone">Contact: </label>
                         {% if login_user.user_contact is defined %}
                         <input id="phone" name="phone" type="tel" value="{{ login_user.user_contact[0:][0].phone }}"
-                            placeholder="phone number" class="form-control" required />
+                            placeholder="Eg. (012) 000-0000" class="form-control" data-mask="(000) 000-0000" required />
                             {% else %}
                             <input id="phone" name="phone" type="tel" value=""
-                            placeholder="phone number" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+                            placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000" required />
                             {% endif %}
                     </div>
                 </div>
@@ -132,10 +133,10 @@
                         <label for="email">E-mail: </label>
                         {% if login_user.user_contact is defined %}
                         <input id="email" name="email" type="email" value="{{ login_user.user_contact[0:][0].email }}"
-                            placeholder="email address" class="form-control" value="" required />
+                            placeholder="Enter your email address" class="form-control" value="" required />
                             {% else %}
                             <input id="email" name="email" type="email" value=""
-                            placeholder="email address" class="form-control" required />
+                            placeholder="Enter your email address" class="form-control" required />
                             {% endif %}
                     </div>
                 </div>
@@ -197,7 +198,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> 
 
 
 

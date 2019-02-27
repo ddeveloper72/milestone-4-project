@@ -128,4 +128,7 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
 
-
+/* jQuery Mask Plugin adapted from Igor Escobar https://igorescobar.github.io/jQuery-Mask-Plugin/ */
+  $(document).ready(function(){
+    $('.phone_with_ddd').mask('(000) 000-0000');
+  });
