@@ -115,7 +115,7 @@ $(function () {
 		minDate: moment(),
 		stepping: 15,
 		showClose: true
-    });
+    })
 });
 
 /* Confirm deletion prompt                                                                       */

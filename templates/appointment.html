@@ -5,12 +5,13 @@
 
     <div class="row flex-column-reverse flex-md-row">
         <div class="col-sm-12 col-md-8">
-            <div class="card content-style">
+            <div class="card-header content-style">
+                
                 <div id="accordion">
                     {% for app in appointment %}
-                    <div class="card-header accordian-card" id="heading{{ loop.index }}" data-toggle="collapse"
-                        data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}"
-                        data-toggle="tooltip">
+                    <div class="card-header accordian mb-4" id="heading{{ loop.index }}" data-toggle="collapse"
+                        data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}" 
+                        data-toggle="tooltip" data-placement="top" title="Select {{ app.service  }}">
                         <h5>
                             <i class="fas fa-angle-double-right"></i>
                             <b>{{ app.dept_name }} - {{ app.service }}</b>
@@ -18,11 +19,7 @@
                     </div>
                     <div id="collapse{{ loop.index }}" class=" panel-collapse collapse" aria-labelledby="heading{{ loop.index }}"
                         data-parent="#accordion">
-                        <div class="card-body">
-                            {% if session.logged_in %}
-                            <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-secondary btn-md btn-fixed">Edit
-                                <i class="fas fa-edit"></i></a>
-                            {% endif %}
+                        <div class="card-body">                        
 
                             <div class="card">
                                 <div class="box">
@@ -82,6 +79,14 @@
                                     </div>
                                 </div>
                             </div>
+                            {% if session.logged_in %}
+                            <div class="row">
+                                <div class="col-sm-12 text-right mt-4">
+                                    <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-secondary btn-md btn-fixed mb-2">Edit
+                                        <i class="fas fa-edit"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -89,7 +94,7 @@
 
                 </div>
             </div>
-
+        
         </div>
         <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
             <div class="card">
