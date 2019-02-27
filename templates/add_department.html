@@ -37,7 +37,7 @@
                                             <option value="" disabled selected>Choose a department</option>
                                             {% for dept in data %}
                                             <option class="form-control" name="dept_name" id="{{ dept.dept_name }}"
-                                                value="{{ dept.dept_name }}">{{
+                                                value="{{ dept.dept_name }}" >{{
                                                 dept.dept_name }}</option>
                                             {% endfor %}
                                         </select>
@@ -64,22 +64,22 @@
                                             </div>
                                             <i class="fas fa-mobile-alt"></i>
                                             <label for="phone">Department: </label>
-                                            <input id="phone" name="phone" type="tel" placeholder="phone number" class="form-control"
-                                                value="" required />
+                                            <input id="phone" name="phone" type="tel" class="form-control"
+                                                value="" placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000" required />
                                         </div>
                                    
                                         <div class="form-group">
                                             <i class="far fa-envelope"></i>
                                             <label for="email">E-mail: </label>
-                                            <input id="email" name="email" type="email" placeholder="email address" class="form-control"
-                                                value="" required />
+                                            <input id="email" name="email" type="email" class="form-control"
+                                                value="" placeholder="Department email address" required  />
                                         </div>
                                 
                                         <div class="form-group">
                                             <i class="fas fa-phone"></i>
                                             <label for="phone">Hospital: </label>
-                                            <input id="phone" name="phone1" type="tel" placeholder="phone number" class="form-control"
-                                                value="" required />
+                                            <input id="phone" name="phone1" type="tel" class="form-control"
+                                                value="" placeholder="Eg. (012) 000-000" class="form-control" data-mask="(000) 000-0000" required/>
                                         </div>
                                         <div class="row">
                                                 <div class="col-md-12 text-right mt-5">

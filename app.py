@@ -523,8 +523,7 @@ def update_department(dept_id, user_id):
 
     departments_collection.update_many({'_id': ObjectId(dept_id)},
         {'$set': {
-            'user_id': user_id,
-            'dept_name': request.form.get('dept_name'),
+            'dept_info': request.form.get('dept_info'),
             'main_contact.$[].phone': request.form.get('phone1'),
             'main_contact.$[].email': request.form.get('email'),
             'site.$[].phone': request.form.get('phone2')
@@ -627,8 +626,7 @@ def insert_department(user_id):
         department = departments_collection
         
         department_doc = {
-                'user_id': user_id,
-                'dept_name': request.form.get('dept_name'),
+                'dept_owner': session['user'],                 
                 'dept_info': request.form.get('dept_info'),
                 'img_url': request.form.get('img_url'),
                 'main_contact': [
