@@ -18,7 +18,7 @@
                       </div>
                       <i class="far fa-building prefix"></i>
                       <label for="site_name">Facility</label>
-                      <select id="facility" name="site_name" class="form-control">
+                      <select id="facility" name="site_name" class="form-control" required />
                         <option value="" disabled selected>Select Your Facility</option>
                         {% for booking in facility %}
                         <option value="{{ booking.site_name }}">{{ booking.site_name }}</option>
@@ -31,7 +31,7 @@
                     <div class="form-group">
                       <i class="far fa-address-book prefix"></i>
                       <label for="dept_name">Department</label>
-                      <select id="departments" name="dept_name" class="form-control">
+                      <select id="departments" name="dept_name" class="form-control" required />
                         <option value="" class="dept" disabled selected>Choose a department</option>
                         {% for dept in departments %}
                         <option id="{{ dept.dept_name }}" value="{{ dept.dept_name }}">{{ dept.dept_name }}</option>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                       <i class="fas fa-cogs prefix"></i>
                       <label for="service">Service</label>
-                      <select id="service" name="service" class="form-control">
+                      <select id="service" name="service" class="form-control"required />
                         <option id="service" value="" disabled selected>Select a department from list above</option>
                       </select>
                     </div>
@@ -55,7 +55,7 @@
                       <i class="far fa-address-card"></i>
                       <label for="task_name">Appointment Name</label>
                       <input id="task_name" name="task_name" type="text" placeholder="Patient's name" class="form-control"
-                        data-toggle="tooltip" data-placement="top" title="Who is this for?" required>
+                        data-toggle="tooltip" data-placement="top" title="Who is this for?" required />
                     </div>
 
                   <!-- Add task description -->
@@ -73,7 +73,7 @@
                     <div class="form-group">
                       <i class="far fa-user-circle"></i>
                       <label for="user_name">Created By</label>
-                      <input value="{{ session.user }}" name="user_name" id="user_name" class="form-control" placeholder="Add your name here" required>
+                      <input value="{{ session.user }}" name="user_name" id="user_name" class="form-control" placeholder="Add your name here" required />
                     </div>
 
                   <!-- Date/Time Picker -->
