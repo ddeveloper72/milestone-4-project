@@ -207,7 +207,8 @@ def profile(user_id):
 
 
         except:
-            flash('There are no favourites in your profile yet', 'alert-warning')
+            flash('There are no favourites in your profile yet, %s' %
+                  session['user'], 'alert-warning')
         
         else:
             return render_template('profile.html', 
