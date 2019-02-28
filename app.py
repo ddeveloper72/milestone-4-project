@@ -123,7 +123,7 @@ def login():
 
         flash(u'Invalid username/password combination', 'alert-warning')
         return render_template('login.html', 
-                                    page_title='Log-in', 
+                                    page_title='Login', 
                                     error=error)  
         
     
