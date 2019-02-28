@@ -100,6 +100,10 @@ A nice to have, which is still being considered for the design, will be to let t
 |                                                             |  |
 | What colours, typography and design elements will be used?  |  |
 
+##### Wireframes
+
+![Index](https://github.com/ddeveloper72/milestone-4-project/blob/master/static/images/readme/gallery.png "Fig 1 showing Wireframes")
+
 #### 3. Application Construction
 
 1. Tools used
