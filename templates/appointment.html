@@ -6,11 +6,11 @@
     <div class="row flex-column-reverse flex-md-row">
         <div class="col-sm-12 col-md-8">
             <div class="card-header content-style">
-                
+
                 <div id="accordion">
                     {% for app in appointment %}
                     <div class="card-header accordian mb-4" id="heading{{ loop.index }}" data-toggle="collapse"
-                        data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}" 
+                        data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}"
                         data-toggle="tooltip" data-placement="top" title="Select {{ app.service  }}">
                         <h5>
                             <i class="fas fa-angle-double-right"></i>
@@ -19,7 +19,7 @@
                     </div>
                     <div id="collapse{{ loop.index }}" class=" panel-collapse collapse" aria-labelledby="heading{{ loop.index }}"
                         data-parent="#accordion">
-                        <div class="card-body">                        
+                        <div class="card-body">
 
                             <div class="card">
                                 <div class="box">
@@ -56,14 +56,21 @@
 
                                         <div class="col-sm-12 col-md-6">
                                             <i class="fas fa-pencil-alt"></i>
-                                            <label for="icon_prefix"> Description: </label> {{ app.task_description }}
+                                            <label for="icon_prefix"> Description: </label>
+
+                                            <div class="row">
+                                                <div class="box">
+                                                    <p>{{ app.task_description }}</p>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-sm-12 col-md-6"">
 
                                             {% if app.is_archived %}
-                                            <span class="fa-success">
-                                                <i class="fas fa-check-circle"></i>
+                                            <span class="
+                                            fa-success">
+                                            <i class="fas fa-check-circle"></i>
                                             </span>
                                             <label for="fa-success"> Complete</label>
 
@@ -82,10 +89,11 @@
                             {% if session.logged_in %}
                             <div class="row">
                                 <div class="col-sm-12 text-right mt-4">
-                                    <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}" class="btn btn-secondary btn-md btn-fixed mb-2">Edit
+                                    <a href="{{url_for('edit_appointment',  app_id = app._id, user_id = user_id)}}"
+                                        class="btn btn-secondary btn-md btn-fixed mb-2">Edit
                                         <i class="fas fa-edit"></i></a>
-                                    </div>
                                 </div>
+                            </div>
                             {% endif %}
                         </div>
                     </div>
@@ -94,9 +102,9 @@
 
                 </div>
             </div>
-        
-        
-     
+
+
+
         </div>
         <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
             <div class="card">
@@ -107,7 +115,8 @@
                     <p>Your Medical Services Manager.</p>
                     <p>To use this app, please log-in or crate a user profile</p>
                     <p>To view details of an appointment, click on the appointment bar</p>
-                    <p>Only once you are logged in, you can then click on edit in the appointment, to change the appointment
+                    <p>Only once you are logged in, you can then click on edit in the appointment, to change the
+                        appointment
                         details</p>
                 </div>
             </div>
