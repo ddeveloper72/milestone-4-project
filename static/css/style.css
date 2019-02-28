@@ -1,10 +1,16 @@
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*                              Milestone 4 Project                          */
+/*                               Custom Style Sheet                          */
+/*                                                                           */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 body, html {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     height: 100%;
-
 }
+
+/* Bootstrap button */
 .btn_small {
     height: 24px;
     width: 60px;
@@ -17,20 +23,11 @@ body, html {
     background-color: #3e4a56 !important;
 }
 
-.task_header {
-    margin-top: 5px;
-    padding-left: 25px;
-}
-
 .collapsible-header form {
     display: inline-block;
 }
 
-nav .brand-logo {
-    padding-left: 10px;
-}
-
-/* image on card */
+/* Bootstrap card customization */
 .card:hover {
     box-shadow:0 30px 70px rgba(0,0,0,.2);
 }
@@ -53,18 +50,46 @@ nav .brand-logo {
 
 .card .box .img img {
     width:100%;
-    height:100%;
- 
+    height:100%; 
 }
+
+.content-style .list-group-item, .content-style b {
+    font-size: 1rem;
+}
+
+.content-style label {
+    font-size: 1rem !important;
+}
+
+.content-style p {
+    font-size: 1rem;
+}
+
+/* nav customization */
+nav .brand-logo {
+    padding-left: 10px;
+}
+
 /* List styles */
 .no-bullet {
     list-style-type: none;
     margin-left: -40px;
 }
 
+.task_header {
+    margin-top: 5px;
+    padding-left: 25px;
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*                               FontAwsome Colours                          */
+/*                                                                           */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 .fa-primary {
     color: #0069D9;
 }
+
 .fa-urgent {
     color: #DC3545;
 }
@@ -93,36 +118,35 @@ background:#FFF3CD;
     text-decoration: none;
     color: #fff;
 }
+
 .acc-list:hover {
     text-decoration: none !important;
     color: #fff;
 }
+
 .footer {
     position: relative;
     bottom: 0;
     width: 100%;
     height: 50px;
 }
+
 input:disabled {
     color: #fff;
-  }
+} 
 
-  .content-style .list-group-item, .content-style b {
-    font-size: 1rem;
-  }
-  .content-style label {
-      font-size: 1rem !important;
-  }
-  .content-style p {
-      font-size: 1rem;
-  }
-  .bootstrap-datetimepicker-widget table td.today {
-    color: #ff6000;
-  }
-
-  .bootstrap-datetimepicker-widget table thead tr:first-child th {
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*                               Date Time Picker                            */
+/*                                 Custom Styles                             */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.bootstrap-datetimepicker-widget table td.today {
     color: #ff6000;
 }
+
+.bootstrap-datetimepicker-widget table thead tr:first-child th {
+    color: #ff6000;
+}
+
 .bootstrap-datetimepicker-widget .picker-switch td span {
     color: #ff6000;
 }
@@ -130,6 +154,7 @@ input:disabled {
 .bootstrap-datetimepicker-widget table td span {
     color: #ff6000;
 }
+
 .input-group>.form-control, .input-group>.form-control-plaintext, .input-group>.custom-select, .input-group>.custom-file {
     margin-left: -1rem;
 }
