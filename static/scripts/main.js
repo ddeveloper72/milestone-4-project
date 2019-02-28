@@ -12,7 +12,7 @@ $("#departments").change(function() {
     })
     .done((data) => {
         if (data.error) {
-            console.log(data.error)
+            console.log(data.error);
         } else {
             console.log(data);
             let optionToFill = $("#service");
@@ -42,7 +42,7 @@ $("#add_department").change(function() {
     })
     .done((data) => {
         if (data.error) {
-            console.log(data.error)
+            console.log(data.error);
         } else {
             console.log(data);
             let optionToFill  = $("#dept_img");
@@ -51,7 +51,7 @@ $("#add_department").change(function() {
             optionToFill.replaceWith(`<div class="img" id="dept_img" name="dept_img"> 
             <img class="card-img-top" name="dept_img" src="${element}" alt="Department Image">
             <input id="dept_img" type="hidden" name="img_url" value="${element}"></input>
-            /div>`)
+            /div>`);
            
                 
         });
@@ -73,14 +73,14 @@ $("#add_department").change(function() {
     })
     .done((data) => {
         if (data.error) {
-            console.log(data.error)
+            console.log(data.error);
         } else {
             console.log(data);
             let input  = $("#list_service");
             input.find('li').remove().end();
             data.data.forEach(function (element) {
                 console.log(element);
-                input.append(`<li><input class="form-check-input" id="list_service" name="service" type="checkbox" value="${element}" unchecked>${element}</input></li>`)
+                input.append(`<li><input class="form-check-input" id="list_service" name="service" type="checkbox" value="${element}" unchecked>${element}</input></li>`);
                 
                 
             });
@@ -93,7 +93,7 @@ $("#add_department").change(function() {
 var selected = [];
 $('#list_service input:checked').each(function() {
     selected.push($(this).attr('name'));
-    return this.name
+    return this.name;
 });
 
 /* Datetime picker config script. Time increments in 15min intervals                             */
@@ -115,18 +115,18 @@ $(function () {
 		minDate: moment(),
 		stepping: 15,
 		showClose: true
-    })
+    });
 });
 
 /* Confirm deletion prompt                                                                       */
 $(document).on('click', '.confirm-delete', function(){
     return confirm('Are you sure you want to delete this?');
-})
+});
 
 /* Add toolips for descriptive user infomation                                                    */
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-  })
+  });
 
 /* jQuery Mask Plugin adapted from Igor Escobar https://igorescobar.github.io/jQuery-Mask-Plugin/ */
   $(document).ready(function(){
