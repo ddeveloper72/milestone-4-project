@@ -449,6 +449,6 @@ In Heroku - Part 1
   
 - There are loads of people that I want to give credit to.  These include, first and foremost my family for their support!
 
-- My friends within the Code Institute who go by the Slack handles @abonello_lead @JoWings, @Eventret, @Miro, @saraloh, @JohnL3, @Sonya my Mentor, Nishant and tutors @niel_ci and many others.  You guys have helped me to find my way and personally shared resources like UXD design templates-to help keep my thoughts on task and on track and help with my C9 and VSCode coding environments.  Thank you ladies and gentlemen!
+- My friends within the Code Institute who go by the Slack handles @abonello_lead @JoWings, @Eventret, @Miro, @MarieO, @saraloh, @JohnL3, @Sonya, @Shane Muirhead, my Mentor, Nishant and tutors @niel_ci and many others.  You guys have helped me to find my way and personally shared resources like UXD design templates-to help keep my thoughts on task and on track and help with my C9 and VSCode coding environments.  Thank you ladies and gentlemen!
     
 <h6><span class="text-muted">Milestone 4 project for the Code Institute <br />by Duncan Falconer, 2018</span></h6>
