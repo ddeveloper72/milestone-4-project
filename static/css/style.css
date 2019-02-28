@@ -133,3 +133,7 @@ input:disabled {
 .input-group>.form-control, .input-group>.form-control-plaintext, .input-group>.custom-select, .input-group>.custom-file {
     margin-left: -1rem;
 }
+
+.bootstrap-datetimepicker-widget table td.day {
+    color: #ff6000;
+}
