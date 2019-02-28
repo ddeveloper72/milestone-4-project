@@ -424,13 +424,24 @@ In Heroku - Part 1
   2. The appointments accordion would look and work better if the whole accordion was the button.
   3. The delete cancel and save buttons used to add, cancel or delete user input to the application, would be better if relocated to the right hand side of the cards.
   4. When a user selects a date/time for an appointment, the modal doesn't close automatically, till one selects the app outside of the date/time modal.
+  5. When logging in with the incorrect username and password, the flash messaging didn't work.
+  6. It was recommended that the user name be shown on the profile page.
+  7. The phone number fields could be saved with nonsense numeric data.
+  8. The hover styles on the date/time picker made the background the and colour the same.
+  9. The user name of the person creating a department or and appointment is not being saved in the appointment.  When viewing an appointment, the name is being provide by session.username
 
 ### _The fixes implemented_
+(Bugs were found by peer group review)
 
 1. I made all text input fields required for the user registration and login forms as well as double checked all of the other forms used for collecting data for the application.
 2. I moved the button controls into the accordion div, so now the accordion behaves like a button.
 3. I changed the bootstrap grid styles for the application cards and in so doing, I also relocated the position of the buttons.
 4. I have gone back to look at the stock code for the [Tempus Dominus](https://tempusdominus.github.io/bootstrap-4/) date time picker that i selected for this project and noted that this is the default behaviour for the button.  I realized then, that it is required.  If one were to select an incorrect date time, it would then be input into the date time field.  In this way, if a date time is selected, the user confirms this by then selecting outside the modal or by pressing enter on the keyboard.
+5. An indentation error was found, that prevented the view function from returning the flash message.
+6. A username heading was added to the profile page as well as included in some flash messaging.
+7. A jQuery input field mask was installed, sourced from [Igor Escobar](https://igorescobar.github.io/jQuery-Mask-Plugin/) for structuring the telephone numbers.
+8. The date time picker styles are now modified by css, to apply a strong contrasting colour when the mouse hovers over the text fields.
+9. The document creator name is saved in the document.  Only if a user updates an appointment, does their new name overwrite the original appointment creator's name.
 
 #### 6. Credits
 
