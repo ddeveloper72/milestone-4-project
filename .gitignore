@@ -1,5 +1,7 @@
 .venv
+.env
 .vscode
 *.code-workspace
+dev.env
 config.py
 __pycache__
