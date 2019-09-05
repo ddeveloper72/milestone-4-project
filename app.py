@@ -12,6 +12,7 @@ from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.exceptions import HTTPException
 import operator
 from functools import wraps, reduce
 import json
@@ -690,6 +691,16 @@ def page_not_found(e):
     note that we set the 404 status explicitly 
     """
     return render_template('404.html'), 404
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Page not found 404 Views                                                                                 #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@app.errorhandler(Exception)
+def handle_exception(e):
+    """ 
+    note that we set the 500 status explicitly 
+    """
+    return render_template('500.html'), 500
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Development/Production environment test for debug                                                        #
