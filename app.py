@@ -264,7 +264,7 @@ def add_favourite(dept_id, user_id):
     except:
         flash('There was an error retrieving the data from the database', 'alert-danger')
         return redirect(request.referrer)
-    if dept_id in login_user["likes"]:
+    if dept_id in login_user["favourites"]:
         flash('This department is already in your favourites', 'alert-warning')
         return redirect(request.referrer)
     else: 
