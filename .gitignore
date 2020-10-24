@@ -5,3 +5,5 @@
 dev.env
 config.py
 __pycache__
+env.py
+.vscode/settings.json
