@@ -12,20 +12,25 @@ from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.exceptions import HTTPException
 import operator
 from functools import wraps, reduce
 import json
 
+# import environmental variables from external env.py
+if os.path.exists('env.py'):
+    import env
+
 from classes import Search
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.environ.get('SECRET_KEY')
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Connect to external MongoDB database through URI variable hosted on app server.                          #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 app.config['MONGO_DBNAME'] = 'mediacal_tm'
-app.config['MONGO_URI'] = os.getenv('MONGO_URI')
+app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
 mongo = PyMongo(app)
 login_manager = LoginManager()
@@ -264,7 +269,7 @@ def add_favourite(dept_id, user_id):
     except:
         flash('There was an error retrieving the data from the database', 'alert-danger')
         return redirect(request.referrer)
-    if dept_id in login_user["likes"]:
+    if dept_id in login_user["favourites"]:
         flash('This department is already in your favourites', 'alert-warning')
         return redirect(request.referrer)
     else: 
@@ -690,6 +695,16 @@ def page_not_found(e):
     note that we set the 404 status explicitly 
     """
     return render_template('404.html'), 404
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Page not found 404 Views                                                                                 #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+@app.errorhandler(Exception)
+def handle_exception(e):
+    """ 
+    note that we set the 500 status explicitly 
+    """
+    return render_template('500.html'), 500
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Development/Production environment test for debug                                                        #
