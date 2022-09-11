@@ -1,12 +1,5 @@
 {
     "python.pythonPath": ".env\\Scripts\\python.exe",
-    "terminal.integrated.env.windows": {
-        "DEVELOPMENT": "true",
-        "SECRET_KEY": "ccm+#of@aa0hh+i%)#i#yoac!0b&qwres4$#76#2d)9^hkf#42",
-        "MONGO_DBNAME": "mediacal_tm",
-        "MONGO_URI": "mongodb://root:Dnaa1972@ds115653.mlab.com:15653/mediacal_tm",
-        "PORT": "5000"
-    },
     "spellright.language": [
         "en"
     ],
