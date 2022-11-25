@@ -1,6 +1,9 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Load/import pre-requisites. Constructed using Python 3.6.7                                                #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+from dotenv import load_dotenv
+from classes import Search
 import os
 import datetime
 from datetime import datetime
@@ -9,6 +12,8 @@ from flask import Flask, render_template, session, redirect, request, url_for, j
 from flask_login import LoginManager, login_user, logout_user, current_user
 from urllib.parse import urlparse, urljoin
 from flask_pymongo import PyMongo
+from pymongo import MongoClient
+import certifi
 from pymongo.errors import DuplicateKeyError
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -17,24 +22,24 @@ import operator
 from functools import wraps, reduce
 import json
 
-# import environmental variables from external env.py
-if os.path.exists('env.py'):
-    import env
 
-from classes import Search
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# App Configuration                                                                                        #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+load_dotenv()
+
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY')
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Connect to external MongoDB database through URI variable hosted on app server.                          #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-app.config['MONGO_DBNAME'] = 'mediacal_tm'
-app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
-mongo = PyMongo(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
+client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
+
+mongo = client[(os.getenv('MONGO_DBNAME'))]
+ 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # MongoDb Collections                                                                                      #
@@ -49,6 +54,15 @@ site_template_collection = mongo.db.site_templates
 image_template_collection = mongo.db.image_templates
 
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Application Code                                                                                         #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 @app.route('/')
 def appointment():
@@ -697,13 +711,13 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# Page not found 404 Views                                                                                 #
+# Internal server error Views                                                                                 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 @app.errorhandler(Exception)
 def handle_exception(e):
-    """ 
-    note that we set the 500 status explicitly 
-    """
+#     """ 
+#     note that we set the 500 status explicitly 
+#     """
     return render_template('500.html'), 500
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -711,7 +725,7 @@ def handle_exception(e):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 if __name__ == '__main__':
     
-    if os.environ.get("DEVELOPMENT"):
+    if os.getenv("DEVELOPMENT"):
    
         app.run(host=os.getenv('IP'),
             port=os.getenv('PORT'),            
