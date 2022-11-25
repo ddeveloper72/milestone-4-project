@@ -1,15 +1,24 @@
 # Load/import pre-requisites. Constucted using Python 3.7.0
+from dotenv import load_dotenv
 import os
 from flask import Flask, redirect, request, jsonify, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# App Configuration                                                                                        #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+load_dotenv()
+
 app = Flask(__name__)
 
-# Connect to external MongoDB database through URI variable hosted on app server. 
-app.config["MONGO_DBNAME"] = 'mediacal_tm'
-app.config["MONGO_URI"] = os.getenv('MONGO_URI')
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Connect to external MongoDB database through URI variable hosted on app server.                          #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+app.config['MONGO_DBNAME'] = os.getenv('MONGO_DBNAME')
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
@@ -37,6 +46,3 @@ class Search:
         return self.collection.find_one_by_id({"_id": ObjectId(id)})
     
    
-
-
-
