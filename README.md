@@ -18,7 +18,7 @@ The project needs to be able to demonstrate the use of CRUD functions:
     3. Update something
     4. Delete a something
 
-The application is designed to be hosted on Heroku and will facilitate multiple end users simultaneously to manage their work related information on the site.  Users will be able to use the site by registering their names and then building their profile within the application.  The mongoDB database constructed for this application is hosted on [mLab](https://mlab.com/)
+The application is designed to be hosted on Heroku and will facilitate multiple end users simultaneously to manage their work related information on the site.  Users will be able to use the site by registering their names and then building their profile within the application.  The mongoDB database was originally constructed for this application on mLab, and has since moved to [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 
 The user's profile will let them select the medical facility at which they work.  They will then be able to select the department in which they work. They will then be able to see information about their department and edit the services offered by that department or add a new service in that department.
 
