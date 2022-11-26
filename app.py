@@ -38,20 +38,20 @@ app.secret_key = os.getenv('SECRET_KEY')
 
 client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
 
-mongo = client[(os.getenv('MONGO_DBNAME'))]
+db = client[(os.getenv('MONGO_DBNAME'))]
  
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # MongoDb Collections                                                                                      #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-users_collection = mongo.db.users
-appointments_collection = mongo.db.appointment
-facilities_collection = mongo.db.facility
-departments_collection = mongo.db.departments
-services_collection = mongo.db.serviceItem
-dept_template_collection = mongo.db.dept_templates
-site_template_collection = mongo.db.site_templates
-image_template_collection = mongo.db.image_templates
+users_collection = db.users
+appointments_collection = db.appointment
+facilities_collection = db.facility
+departments_collection = db.departments
+services_collection = db.serviceItem
+dept_template_collection = db.dept_templates
+site_template_collection = db.site_templates
+image_template_collection = db.image_templates
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#

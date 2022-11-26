@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import os
 from flask import Flask, redirect, request, jsonify, url_for
 from flask_pymongo import PyMongo
+from pymongo import MongoClient
+import certifi
 from bson.objectid import ObjectId
 
 
@@ -17,20 +19,20 @@ app = Flask(__name__)
 # Connect to external MongoDB database through URI variable hosted on app server.                          #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
-app.config['MONGO_DBNAME'] = os.getenv('MONGO_DBNAME')
-app.config['MONGO_URI'] = os.getenv('MONGO_URI')
+client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
 
-mongo = PyMongo(app)
+db = client[(os.getenv('MONGO_DBNAME'))]
+
 
 # MongoDb Collections
-users_collection = mongo.db.users
-appointments_collection = mongo.db.appointment
-facility_collection = mongo.db.facility
-departments_collection = mongo.db.departments
-services_collection = mongo.db.serviceItem
-dept_template_collection = mongo.db.dept_templates
-site_template_collection = mongo.db.site_templates
-image_template_collection = mongo.db.image_templates
+users_collection = db.users
+appointments_collection = db.appointment
+facilities_collection = db.facility
+departments_collection = db.departments
+services_collection = db.serviceItem
+dept_template_collection = db.dept_templates
+site_template_collection = db.site_templates
+image_template_collection = db.image_templates
 
 class Search:
     def __init__(self, collection):
